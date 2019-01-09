@@ -7,10 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6FB5EF2121E560F6004868C8 /* monte_carlo_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5EF2021E560F6004868C8 /* monte_carlo_test.cpp */; };
 		6FC3CB6521DA786900DB11BF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FC3CB6421DA786900DB11BF /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		6FB5EF1721E5601D004868C8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		6FC3CB5F21DA786900DB11BF /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -23,11 +33,22 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6F83A2D821DE7E0100700188 /* student_t_distribution.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = student_t_distribution.h; sourceTree = "<group>"; };
+		6FB5EF1921E5601D004868C8 /* monte_carlo_test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = monte_carlo_test; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FB5EF2021E560F6004868C8 /* monte_carlo_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = monte_carlo_test.cpp; sourceTree = "<group>"; };
 		6FC3CB6121DA786900DB11BF /* pareto_test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pareto_test; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FC3CB6421DA786900DB11BF /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		6FC3CB6B21DA79D600DB11BF /* pareto_distribution.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pareto_distribution.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6FB5EF1621E5601D004868C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6FC3CB5E21DA786900DB11BF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -38,10 +59,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6FB5EF1A21E5601D004868C8 /* monte_carlo_test */ = {
+			isa = PBXGroup;
+			children = (
+				6FB5EF2021E560F6004868C8 /* monte_carlo_test.cpp */,
+			);
+			path = monte_carlo_test;
+			sourceTree = "<group>";
+		};
 		6FC3CB5821DA786900DB11BF = {
 			isa = PBXGroup;
 			children = (
 				6FC3CB6321DA786900DB11BF /* pareto_test */,
+				6FB5EF1A21E5601D004868C8 /* monte_carlo_test */,
 				6FC3CB6221DA786900DB11BF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				6FC3CB6121DA786900DB11BF /* pareto_test */,
+				6FB5EF1921E5601D004868C8 /* monte_carlo_test */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -58,6 +89,8 @@
 			isa = PBXGroup;
 			children = (
 				6FC3CB6421DA786900DB11BF /* main.cpp */,
+				6FC3CB6B21DA79D600DB11BF /* pareto_distribution.h */,
+				6F83A2D821DE7E0100700188 /* student_t_distribution.h */,
 			);
 			path = pareto_test;
 			sourceTree = "<group>";
@@ -65,6 +98,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		6FB5EF1821E5601D004868C8 /* monte_carlo_test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6FB5EF1D21E5601D004868C8 /* Build configuration list for PBXNativeTarget "monte_carlo_test" */;
+			buildPhases = (
+				6FB5EF1521E5601D004868C8 /* Sources */,
+				6FB5EF1621E5601D004868C8 /* Frameworks */,
+				6FB5EF1721E5601D004868C8 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = monte_carlo_test;
+			productName = monte_carlo_test;
+			productReference = 6FB5EF1921E5601D004868C8 /* monte_carlo_test */;
+			productType = "com.apple.product-type.tool";
+		};
 		6FC3CB6021DA786900DB11BF /* pareto_test */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6FC3CB6821DA786900DB11BF /* Build configuration list for PBXNativeTarget "pareto_test" */;
@@ -91,6 +141,9 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Joseph Dunn";
 				TargetAttributes = {
+					6FB5EF1821E5601D004868C8 = {
+						CreatedOnToolsVersion = 10.1;
+					};
 					6FC3CB6021DA786900DB11BF = {
 						CreatedOnToolsVersion = 10.1;
 					};
@@ -109,11 +162,20 @@
 			projectRoot = "";
 			targets = (
 				6FC3CB6021DA786900DB11BF /* pareto_test */,
+				6FB5EF1821E5601D004868C8 /* monte_carlo_test */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6FB5EF1521E5601D004868C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FB5EF2121E560F6004868C8 /* monte_carlo_test.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6FC3CB5D21DA786900DB11BF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -125,6 +187,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		6FB5EF1E21E5601D004868C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6FB5EF1F21E5601D004868C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		6FC3CB6621DA786900DB11BF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -176,11 +254,23 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = /opt/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-lboost_timer",
+					"-lboost_filesystem",
+					"-lboost_system",
+					"-lfftw3",
+					"-v",
+				);
 				SDKROOT = macosx;
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					/opt/local/include,
+					/opt/local/include/eigen3,
+				);
 			};
 			name = Debug;
 		};
@@ -229,10 +319,22 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = /opt/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"-lboost_timer",
+					"-lboost_filesystem",
+					"-lboost_system",
+					"-lfftw3",
+					"-v",
+				);
 				SDKROOT = macosx;
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					/opt/local/include,
+					/opt/local/include/eigen3,
+				);
 			};
 			name = Release;
 		};
@@ -255,6 +357,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6FB5EF1D21E5601D004868C8 /* Build configuration list for PBXNativeTarget "monte_carlo_test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6FB5EF1E21E5601D004868C8 /* Debug */,
+				6FB5EF1F21E5601D004868C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6FC3CB5C21DA786900DB11BF /* Build configuration list for PBXProject "pareto_test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
