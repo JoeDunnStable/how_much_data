@@ -264,7 +264,8 @@
 					"-lboost_filesystem",
 					"-lboost_system",
 					"-lfftw3",
-					"-v",
+					"-lmpfr",
+					"-lgmp",
 				);
 				SDKROOT = macosx;
 				SYSTEM_HEADER_SEARCH_PATHS = (
@@ -328,7 +329,8 @@
 					"-lboost_filesystem",
 					"-lboost_system",
 					"-lfftw3",
-					"-v",
+					"-lmpfr",
+					"-lgmp",
 				);
 				SDKROOT = macosx;
 				SYSTEM_HEADER_SEARCH_PATHS = (

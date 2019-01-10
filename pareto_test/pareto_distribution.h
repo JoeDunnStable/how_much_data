@@ -154,7 +154,7 @@ public:
    * Pareto distribution.
    */
   template<class Engine>
-  result_type operator()(Engine& eng)
+  result_type operator()(Engine& eng) const
   {
     std::uniform_real_distribution<RealType> dist;
     return _mu+_sigma*(pow(dist(eng),-1/_alpha)-1);
