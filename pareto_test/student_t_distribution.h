@@ -36,6 +36,15 @@ struct student_t_distribution : boost::random::student_t_distribution<RealType> 
   RealType mad() const {
     return 2 * sqrt(alpha())/((alpha()-1)*beta(alpha()/2,.5));}
   
+  /** Return the mad of the square of the distribution */
+  RealType mad2() const {
+    double a = alpha();
+    double num =(pow(2,3 - a) * sqrt(a) * tgamma(.5 + a/2) * tgamma(-.5 + a));
+    double denom =((-1 + a) * pow(tgamma(a/2),3));
+    double ret = num/denom;
+    return ret;
+  }
+  
   /** Return the confidence interval of the distribution */
   RealType ci(RealType level = RealType(.05)) const
   {
@@ -50,6 +59,8 @@ struct student_t_distribution : boost::random::student_t_distribution<RealType> 
     os << "Student t distribution with n = " << dist.n() << endl;
     os << "Mean   = " << dist.mean() << endl
     << "MAD    = " << dist.mad() << endl
+    << "MAD2   = " << dist.mad2() << endl
+    << "kappa2 = " << 2 - log(2)/(log(dist.mad2())-log(dist.mad())) << endl
     << "95% CI = " << dist.ci() << endl;
     return os;
   }

@@ -12,6 +12,9 @@
 #include <random>
 using std::uniform_real_distribution;
 
+#include <boost/math/quadrature/gauss_kronrod.hpp>
+using boost::math::quadrature::gauss_kronrod;
+
 /**
  * Instantiations of class template pareto_distribution model a
  * Pareto Type 2 distribution. Such a distribution produces random numbers
@@ -137,6 +140,12 @@ public:
   /** Return the MAD of the distribution */
   RealType mad() const {return 2 * pow(_alpha-1,_alpha-2)*pow(_alpha, 1-_alpha);}
   
+  /** Return the MAD of the square of the distribution */
+  RealType mad2() const {
+    Mad2Integrand f(_alpha);
+    return 2 * _sigma * gauss_kronrod<RealType,10>::integrate(f, 0, 2/(_alpha - 1));
+  }
+
   /** Return the 95% confidence interval */
   RealType ci(RealType level=RealType(.05)) const {
     return _sigma*(pow(level/2,-1/_alpha)-pow(1-level/2,-1/_alpha));
@@ -178,6 +187,8 @@ public:
        << ", mu = " << dist._mu << ", sigma =  " << dist._sigma << endl;
     os << "Mean   = " << dist.mean() << endl
     << "MAD    = " << dist.mad() << endl
+    << "MAD2   = " << dist.mad2() << endl
+    << "kappa2 = " << 2 - log(2)/(log(dist.mad2())-log(dist.mad())) << endl
     << "95% CI = " << dist.ci() << endl;
     return os;
   }
@@ -205,6 +216,30 @@ public:
     return ! (lhs==rhs); }
 
 private:
+  /* return incomplete beta(-alpha,1-alpha) between x1 and x2 */
+  static RealType adj_beta(RealType alpha, RealType x1, RealType x2){
+      BetaIntegrand f(-alpha, 1-alpha);
+      return gauss_kronrod<RealType,10>::integrate(f, x1, x2);
+  }
+     
+  class Mad2Integrand {
+    RealType a;
+  public:
+    Mad2Integrand (RealType alpha) : a(alpha) {}
+    RealType operator() (RealType x) const {
+      return 2 * a*a * pow(x+2,-2*a - 1) * (2/(a-1) - x) * adj_beta(a, 1/(x+2), (x+1)/(x+2));
+    }
+  };
+  class BetaIntegrand {
+    RealType a;
+    RealType b;
+  public:
+    BetaIntegrand(RealType a, RealType b) : a(a), b(b) {}
+    RealType operator() (RealType x) const {
+      return pow(x,a-1)*pow(1-x, b-1);
+    }
+  };
+
   RealType _alpha;
   RealType _mu;
   RealType _sigma;

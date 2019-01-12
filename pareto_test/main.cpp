@@ -423,46 +423,5 @@ int main(int argc, const char * argv[]) {
   out << "Student Distribution" << endl << endl;
   out << ks_student;
 
-  
-/*
- int m;
- if (!(iss1 >> m) || m < 1) {
-   show_usage(p);
-   return 1;
- }
- int n0=1;
- out << "m =     " << m << endl
-      << "n0 =    " << n0 << endl
-      << "ns =     ";
-  for (auto n : ns)
-    out << n << " ";
-  out << endl<< endl;
-  out.flush();
-
-#pragma omp parallel for
-  for (size_t i=0; i<alphas.size(); ++i) {
-    double alpha=alphas.at(i);
-    pareto_distribution<> pd(alpha);
-    KappaResult kr;
-    kr.alpha = alpha;
-    calc_kappa(m, n0, ns, pd, ci_level, kr, false);
-    ks_pareto.at(i) = kr;
-  }
-  out << "Pareto Distribution" << endl << endl;
-  out << ks_pareto;
-  out.flush();
-  
-#pragma omp parallel for
-  for (size_t i=0; i<alphas.size(); ++i) {
-    double alpha = alphas.at(i);
-    student_t_distribution<> td(alpha);
-    KappaResult kr;
-    kr.alpha = alpha;
-    calc_kappa(m, n0, ns, td, ci_level, kr, false);
-    ks_student.at(i)=kr;
-  }
-  out << "Student Distribution" << endl << endl;
-  out << ks_student;
- */
-  return 0;
+    return 0;
 }

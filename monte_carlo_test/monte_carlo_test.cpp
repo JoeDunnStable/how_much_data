@@ -326,7 +326,7 @@ int main(int argc, const char * argv[]) {
   for (double alpha=1.25; alpha<=4; alpha+=.25)
     alphas.push_back(alpha);
   
-  vector<int> ns{1, 2};
+  vector<int> ns{1, 2, 30, 100};
   KappaResults ks_pareto(ns, alphas);
   KappaResults ks_student(ns, alphas);
   
@@ -353,9 +353,9 @@ int main(int argc, const char * argv[]) {
     double alpha=alphas.at(i);
     size_t m_alpha = static_cast<size_t>(pow(.001,alpha/(1-alpha)));
     m_alpha = min(max(m_ci_limit, m_alpha), m);
-    if (verbose)
-      cout << "Starting Pareto Distribution with alpha = " << alphas.at(i) << endl;
     pareto_distribution<> pd(alpha);
+    if (verbose)
+      cout << pd << endl;
     KappaResult kr;
     kr.initialize(alpha, ns);
     calculate_kappa(m_alpha, ns, pd, ci_level, &kr, verbose);
@@ -369,9 +369,9 @@ int main(int argc, const char * argv[]) {
     double alpha = alphas.at(i);
     size_t m_alpha = static_cast<size_t>(pow(.001,alpha/(1-alpha)));
     m_alpha = min(max(m_ci_limit, m_alpha), m);
-    if (verbose)
-      cout << "Starting Student T Distribution with alpha = " << alphas.at(i) << endl;
     student_t_distribution<> td(alpha);
+    if (verbose)
+      cout << td << endl;
     KappaResult kr;
     kr.initialize(alpha,ns);
     calculate_kappa(m_alpha, ns, td, ci_level, &kr, verbose);

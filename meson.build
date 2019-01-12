@@ -1,5 +1,5 @@
 project('Pareto Test', 'cpp', default_options : ['cpp_std=c++11'],
-         version : '0.1.0')
+         version : '0.4.0')
 
 compiler=meson.get_compiler('cpp').get_id()
 
