@@ -1,10 +1,10 @@
 src = ['pareto_distribution.h',
        'student_t_distribution.h',
-       'main.cpp']
+       'convolution_test.cpp']
 
-pareto_test = executable('pareto_test', 
+convolution_test = executable('convolution_test', 
                          src,
                          dependencies : alldep,
                          include_directories : incdir)
 
-test('pareto_test', pareto_test, args: '.025 .0001', timeout : 3600)
+test('convolution_test', convolution_test, args: '.025 .0001', timeout : 3600)

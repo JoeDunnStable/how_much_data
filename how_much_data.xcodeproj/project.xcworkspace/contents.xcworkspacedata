@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:pareto_test.xcodeproj">
+      location = "self:/Users/jdunn/Documents/XCode/pareto_test/how_much_data.xcodeproj">
    </FileRef>
 </Workspace>

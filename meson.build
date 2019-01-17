@@ -1,5 +1,5 @@
-project('Pareto Test', 'cpp', default_options : ['cpp_std=c++11'],
-         version : '0.4.0')
+project('How Much Data', 'cpp', default_options : ['cpp_std=c++11'],
+         version : '0.5.0')
 
 compiler=meson.get_compiler('cpp').get_id()
 
@@ -28,9 +28,9 @@ if host_machine.system() == 'linux'
 endif
 
 
-incdir=include_directories([ 'pareto_test'])
+incdir=include_directories([ 'convolution_test'])
 
-subdir('pareto_test')
+subdir('convolution_test')
 subdir('monte_carlo_test')
 
 add_test_setup('boost_gcc', env: 'DYLD_LIBRARY_PATH=/usr/local/boost_gcc/lib')

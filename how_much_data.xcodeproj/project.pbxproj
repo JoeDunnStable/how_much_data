@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6FB5EF2121E560F6004868C8 /* monte_carlo_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5EF2021E560F6004868C8 /* monte_carlo_test.cpp */; };
-		6FC3CB6521DA786900DB11BF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FC3CB6421DA786900DB11BF /* main.cpp */; };
+		6FC3CB6521DA786900DB11BF /* convolution_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FC3CB6421DA786900DB11BF /* convolution_test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,11 +33,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6F56B2F421EAD65C0037E895 /* taleb_results.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = taleb_results.h; sourceTree = "<group>"; };
 		6F83A2D821DE7E0100700188 /* student_t_distribution.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = student_t_distribution.h; sourceTree = "<group>"; };
 		6FB5EF1921E5601D004868C8 /* monte_carlo_test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = monte_carlo_test; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FB5EF2021E560F6004868C8 /* monte_carlo_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = monte_carlo_test.cpp; sourceTree = "<group>"; };
-		6FC3CB6121DA786900DB11BF /* pareto_test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pareto_test; sourceTree = BUILT_PRODUCTS_DIR; };
-		6FC3CB6421DA786900DB11BF /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		6FC3CB6121DA786900DB11BF /* convolution_test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = convolution_test; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FC3CB6421DA786900DB11BF /* convolution_test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = convolution_test.cpp; sourceTree = "<group>"; };
 		6FC3CB6B21DA79D600DB11BF /* pareto_distribution.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pareto_distribution.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,7 +71,7 @@
 		6FC3CB5821DA786900DB11BF = {
 			isa = PBXGroup;
 			children = (
-				6FC3CB6321DA786900DB11BF /* pareto_test */,
+				6FC3CB6321DA786900DB11BF /* convolution_test */,
 				6FB5EF1A21E5601D004868C8 /* monte_carlo_test */,
 				6FC3CB6221DA786900DB11BF /* Products */,
 			);
@@ -79,20 +80,21 @@
 		6FC3CB6221DA786900DB11BF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6FC3CB6121DA786900DB11BF /* pareto_test */,
+				6FC3CB6121DA786900DB11BF /* convolution_test */,
 				6FB5EF1921E5601D004868C8 /* monte_carlo_test */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6FC3CB6321DA786900DB11BF /* pareto_test */ = {
+		6FC3CB6321DA786900DB11BF /* convolution_test */ = {
 			isa = PBXGroup;
 			children = (
-				6FC3CB6421DA786900DB11BF /* main.cpp */,
+				6FC3CB6421DA786900DB11BF /* convolution_test.cpp */,
+				6F56B2F421EAD65C0037E895 /* taleb_results.h */,
 				6FC3CB6B21DA79D600DB11BF /* pareto_distribution.h */,
 				6F83A2D821DE7E0100700188 /* student_t_distribution.h */,
 			);
-			path = pareto_test;
+			path = convolution_test;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -115,9 +117,9 @@
 			productReference = 6FB5EF1921E5601D004868C8 /* monte_carlo_test */;
 			productType = "com.apple.product-type.tool";
 		};
-		6FC3CB6021DA786900DB11BF /* pareto_test */ = {
+		6FC3CB6021DA786900DB11BF /* convolution_test */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6FC3CB6821DA786900DB11BF /* Build configuration list for PBXNativeTarget "pareto_test" */;
+			buildConfigurationList = 6FC3CB6821DA786900DB11BF /* Build configuration list for PBXNativeTarget "convolution_test" */;
 			buildPhases = (
 				6FC3CB5D21DA786900DB11BF /* Sources */,
 				6FC3CB5E21DA786900DB11BF /* Frameworks */,
@@ -127,9 +129,9 @@
 			);
 			dependencies = (
 			);
-			name = pareto_test;
+			name = convolution_test;
 			productName = pareto_test;
-			productReference = 6FC3CB6121DA786900DB11BF /* pareto_test */;
+			productReference = 6FC3CB6121DA786900DB11BF /* convolution_test */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -149,7 +151,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6FC3CB5C21DA786900DB11BF /* Build configuration list for PBXProject "pareto_test" */;
+			buildConfigurationList = 6FC3CB5C21DA786900DB11BF /* Build configuration list for PBXProject "how_much_data" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -161,7 +163,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6FC3CB6021DA786900DB11BF /* pareto_test */,
+				6FC3CB6021DA786900DB11BF /* convolution_test */,
 				6FB5EF1821E5601D004868C8 /* monte_carlo_test */,
 			);
 		};
@@ -180,7 +182,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FC3CB6521DA786900DB11BF /* main.cpp in Sources */,
+				6FC3CB6521DA786900DB11BF /* convolution_test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,7 +256,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				LIBRARY_SEARCH_PATHS = /opt/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					/opt/local/lib,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -269,6 +274,7 @@
 				);
 				SDKROOT = macosx;
 				SYSTEM_HEADER_SEARCH_PATHS = (
+					/usr/local/include,
 					/opt/local/include,
 					/opt/local/include/eigen3,
 				);
@@ -320,7 +326,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				LIBRARY_SEARCH_PATHS = /opt/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					/opt/local/lib,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -334,6 +343,7 @@
 				);
 				SDKROOT = macosx;
 				SYSTEM_HEADER_SEARCH_PATHS = (
+					/usr/local/include,
 					/opt/local/include,
 					/opt/local/include/eigen3,
 				);
@@ -368,7 +378,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6FC3CB5C21DA786900DB11BF /* Build configuration list for PBXProject "pareto_test" */ = {
+		6FC3CB5C21DA786900DB11BF /* Build configuration list for PBXProject "how_much_data" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6FC3CB6621DA786900DB11BF /* Debug */,
@@ -377,7 +387,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6FC3CB6821DA786900DB11BF /* Build configuration list for PBXNativeTarget "pareto_test" */ = {
+		6FC3CB6821DA786900DB11BF /* Build configuration list for PBXNativeTarget "convolution_test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6FC3CB6921DA786900DB11BF /* Debug */,

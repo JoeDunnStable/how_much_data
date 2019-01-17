@@ -9,6 +9,9 @@
 #ifndef pareto_distribution_h
 #define pareto_distribution_h
 
+#include <complex>
+using std::complex;
+
 #include <random>
 using std::uniform_real_distribution;
 
@@ -143,7 +146,14 @@ public:
   /** Return the MAD of the square of the distribution */
   RealType mad2() const {
     Mad2Integrand f(_alpha);
-    return 2 * _sigma * gauss_kronrod<RealType,10>::integrate(f, 0, 2/(_alpha - 1));
+    return 2 * _sigma * gauss_kronrod<RealType,15>::integrate(f, 0, 2/(_alpha - 1));
+  }
+  
+  complex<RealType> characteristic_function(RealType omega){
+    ExpIntegrand f(1+_alpha, complex<RealType>(0,-_sigma*omega));
+    RealType inf = std::numeric_limits<RealType>::infinity();
+    complex<RealType> expint = gauss_kronrod<RealType,15>::integrate(f, 1, inf);
+    return (_alpha*expint)/exp(complex<RealType>(0,_sigma*omega));
   }
 
   /** Return the 95% confidence interval */
@@ -219,7 +229,7 @@ private:
   /* return incomplete beta(-alpha,1-alpha) between x1 and x2 */
   static RealType adj_beta(RealType alpha, RealType x1, RealType x2){
       BetaIntegrand f(-alpha, 1-alpha);
-      return gauss_kronrod<RealType,10>::integrate(f, x1, x2);
+      return gauss_kronrod<RealType,15>::integrate(f, x1, x2);
   }
      
   class Mad2Integrand {
@@ -237,6 +247,15 @@ private:
     BetaIntegrand(RealType a, RealType b) : a(a), b(b) {}
     RealType operator() (RealType x) const {
       return pow(x,a-1)*pow(1-x, b-1);
+    }
+  };
+  class ExpIntegrand {
+    RealType n;
+    complex<RealType> z;
+  public:
+    ExpIntegrand(RealType n, complex<RealType> z) : n(n), z(z) {}
+    complex<RealType> operator() (RealType t) const {
+      return exp(-z*t)/pow(t,n);
     }
   };
 

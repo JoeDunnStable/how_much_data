@@ -60,6 +60,7 @@ using myFloat = double;
 
 #include "pareto_distribution.h"
 #include "student_t_distribution.h"
+#include "taleb_results.h"
 
 template<typename RealType>
 RealType rel_err(RealType a, RealType b) {
@@ -166,12 +167,14 @@ ostream& operator<< (ostream& os, const KappaResult& k) {
 }
 
 struct KappaResults {
-  KappaResults(const vector<int>& ns, const vector<double> &alphas)
-  : ns(ns), kr(alphas.size()) {
+  KappaResults(const vector<int>& ns, const vector<double> &alphas,
+               size_t taleb_offset)
+  : ns(ns), kr(alphas.size()), taleb_offset(taleb_offset){
     for (size_t i=0; i<alphas.size(); ++i) {
       kr.at(i).initialize(alphas.at(i),ns);
     }
   }
+  size_t taleb_offset;
   vector<int> ns;
   vector<KappaResult> kr;
 };
@@ -189,6 +192,20 @@ ostream& operator<< (ostream& os, KappaResults& ks) {
   os << endl << endl;
   for (auto& kr : ks.kr)
     os << kr;
+  os << endl;
+  os << setw(72) << right << "Relative Error vs Taleb's Results" << endl << endl;
+  for (size_t i=0; i<ks.kr.size(); ++i) {
+    os << setw(7) << setprecision(2) << ks.kr.at(i).alpha << setw(26) << " ";
+    double mad0 = static_cast<double>(ks.kr.at(i).sum_abs_dev.at(0)/ks.kr.at(i).m);
+    for (size_t j=1; j<ks.ns.size(); ++j) {
+      double madn = static_cast<double>(ks.kr.at(i).sum_abs_dev.at(j)/ks.kr.at(i).m);
+      double kappa_mad = 2 - (log(ks.kr.at(i).ns.at(j))-log(ks.kr.at(i).ns.at(0)))
+                   /(log(madn)-log(mad0));
+      double err = 100*rel_err(taleb_results.at(i).at(j-1+ks.taleb_offset), kappa_mad);
+      os << setw(12) << setprecision(2) << err << "%";
+    }
+    os << endl;
+  }
   os << endl;
   return os;
 }
@@ -327,8 +344,8 @@ int main(int argc, const char * argv[]) {
     alphas.push_back(alpha);
   
   vector<int> ns{1, 2, 30, 100};
-  KappaResults ks_pareto(ns, alphas);
-  KappaResults ks_student(ns, alphas);
+  KappaResults ks_pareto(ns, alphas, 1);
+  KappaResults ks_student(ns, alphas, 4);
   
   double ci_level = .05;
   size_t m_ci_limit = min(static_cast<size_t>(2000000/ci_level), m);

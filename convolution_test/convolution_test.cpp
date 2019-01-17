@@ -59,6 +59,7 @@ using boost::math::students_t;
 
 #include "pareto_distribution.h"
 #include "student_t_distribution.h"
+#include "taleb_results.h"
 
 template<typename RealType>
 RealType rel_err(RealType a, RealType b) {
@@ -101,7 +102,7 @@ struct KappaResult {
 };
 
 ostream& operator<< (ostream& os, const KappaResult& k) {
-  os << fixed << setw(10) << setprecision(2) << k.alpha
+  os << fixed << setw(7) << setprecision(2) << k.alpha
   << setw(12) << setprecision(2) << k.mad_rel_err*100 << "%";
   for (size_t i=0; i<k.kappa_mad.size(); ++i)
     os << setw(13) << setprecision(3) << k.kappa_mad.at(i);
@@ -113,19 +114,20 @@ ostream& operator<< (ostream& os, const KappaResult& k) {
 }
 
 struct KappaResults {
-  KappaResults(const vector<int>& ns, size_t n_alphas)
-     : ns(ns), kr(n_alphas) {}
+  KappaResults(const vector<int>& ns, size_t n_alphas, size_t taleb_offset)
+  : ns(ns), kr(n_alphas), taleb_offset(taleb_offset) {}
   KappaResult& at(size_t i) {
     unique_lock<mutex> lock(kr_mutex);
     return this->kr.at(i);
   }
   vector<int> ns;
   vector<KappaResult> kr;
+  size_t taleb_offset;
   mutex kr_mutex;
 };
 
 ostream& operator<< (ostream& os, KappaResults& ks) {
-  os << setw(10) << right << "alpha"
+  os << setw(7) << right << "alpha"
      << setw(13) << right << "mad_rel_err";
   for (auto n : ks.ns)
     os << setw(13) << right << "kappa"+to_string(n)+"_mad";
@@ -135,6 +137,17 @@ ostream& operator<< (ostream& os, KappaResults& ks) {
   os << endl << endl;
   for (auto kr : ks.kr)
     os << kr;
+  os << endl;
+  os << setw(59) << right << "Relative Error vs Taleb's Results" << endl << endl;
+  for (size_t i=0; i<ks.kr.size(); ++i) {
+    os << setw(7) << setprecision(2) << ks.kr.at(i).alpha << setw(13) << " ";
+    for (size_t j=0; j<ks.ns.size(); ++j) {
+      double kappa_mad = ks.kr.at(i).kappa_mad.at(j);
+      double err = 100*rel_err(taleb_results.at(i).at(j+ks.taleb_offset), kappa_mad);
+      os << setw(12) << setprecision(2) << err << "%";
+    }
+    os << endl;
+  }
   os << endl;
   return os;
 }
@@ -191,7 +204,8 @@ void calculate_kappa(double delta,
   int nmin = static_cast<int>(xmin/delta);
   xmax = nmax * delta;
   xmin = nmin * delta;
-  int nsize = ns_max*(nmax-nmin+2);
+//  int nsize = ns_max*(nmax-nmin+2);
+  int nsize = 3 * (nmax-nmin+2);
   if (verbose) {
     cout << "xmin = " << xmin << endl
          << "xmax = " << xmax << endl
@@ -264,11 +278,11 @@ void calculate_kappa(double delta,
       fft_pn.at(i) = pow(fft_p.at(i),n);
     vector<double> pn;
     fft_eng.inv(pn, fft_pn);
-    for (int j = nmax+1; j<=n*nmax; ++j) {
+    for (int j = nmax+1; j<=nsize/2; ++j) {
       pn.at(mod(nmax,nsize)) += pn.at(mod(j, nsize));
       pn.at(mod(j, nsize)) = 0;
     }
-    for (int j = nmin-2; j>= n*(nmin-1); --j) {
+    for (int j = nmin-2; mod(j,nsize)> nsize/2; --j) {
       pn.at(mod(nmin-1, nsize)) += pn.at(mod(j,nsize));
       pn.at(mod(j, nsize)) = 0.;
     }
@@ -291,66 +305,6 @@ void calculate_kappa(double delta,
     double ci_n = confidence_interval(nmin, nmax, pn, x, ci_level);
     k.kappa_ci.push_back(2-(log(n)-log(1.))/(log(ci_n)-log(dist.ci(ci_level))));
   } // for n
-}
-
-template<typename Dist>
-void calc_kappa(int m, int n0, vector<int> ns, Dist dist,
-                          double ci_level,
-                          KappaResult& k,
-                          bool verbose = false) {
-  k.kappa_mad.clear();
-  k.kappa_ci.clear();
-  mt19937 eng(5489u);
-  double sum_at_n0=0;
-  vector<double> p{ci_level/2,1-ci_level/2};
-  vector<double> x;
-  for (int i=0; i<m; ++i) {
-    double sum = 0;
-    for (int j=0; j<n0; ++j)
-      sum += dist(eng);
-    x.push_back(sum);
-    sum_at_n0+=sum;
-  }
-  double mean_at_n0 = sum_at_n0/m;
-  double mad_at_n0=0;
-  for (int i=0; i<m; ++i) {
-    mad_at_n0 += fabs(x.at(i)-mean_at_n0);
-  }
-  mad_at_n0 /= m;
-  k.mad_rel_err = rel_err(mad_at_n0, dist.mad());
-  vector<double> tmp = quantile(x,p);
-  double ci_at_n0 = tmp.at(1)-tmp.at(0);
-  k.ci_rel_err = rel_err(ci_at_n0, dist.ci(ci_level));
-  if (verbose)
-    cout << "n0 = " << setw(3)<< n0 << ", mad = "<< mad_at_n0 << ", ci = " << ci_at_n0 << endl;
-  
-  int n_old = n0;
-  double sum_at_n = sum_at_n0;
-  for (auto n : ns) {
-    for (int i=0; i<m; ++i) {
-      double sum = 0;
-      for (int j=n_old; j<n; ++j)
-        sum += dist(eng);
-      x.at(i) += sum;
-      sum_at_n += sum;
-    }
-    double mean_at_n = sum_at_n/m;
-    double mad_at_n=0;
-    for (int i=0; i<m; ++i) {
-      mad_at_n += fabs(x.at(i)-mean_at_n);
-    }
-    mad_at_n /= m;
-    tmp = quantile(x,p);
-    double ci_at_n = tmp.at(1)-tmp.at(0);
-    if (verbose)
-      cout << "n  = " << setw(3)<< n << ", mad = "<< mad_at_n << ", ci = " << ci_at_n;
-    k.kappa_mad.push_back(2-(log(n)-log(n0))/(log(mad_at_n)-log(dist.mad())));
-    k.kappa_ci.push_back(2-(log(n)-log(n0))/(log(ci_at_n)-log(dist.ci(ci_level))));
-    if (verbose)
-      cout << ", kappa_mad = " << k.kappa_mad.back() << ", kappa_ci = " << k.kappa_ci.back() << endl;
-    n_old = n;
-  }
-  return;
 }
 
 void show_usage(path p) {
@@ -380,18 +334,18 @@ int main(int argc, const char * argv[]) {
   
   vector<double> alphas;
   
-  for (double alpha=1.25; alpha<=4; alpha+=.25)
-    alphas.push_back(alpha);
+  for (size_t i=0; i<taleb_results.size(); ++i)
+    alphas.push_back(taleb_results.at(i).at(0));
   
-  vector<int> ns{2};
-  KappaResults ks_pareto(ns, alphas.size());
-  KappaResults ks_student(ns, alphas.size());
+  vector<int> ns{2, 30, 100};
+  KappaResults ks_pareto(ns, alphas.size(),1);
+  KappaResults ks_student(ns, alphas.size(),4);
   
   double ci_level = .05;
   
   string out_dir{"../output"};
   ostringstream oss;
-  oss << out_dir << "/pareto_test_"
+  oss << out_dir << "/convolution_test_"
       << delta << "_"
       << delta2
       << ".out";

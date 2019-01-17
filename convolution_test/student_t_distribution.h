@@ -13,6 +13,8 @@
 #include <boost/math/distributions/students_t.hpp>
 #include <boost/math/special_functions/beta.hpp>
 using boost::math::beta;
+#include <boost/math/special_functions/bessel.hpp>
+using boost::math::cyl_bessel_k;
 
 template<class RealType = double>
 struct student_t_distribution : boost::random::student_t_distribution<RealType> {
@@ -49,6 +51,15 @@ struct student_t_distribution : boost::random::student_t_distribution<RealType> 
   RealType ci(RealType level = RealType(.05)) const
   {
     return boost::math::quantile(t_dist,1-level/2)-boost::math::quantile(t_dist,level/2);
+  }
+  
+  RealType characteristic_function(RealType omega) {
+    RealType a=alpha();
+    if (omega == 0) return 1;
+    else {
+      RealType besselk = cyl_bessel_k(a/2.,sqrt(a)*abs(omega));
+      return (pow(2,1 - a/2.)*pow(a,a/4.)*pow(abs(omega),a/2.)*besselk)/tgamma(a/2.);
+    }
   }
   /**
    * Write distribution to std::ostream
