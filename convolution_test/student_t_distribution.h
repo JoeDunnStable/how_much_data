@@ -53,7 +53,7 @@ struct student_t_distribution : boost::random::student_t_distribution<RealType> 
     return boost::math::quantile(t_dist,1-level/2)-boost::math::quantile(t_dist,level/2);
   }
   
-  RealType characteristic_function(RealType omega) {
+  RealType characteristic_function(RealType omega) const{
     RealType a=alpha();
     if (omega == 0) return 1;
     else {

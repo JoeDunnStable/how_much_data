@@ -9,6 +9,13 @@
 #ifndef pareto_distribution_h
 #define pareto_distribution_h
 
+#include <iostream>
+using std::cout;
+using std::end;
+
+#include <sstream>
+using std::ostringstream;
+
 #include <complex>
 using std::complex;
 
@@ -17,6 +24,10 @@ using std::uniform_real_distribution;
 
 #include <boost/math/quadrature/gauss_kronrod.hpp>
 using boost::math::quadrature::gauss_kronrod;
+#include <boost/math/constants/constants.hpp>
+using boost::math::constants::euler;
+#include <string>
+using std::to_string;
 
 /**
  * Instantiations of class template pareto_distribution model a
@@ -149,11 +160,15 @@ public:
     return 2 * _sigma * gauss_kronrod<RealType,15>::integrate(f, 0, 2/(_alpha - 1));
   }
   
-  complex<RealType> characteristic_function(RealType omega){
+  complex<RealType> characteristic_function(RealType omega) const{
+    /*
     ExpIntegrand f(1+_alpha, complex<RealType>(0,-_sigma*omega));
     RealType inf = std::numeric_limits<RealType>::infinity();
     complex<RealType> expint = gauss_kronrod<RealType,15>::integrate(f, 1, inf);
-    return (_alpha*expint)/exp(complex<RealType>(0,_sigma*omega));
+     */
+    if (omega == 0) return complex<RealType>(1,0);
+    complex<RealType> arg(0,-_sigma*omega);
+    return (_alpha*expint(1+_alpha, arg))/exp(complex<RealType>(0,_sigma*omega));
   }
 
   /** Return the 95% confidence interval */
@@ -258,7 +273,142 @@ private:
       return exp(-z*t)/pow(t,n);
     }
   };
-
+  
+  struct ExpIntFraction{
+    typedef std::pair<complex<RealType>, complex<RealType> > result_type;
+    ExpIntFraction(RealType n_, complex<RealType> z_) : b(z_ + complex<RealType>(n_)), i(-1), n(n_) {}
+    std::pair<complex<RealType>, complex<RealType> > operator()()
+    {
+      std::pair<complex<RealType>, complex<RealType> > result = std::make_pair(-static_cast<complex<RealType> >((i + 1) * (n + i)), b);
+      b += 2;
+      ++i;
+      return result;
+    }
+  private:
+    complex<RealType> b;
+    int i;
+    RealType n;
+  };
+  
+  //
+  // continued_fraction_b
+  // Evaluates:
+  //
+  // b0 +       a1
+  //      ---------------
+  //      b1 +     a2
+  //           ----------
+  //           b2 +   a3
+  //                -----
+  //                b3 + ...
+  //
+  // Note that the first a0 returned by generator Gen is disarded.
+  //
+  
+  inline static complex<RealType> continued_fraction_b(ExpIntFraction g,
+                                                const RealType& factor,
+                                                boost::uintmax_t& max_terms)
+  {
+    
+    complex<RealType> tiny = 1.e-100;
+    
+    std::pair<complex<RealType>, complex<RealType> > v = g();
+    
+    complex<RealType> f, C, D, delta;
+    complex<RealType> zero{0};
+    complex<RealType> one{1};
+    f = v.second;
+    if(f == zero)
+      f = tiny;
+    C = f;
+    D = 0;
+    
+    boost::uintmax_t counter(max_terms);
+    
+    do{
+      v = g();
+      D = v.second + v.first * D;
+      if(D == zero)
+        D = tiny;
+      C = v.second + v.first / C;
+      if(C == zero)
+        C = tiny;
+      D = one/D;
+      delta = C*D;
+      f = f * delta;
+    }while((abs(delta - one) > factor) && --counter);
+    
+    max_terms = max_terms - counter;
+    
+    return f;
+  }
+  
+  inline static std::complex<RealType> expint_as_fraction(RealType n, std::complex<RealType> const& z)
+  {
+    boost::uintmax_t max_iter = 1000;
+    ExpIntFraction f(n, z);
+    std::complex<RealType> result = continued_fraction_b(f,
+                                                          std::numeric_limits<RealType>::epsilon(),
+                                                          max_iter);
+    result = exp(-z) / result;
+    return result;
+  }
+  
+  inline static std::complex<RealType> expint_as_series(RealType n, std::complex<RealType> const& z) {
+    int max_iter = 1000;
+    RealType s = 1-n;    // the first argument to the incomplete gamma function
+    complex<RealType> ret;
+    if (s>0 || floor(s) != s) {
+      ret = pow(z,-s) * tgamma(s);
+      complex<RealType> fac = 1;
+      for (int i=0; i<max_iter; ++i){
+        complex<RealType> term = fac / (s+i);
+        ret -= term;
+        if (abs(term) <= abs(ret) * std::numeric_limits<RealType>::epsilon()) break;
+        fac *= -z/static_cast<std::complex<RealType> >(i+1);
+      }
+    } else {
+      complex<RealType> gamma0 = -euler<RealType>()-log(z);
+      complex<RealType> fac = 1;
+      for (int i = 1; i<max_iter; ++i) {
+        fac *= (-z)/static_cast<RealType>(i);
+        complex<RealType> term = fac/static_cast<RealType>(i);
+        gamma0 -= term;
+        if (abs(term) <= abs(gamma0) * std::numeric_limits<RealType>::epsilon())
+          break;
+      }
+      ret = pow(-1,-s) * gamma0 * pow(z,-s);
+      fac = tgamma(-s);
+      complex<double> sum = 0;
+      for (int i=0; i< static_cast<int>(-s); ++i) {
+        complex<RealType> term = fac;
+        sum += term;
+        if (i != -s-1) fac *= (-z)/(-s-i-1);
+      }
+      ret += exp(-z) * sum;
+      ret /= tgamma(-s+1);
+    }
+    if (isnan(ret.real()) || isnan(ret.imag())){
+      ostringstream oss;
+      oss << "expint: nan encountered w n = " << n
+      << " & z = " << z;
+      throw std::runtime_error(oss.str());
+    }
+    return ret;
+  }
+  
+   inline static std::complex<RealType> expint(RealType n, std::complex<RealType> const& z) {
+     std::complex<RealType> ret =  (abs(z) < .5) ? expint_as_series(n,z)
+                                                 : expint_as_fraction(n,z);
+     if (isnan(ret.real()) || isnan(ret.imag())){
+       ostringstream oss;
+       oss << "expint: nan encountered w n = " << n
+       << " & z = " << z;
+       throw std::runtime_error(oss.str());
+     }
+     return ret;
+   }
+  
   RealType _alpha;
   RealType _mu;
   RealType _sigma;
