@@ -193,7 +193,7 @@ ostream& operator<< (ostream& os, KappaResults& ks) {
   for (auto& kr : ks.kr)
     os << kr;
   os << endl;
-  os << setw(72) << right << "Relative Error vs Taleb's Results" << endl << endl;
+  os << setw(68) << right << "Error vs Taleb's Results" << endl << endl;
   for (size_t i=0; i<ks.kr.size(); ++i) {
     os << setw(7) << setprecision(2) << ks.kr.at(i).alpha << setw(26) << " ";
     double mad0 = static_cast<double>(ks.kr.at(i).sum_abs_dev.at(0)/ks.kr.at(i).m);
@@ -201,8 +201,8 @@ ostream& operator<< (ostream& os, KappaResults& ks) {
       double madn = static_cast<double>(ks.kr.at(i).sum_abs_dev.at(j)/ks.kr.at(i).m);
       double kappa_mad = 2 - (log(ks.kr.at(i).ns.at(j))-log(ks.kr.at(i).ns.at(0)))
                    /(log(madn)-log(mad0));
-      double err = 100*rel_err(taleb_results.at(i).at(j-1+ks.taleb_offset), kappa_mad);
-      os << setw(12) << setprecision(2) << err << "%";
+      double err = kappa_mad - taleb_results.at(i).at(j-1+ks.taleb_offset);
+      os << setw(13) << setprecision(3) << err;
     }
     os << endl;
   }

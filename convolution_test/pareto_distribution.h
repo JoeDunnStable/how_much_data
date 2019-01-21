@@ -136,11 +136,21 @@ public:
     _sigma = parm.sigma(); }
   
   /** the cdf of the distribution */
-  RealType cdf(RealType x) const {
+  RealType cdf(RealType x, bool lower_tail = true) const {
     if (x<_mu)
+      return RealType(lower_tail ? 0 : 1);
+    else {
+      RealType uppercdf = pow((1+(x-_mu)/_sigma),-_alpha);
+      return lower_tail ? 1 - uppercdf : uppercdf;
+    }
+  }
+  
+  /// the pdf of the distribution
+  RealType pdf(RealType x) const {
+    if (x < -_mu)
       return RealType(0);
     else
-      return 1 - pow((1+(x-_mu)/_sigma),-_alpha);
+      return _alpha * pow(1+(x-_mu)/_sigma,-_alpha-1)/_sigma;
   }
   
   /** the quantile for a given probability */

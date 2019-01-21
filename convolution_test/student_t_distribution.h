@@ -21,8 +21,13 @@ struct student_t_distribution : boost::random::student_t_distribution<RealType> 
   student_t_distribution(RealType alpha) : boost::random::student_t_distribution<RealType>(alpha),
   t_dist(alpha) {}
   
-  RealType cdf(RealType x) const{
-    return boost::math::cdf(t_dist, x);
+  RealType cdf(RealType x, bool lower_tail = true) const{
+    return lower_tail ? boost::math::cdf(t_dist, x)
+                      : boost::math::cdf(t_dist,-x);
+  }
+  
+  RealType pdf(RealType x) const{
+    return boost::math::pdf(t_dist, x);
   }
   
   RealType quantile(RealType p) const {

@@ -16,6 +16,8 @@ using std::setw;
 using std::setprecision;
 using std::right;
 using std::fixed;
+using std::scientific;
+using std::defaultfloat;
 #include <string>
 using std::string;
 using std::to_string;
@@ -143,13 +145,13 @@ ostream& operator<< (ostream& os, KappaResults& ks) {
   for (auto kr : ks.kr)
     os << kr;
   os << endl;
-  os << setw(72) << right << "Relative Error vs Taleb's Results" << endl << endl;
+  os << setw(68) << right << "Error vs Taleb's Results" << endl << endl;
   for (size_t i=0; i<ks.kr.size(); ++i) {
     os << setw(7) << setprecision(2) << ks.kr.at(i).alpha << setw(27) << " ";
     for (size_t j=0; j<ks.ns.size()-1; ++j) {
       double kappa_mad = ks.kr.at(i).kappa_mad.at(j);
-      double err = 100*rel_err(taleb_results.at(i).at(j+ks.taleb_offset), kappa_mad);
-      os << setw(12) << setprecision(2) << err << "%";
+      double err = kappa_mad - taleb_results.at(i).at(j+ks.taleb_offset);
+      os << setw(13) << setprecision(3) << err;
     }
     os << endl;
   }
@@ -209,13 +211,14 @@ double confidence_interval(int nmin, int nmax, double delta,
   return ci_upper-ci_lower;
 }
 
+/// functor for use in finding upper limit w target mad
 template<typename Dist>
 class Upper {
 public:
   Upper (double delta, Dist& dist) : delta(delta), dist(dist) {}
   double operator() (double x) {
     double a = dist.alpha()/(dist.alpha()-1);
-    double ret = fabs(x-dist.mean())* a * (1-dist.cdf(x))-delta;
+    double ret = fabs(x-dist.mean())* a * (dist.cdf(x, false))-delta;
     return ret;
   }
 private:
@@ -230,13 +233,27 @@ public:
          dist) : delta(delta), dist(dist) {}
   double operator() (double x) {
     double a = dist.alpha()/(dist.alpha()-1);
-    double ret = fabs(x-dist.mean())* a * (dist.cdf(x))-delta;
+    double ret = fabs(x-dist.mean())* a * (dist.cdf(x, true))-delta;
     return ret;
   }
 private:
   double delta;
   Dist& dist;
 };
+
+/// Check whether the factorization of n contains only primes
+bool factor_check(int n,              ///< the number to check
+                  vector<int> primes  ///< the array of candidate primes
+                  )
+{
+  int n_current = n;
+  for (auto p : primes) {
+    while (n_current % p == 0 ) {
+      n_current = n_current / p;
+    }
+  }
+  return n_current == 1;
+}
 
 struct Job {
   int nmin;
@@ -316,20 +333,36 @@ void calculate_kappa(double delta,
   double xmin0 = root.first - mean;
   double xmax = max(fabs(xmax0),fabs(xmin0));
   
-  int nmax = max(10000,static_cast<int>(min(double(m),xmax/delta)));
+  int nmax = static_cast<int>(min(double(m),xmax/delta));
+  if (nmax < 1000000) {
+    // Split the extra points between increasing the range and the density
+    delta = delta/sqrt(1000000./nmax);
+    nmax = 1000000;
+  }
+  int nsize = 2*nmax+1;
+  
+  // fftw works best for array sizes that are products of small primes
+  vector<int> primes{3,5,7,11};
+  for (; !factor_check(nsize, primes); nsize+=2) {}
+  nmax = ((nsize-1)/2);
   int nmin = -nmax;
 
   xmax = nmax * delta;
-//  int nsize = ns_max*(nmax-nmin+1);
-  int nsize = 2*nmax+1;
+  double uppermad = delta2 + upper(xmax);
+  double lowermad = delta2 + lower(-xmax);
   k.nsize = nsize;
   if (verbose) {
-    cout << setw(10) << "xmin0 = " << setw(15) << setprecision(2) << xmin0 << endl
-         << setw(10) << "xmax0 = " << setw(15) << setprecision(2) << xmax0 << endl
-         << setw(10) << "nmin = " << setw(15) << nmin << endl
-         << setw(10) << "nmax = " << setw(15) << nmax << endl
-         << setw(10) << "xmin = " << setw(15) << setprecision(2) << -xmax << endl
-         << setw(10) << "xmax = " << setw(15) << setprecision(2) << xmax << endl
+    cout << setw(12) << "xmin0 = " << setw(15) << setprecision(2) << xmin0 << endl
+         << setw(12) << "xmax0 = " << setw(15) << setprecision(2) << xmax0 << endl
+         << setw(12) << "nmin = " << setw(15) << nmin << endl
+         << setw(12) << "nmax = " << setw(15) << nmax << endl
+         << setw(12) << "xmin = " << setw(15) << setprecision(2) << -xmax << endl
+         << setw(12) << "xmax = " << setw(15) << setprecision(2) << xmax << endl
+         << setw(12) << "mad = " << setw(15) << setprecision(4) << dist.mad() << endl
+         << scientific
+         << setw(12) << "uppermad = " << setw(15) << setprecision(2) << uppermad << endl
+         << setw(12) << "lowermad = " << setw(15) << setprecision(2) << lowermad << endl
+         << defaultfloat
          << setw(10) << "nsize = " << setw(15) << nsize << endl << endl;
   }
   vector<double> x(nsize,0.);
@@ -340,28 +373,30 @@ void calculate_kappa(double delta,
   vector<dcomplex> adj_cf(nsize);
   if (verbose) {
     cout << setw(5) << " "
-    << setw(15) << right << "x.at(nmin)"
-    << setw(15) << right << "x.at(-1)"
-    << setw(15) << right << "x.at(0)"
-    << setw(15) << right << "x.at(1)"
-    << setw(15) << right << "x.at(nmax)"
+    << setw(13) << right << "x.at(nmin)"
+    << setw(13) << right << "x.at(-1)"
+    << setw(13) << right << "x.at(0)"
+    << setw(13) << right << "x.at(1)"
+    << setw(13) << right << "x.at(nmax)"
     << endl;
   
     cout << setw(5) << " "
-    << setw(15) << fixed << setprecision(3) << x.at(mod(nmin,nsize))
-    << setw(15) << fixed << setprecision(3) << x.at(mod(-1,nsize))
-    << setw(15) << fixed << setprecision(3) << x.at(mod(0,nsize))
-    << setw(15) << fixed << setprecision(3) << x.at(mod(1,nsize))
-    << setw(15) << fixed << setprecision(3) << x.at(mod(nmax,nsize))
+    << setw(13) << fixed << setprecision(3) << x.at(mod(nmin,nsize))
+    << setw(13) << fixed << setprecision(3) << x.at(mod(-1,nsize))
+    << setw(13) << fixed << setprecision(3) << x.at(mod(0,nsize))
+    << setw(13) << fixed << setprecision(3) << x.at(mod(1,nsize))
+    << setw(13) << fixed << setprecision(3) << x.at(mod(nmax,nsize))
     << endl << endl;
     cout << setw(5) << right << "n"
-    << setw(15) << right << "pdf.at(nmin)"
-    << setw(15) << right << "pdf.at(-1)"
-    << setw(15) << right << "pdf.at(0)"
-    << setw(15) << right << "pdf.at(1)"
-    << setw(15) << right << "pdf.at(nmax)"
-    << setw(15) << right << "p_total"
-    << setw(15) << right << "madn"
+    << setw(13) << right << "pdf.at(nmin)"
+    << setw(13) << right << "pdf.at(-1)"
+    << setw(13) << right << "pdf.at(0)"
+    << setw(13) << right << "pdf.at(1)"
+    << setw(13) << right << "pdf.at(nmax)"
+    << setw(13) << right << "p_total"
+    << setw(9) << right << "mad"
+    << setw(9) << right << "madlower"
+    << setw(9) << right << "madupper"
     << endl;
   }
   for (size_t j=0; j<ns.size(); ++j){
@@ -384,6 +419,9 @@ void calculate_kappa(double delta,
     for (int i=-nmax; i<=nmax; ++i) {
       mad += pdf.at(mod(i,nsize)) * fabs(x.at(mod(i,nsize)))*delta;
     }
+    double mad_upper_tail = mad*uppermad/dist.mad();
+    double mad_lower_tail = mad*lowermad/dist.mad();;
+    mad += mad_upper_tail+mad_lower_tail;
     mad *= pow(n,1/alpha_stable);
     k.mad.push_back(mad);
     double ci = confidence_interval(nmin, nmax, delta, pdf, x, ci_level);
@@ -392,13 +430,15 @@ void calculate_kappa(double delta,
     if (verbose) {
       double p_total = accumulate(pdf.begin(),pdf.end(),0.)*delta;
       cout << setw(5) << n
-      << setw(15) << fixed << setprecision(8) << pdf.at(mod(nmin,nsize))
-      << setw(15) << fixed << setprecision(8) << pdf.at(mod(-1,nsize))
-      << setw(15) << fixed << setprecision(8) << pdf.at(mod(0,nsize))
-      << setw(15) << fixed << setprecision(8) << pdf.at(mod(1,nsize))
-      << setw(15) << fixed << setprecision(8) << pdf.at(mod(nmax,nsize))
-      << setw(15) << fixed << setprecision(8) << p_total
-      << setw(15) << fixed << setprecision(8) << mad
+      << setw(13) << fixed << setprecision(8) << pdf.at(mod(nmin,nsize))
+      << setw(13) << fixed << setprecision(8) << pdf.at(mod(-1,nsize))
+      << setw(13) << fixed << setprecision(8) << pdf.at(mod(0,nsize))
+      << setw(13) << fixed << setprecision(8) << pdf.at(mod(1,nsize))
+      << setw(13) << fixed << setprecision(8) << pdf.at(mod(nmax,nsize))
+      << setw(13) << fixed << setprecision(8) << p_total
+      << setw(9) << fixed << setprecision(4) << mad
+      << setw(9) << fixed << setprecision(4) << mad_lower_tail*pow(n,1/alpha_stable)
+      << setw(9) << fixed << setprecision(4) << mad_upper_tail*pow(n,1/alpha_stable)
       << endl;
     }
   } // j over ns
@@ -454,7 +494,8 @@ int main(int argc, const char * argv[]) {
   ostringstream oss;
   oss << out_dir << "/convolution_test_"
       << delta << "_"
-      << delta2
+      << delta2 << "_"
+      << m
       << ".out";
   cout << "Writing to file " << oss.str() << endl << endl;
   cout.flush();
