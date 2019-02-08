@@ -1,9 +1,9 @@
 //
-//  student_t_distribution.h
-//  pareto_test
+/// \file student_t_distribution.h
+/// \package how_much_data
 //
-//  Created by Joseph Dunn on 1/3/19.
-//  Copyright © 2019 Joseph Dunn. All rights reserved.
+/// \author  Created by Joseph Dunn on 1/3/19.
+/// \copyright © 2019 Joseph Dunn. All rights reserved.
 //
 
 #ifndef student_t_distribution_h
@@ -16,25 +16,36 @@ using boost::math::beta;
 #include <boost/math/special_functions/bessel.hpp>
 using boost::math::cyl_bessel_k;
 
+/** Instances of class student_t_distribution give random variates
+   for a student t distribution with parameter n = alpha
+ */
 template<class RealType = double>
 struct student_t_distribution : boost::random::student_t_distribution<RealType> {
+  /// construct an instnace give alpha
   student_t_distribution(RealType alpha) : boost::random::student_t_distribution<RealType>(alpha),
   t_dist(alpha) {}
   
+  /// return the cdf or the complement of the cdf
   RealType cdf(RealType x, bool lower_tail = true) const{
     return lower_tail ? boost::math::cdf(t_dist, x)
-                      : boost::math::cdf(t_dist,-x);
+                      : boost::math::cdf(boost::math::complement(t_dist,x));
   }
   
+  /// return the probability density function at x
   RealType pdf(RealType x) const{
     return boost::math::pdf(t_dist, x);
   }
   
+  /// return the quantile for probability p
   RealType quantile(RealType p) const {
     return boost::math::quantile(t_dist, p);
   }
   
+  /// return the alpha = n of the distribution
   RealType alpha() const {return boost::random::student_t_distribution<RealType>::n();}
+  
+  /** return the alpha of the asymptotic stable distribution */
+  RealType alpha_stable() const {return min(RealType(2.),alpha());}
   
   /** Return mean of distribution */
   RealType mean() const {return RealType(0);}
@@ -58,6 +69,7 @@ struct student_t_distribution : boost::random::student_t_distribution<RealType> 
     return boost::math::quantile(t_dist,1-level/2)-boost::math::quantile(t_dist,level/2);
   }
   
+  /// return the characteristic function of the distribution at omega
   RealType characteristic_function(RealType omega) const{
     RealType a=alpha();
     if (omega == 0) return 1;

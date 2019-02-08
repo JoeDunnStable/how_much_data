@@ -1,5 +1,5 @@
 project('How Much Data', 'cpp', default_options : ['cpp_std=c++11'],
-         version : '0.6.1')
+         version : '0.7.0')
 
 compiler=meson.get_compiler('cpp').get_id()
 
@@ -12,16 +12,14 @@ endif
 
 #Boost header and some libraries.
 #I had to define BOOST_ROOT to get this to work.
-boostdep = dependency('boost', modules : ['filesystem', 'timer', 'system'],  required : true)
-
-gompdep = meson.get_compiler('cpp').find_library('gomp')
+boostdep = dependency('boost', version : '>=1.68', modules : ['filesystem', 'timer', 'system'],  required : true)
 
 fftwdep = dependency('fftw3' , required : true)
 
 #Eigen3 headers
 eigendep = dependency('eigen3', version : '>3.0', required : true)
 
-alldep = [boostdep, gompdep, fftwdep, eigendep]
+alldep = [ fftwdep, eigendep, boostdep]
 
 if host_machine.system() == 'linux'
   alldep = [alldep, meson.get_compiler('cpp').find_library('pthread')]
@@ -32,5 +30,7 @@ incdir=include_directories([ 'convolution_test'])
 
 subdir('convolution_test')
 subdir('monte_carlo_test')
+subdir('lognormal_test')
+subdir('doc')
 
 add_test_setup('boost_gcc', env: 'DYLD_LIBRARY_PATH=/usr/local/boost_gcc/lib')

@@ -1,9 +1,9 @@
 //
-//  monte_carlo_test.cpp
-//  pareto_test
+/// \file monte_carlo_test.cpp
+/// \package how_much_data
 //
-//  Created by Joseph Dunn on 12/31/18.
-//  Copyright © 2018 Joseph Dunn. All rights reserved.
+/// \author Created by Joseph Dunn on 12/31/18.
+/// \copyright © 2018, 2019 Joseph Dunn. All rights reserved.
 //
 
 #include <iostream>
@@ -28,6 +28,8 @@ using std::ofstream;
 using std::mt19937;
 #include <vector>
 using std::vector;
+#include <array>
+using std::array;
 #include <algorithm>
 using std::max;
 using std::min;
@@ -52,40 +54,43 @@ using boost::filesystem::path;
 using boost::math::beta;
 #include <boost/math/distributions/students_t.hpp>
 using boost::math::students_t;
-/*
-#include <boost/multiprecision/mpfr.hpp>
-using myFloat = boost::multiprecision::number<boost::multiprecision::mpfr_float_backend<30> >;
- */
-using myFloat = double;
 
 #include "pareto_distribution.h"
 #include "student_t_distribution.h"
+#include "exponential_distribution.h"
+#include "lognormal_distribution.h"
 #include "taleb_results.h"
 
+/// return the relative error between two numbers
 template<typename RealType>
-RealType rel_err(RealType a, RealType b) {
+RealType rel_err(RealType a,   ///< [in] the first number
+                 RealType b    ///< [in] the second number
+                 ) {
   return fabs(a-b)/std::max(a,b);
 }
 
-template<typename myFloat>
-vector<myFloat> quantile(const vector<myFloat> &x, const vector<myFloat>& probs)
+/// return quantiles of the ensemble of trials
+template<typename RealType>
+vector<RealType> quantile(const vector<RealType> &x,   ///< [in] the result by trial
+                         const vector<RealType>& probs ///< [in] the desired probabilities
+                         )
 {
-  myFloat eps = 100 * std::numeric_limits<myFloat>::epsilon();
+  RealType eps = 100 * std::numeric_limits<RealType>::epsilon();
   long np = probs.size();
   for (auto p : probs) {
     if (p < -eps || p > 1 + eps)
       throw std::range_error("quantile: 'probs' outside [0,1]");
   }
-  vector<myFloat> qs(np);
+  vector<RealType> qs(np);
   long n = x.size();
   if (n > 0 && np > 0) {
-    vector<myFloat> x_sort = x;
+    vector<RealType> x_sort = x;
     sort(x_sort.data(), x_sort.data()+n);
     for (int j=0; j<np; ++j) {
-      myFloat index = (n - 1) * probs.at(j);
+      RealType index = (n - 1) * probs.at(j);
       int lo = static_cast<int>(floor(index));
       int hi = static_cast<int>(ceil(index));
-      myFloat h = index - lo;
+      RealType h = index - lo;
       qs.at(j) = (1-h) * x_sort.at(lo) + h * x_sort.at(hi);
     }
     return qs;
@@ -94,26 +99,36 @@ vector<myFloat> quantile(const vector<myFloat> &x, const vector<myFloat>& probs)
   }
 }
 
+/// a mutex for writing to KappaResults
 mutex kr_mutex;
+/// a mutex for writing to cout
 mutex cout_mutex;
 
+/// the struct holding the resutls of a single alpha
 struct KappaResult {
-  double alpha;
-  double mad_rel_err;
-  size_t m = 0;
-  size_t m_ci = 0;
-  vector<int> ns;
-  void initialize(double alpha_in, const vector<int>& ns_in) {
-    alpha = alpha_in;
+  double param;         ///< the parameter for the run
+  double mad_rel_err;   ///< the relative error of the mad vs theory
+  size_t m = 0;         ///< the number of trials run for mad
+  size_t m_ci = 0;      ///< the number of trials for the conf. interval
+  vector<int> ns;       ///< the durations calculated
+  /// initialize the structure
+  void initialize(double param_in,         ///< the alpha of the run
+                  const vector<int>& ns_in ///< the durations of the run
+                  ) {
+    param = param_in;
     ns = ns_in;
     sum_dev.resize(ns_in.size(),0);
     sum_abs_dev.resize(ns_in.size(),0);
     conf_int.resize(ns_in.size());
     x_ci.resize(ns_in.size());
   }
-  void update_dev(size_t m, size_t m_ci, const vector<myFloat>& dev,
-                  const vector<myFloat>& abs_dev,
-                  const vector<vector<double> >& x_in) {
+  /// update the deviations w result from one thread
+  void update_dev(size_t m,                 ///< the number of trials for mad
+                  size_t m_ci,              ///< the number of trials for ci
+                  const vector<double>& dev, ///< sum of deviation by duration
+                  const vector<double>& abs_dev, ///<  sum of abs dev by duration
+                  const vector<vector<double> >& x_in ///< the variate by trial
+                  ) {
     unique_lock<mutex> lock(kr_mutex);
     this->m += m;
     this->m_ci += m_ci;
@@ -123,7 +138,9 @@ struct KappaResult {
       x_ci.at(i).insert(x_ci.at(i).end(), x_in.at(i).begin(), x_in.at(i).end());
     }
   }
-  void update_conf_int(double ci_level) {
+  /// calculate the confidence interval for all trials
+  void update_conf_int(double ci_level     ///< the confidence level to use
+                       ) {
     unique_lock<mutex> lock(kr_mutex);
     vector<double> p{ci_level/2,1-ci_level/2};
     for (size_t j=0; j<ns.size(); ++j) {
@@ -132,17 +149,20 @@ struct KappaResult {
       x_ci.at(j).clear();
     }
   }
-  vector<myFloat> sum_dev;
-  vector<myFloat> sum_abs_dev;
-  vector<vector<double> > x_ci;
+  vector<double> sum_dev;        ///< sum or raw deviation by duration
+  vector<double> sum_abs_dev;    ///< sum of abs deviations by duration
+  vector<vector<double> > x_ci;   ///< the results by trial and duration
 
-  double ci_rel_err;
-  vector<double> conf_int;
-  cpu_times elapsed_time;
+  double ci_rel_err;              ///< the relative error of the ci vs theory
+  vector<double> conf_int;        ///< the calculated ci by duration
+  cpu_times elapsed_time;         ///< the elapsed time for the run
 };
 
-ostream& operator<< (ostream& os, const KappaResult& k) {
-  os << fixed << setw(7) << setprecision(2) << k.alpha
+/// output the results from a single run
+ostream& operator<< (ostream& os,          ///< [in,out] the output stream
+                     const KappaResult& k  ///< [in] the sturct with results
+                     ) {
+  os << fixed << setw(7) << setprecision(2) << k.param
      << setw(13) << k.m
   << setw(12) << setprecision(2) << k.mad_rel_err*100 << "%";
   double mad0 = static_cast<double>(k.sum_abs_dev.at(0)/k.m);
@@ -166,21 +186,34 @@ ostream& operator<< (ostream& os, const KappaResult& k) {
   return os;
 }
 
+/// sturcture holding the results from all runs
 struct KappaResults {
-  KappaResults(const vector<int>& ns, const vector<double> &alphas,
-               size_t taleb_offset)
-  : ns(ns), kr(alphas.size()), taleb_offset(taleb_offset){
-    for (size_t i=0; i<alphas.size(); ++i) {
-      kr.at(i).initialize(alphas.at(i),ns);
+  /// constructor
+  KappaResults(const vector<int>& ns,       ///< the durations calculated
+               const vector<double> &params,///< the params for each run
+               const string param_label,    ///< the label for the param
+               size_t taleb_offset          ///< the column offset into the table
+                                            ///< of taleg's results. 0 for none
+               )
+  : ns(ns), kr(params.size()), param_label(param_label),
+    taleb_offset(taleb_offset){
+    for (size_t i=0; i<params.size(); ++i) {
+      kr.at(i).initialize(params.at(i),ns);
     }
   }
-  size_t taleb_offset;
+  /// the durations calculated
   vector<int> ns;
+  /// a vector holding the results of each run
+  /// the label for the parameter
+  string param_label;
   vector<KappaResult> kr;
+  /// the offset into Taleb's table of results.  =0 for none available.
+  size_t taleb_offset;
 };
 
+/// output the results for all runs
 ostream& operator<< (ostream& os, KappaResults& ks) {
-  os << setw(7) << right << "alpha"
+  os << setw(7) << right << ks.param_label
   << setw(13) << right << "m_mad"
   << setw(13) << right << "mad_rel_err";
   for (size_t j=1; j<ks.ns.size(); ++j)
@@ -193,29 +226,37 @@ ostream& operator<< (ostream& os, KappaResults& ks) {
   for (auto& kr : ks.kr)
     os << kr;
   os << endl;
-  os << setw(68) << right << "Error vs Taleb's Results" << endl << endl;
-  for (size_t i=0; i<ks.kr.size(); ++i) {
-    os << setw(7) << setprecision(2) << ks.kr.at(i).alpha << setw(26) << " ";
-    double mad0 = static_cast<double>(ks.kr.at(i).sum_abs_dev.at(0)/ks.kr.at(i).m);
-    for (size_t j=1; j<ks.ns.size(); ++j) {
-      double madn = static_cast<double>(ks.kr.at(i).sum_abs_dev.at(j)/ks.kr.at(i).m);
-      double kappa_mad = 2 - (log(ks.kr.at(i).ns.at(j))-log(ks.kr.at(i).ns.at(0)))
-                   /(log(madn)-log(mad0));
-      double err = kappa_mad - taleb_results.at(i).at(j-1+ks.taleb_offset);
-      os << setw(13) << setprecision(3) << err;
+  if (ks.taleb_offset > 0) {
+    os << setw(68) << right << "Error vs Taleb's Results" << endl << endl;
+    for (size_t i=0; i<ks.kr.size(); ++i) {
+      os << setw(7) << setprecision(2) << ks.kr.at(i).param << setw(26) << " ";
+      double mad0 = static_cast<double>(ks.kr.at(i).sum_abs_dev.at(0)/ks.kr.at(i).m);
+      for (size_t j=1; j<ks.ns.size(); ++j) {
+        double madn = static_cast<double>(ks.kr.at(i).sum_abs_dev.at(j)/ks.kr.at(i).m);
+        double kappa_mad = 2 - (log(ks.kr.at(i).ns.at(j))-log(ks.kr.at(i).ns.at(0)))
+        /(log(madn)-log(mad0));
+        double err = kappa_mad - taleb_results.at(i).at(j-1+ks.taleb_offset);
+        os << setw(13) << setprecision(3) << err;
+      }
+      os << endl;
     }
     os << endl;
   }
-  os << endl;
   return os;
 }
 
+/// the per thread cacluaiton engine
 template<typename Dist>
-void calc_kappa(unsigned int thread_id, size_t m, size_t m_ci_limit,
-                vector<int> ns, Dist dist,
-                double ci_level,
-                KappaResult* kp,
-                bool verbose = false) {
+void calc_kappa(unsigned int thread_id,    ///< [in] the number of the thread
+                                           ///< used as seed for urng
+                size_t m,                  ///< [in] the maximum # of trials for mad
+                size_t m_ci_limit,         ///< [in] the maximum # of trials for ci
+                vector<int> ns,            ///< [in] the durations to save
+                Dist dist,                 ///< [in] the distribution
+                double ci_level,           ///< [in] the confidence level for kappa_ci
+                KappaResult* kp,           ///< [out]the results
+                bool verbose = false       ///< [in] flag for trace infomation
+                ) {
   if (verbose) {
     unique_lock<mutex> lock(cout_mutex);
     cout << "Starting thread " << thread_id
@@ -223,15 +264,14 @@ void calc_kappa(unsigned int thread_id, size_t m, size_t m_ci_limit,
          << ", and m_ci_limit = " << m_ci_limit << endl;
   }
   mt19937 eng(thread_id);
-  // Only thread 1 will update confidence intervals which require less data
   double mean = dist.mean();
   
   // Up to m_ci_limit we'll save the individual run results calculate
   // confidence intervals
   vector<vector<double> > x_ci(ns.size(), vector<double>(m_ci_limit));
   
-  vector<myFloat> dev(ns.size(),0.);
-  vector<myFloat> abs_dev(ns.size(),0.);
+  vector<double> dev(ns.size(),0.);
+  vector<double> abs_dev(ns.size(),0.);
 
   for (size_t i=0; i<m; ++i) {
     int n_old = 0;
@@ -252,66 +292,35 @@ void calc_kappa(unsigned int thread_id, size_t m, size_t m_ci_limit,
   return;
 }
 
+/// calculate kappa for sums of iid variables at specified durations
 template<typename Dist>
-void calculate_kappa(size_t m, vector<int> ns, Dist dist,
-                     double ci_level,
-                     KappaResult* kp,
-                     bool verbose = false) {
+void calculate_kappa(size_t m,               ///< [in] the number of scenarios
+                     vector<int> ns,         ///< [in] the durations to save
+                     Dist dist,              ///< [in] the distribution
+                     double ci_level,        ///< [in] the confidence level to use
+                     KappaResult* kp,        ///< [out] a ptr to the results
+                     bool verbose = false    ///< [in] a flag to generate trace
+                     )
+{
   cpu_timer timer;
   
   size_t m_ci_limit = min(static_cast<size_t>(2000000/ci_level),m);
-  /*
-  calc_kappa<Dist> (1, m, ns, dist, ci_level, k, verbose);
-   */
-  // Subdivide m between eight threads giving at least
-  // m_ci_limit to thread 1, which calculated the confidence intervals
+                       
+  // Subdivide m between eight threads
+  array<thread, 8> threads;
   size_t m_unassigned = m;
-  size_t m_assigned = m/8;
-  size_t m_ci_assigned = m_ci_limit/8;
-  thread thread1(calc_kappa<Dist>, 1, m_assigned, m_ci_assigned, ns, dist, ci_level, kp, verbose);
-  m_unassigned -= m_assigned;
-  m_ci_limit -= m_ci_assigned;
-  m_assigned = m_unassigned/7;
-  m_ci_assigned = m_ci_limit/7;
-  thread thread2(calc_kappa<Dist>, 2, m_assigned, m_ci_assigned, ns, dist, ci_level, kp, verbose);
-  m_unassigned -= m_assigned;
-  m_ci_limit -= m_ci_assigned;
-  m_assigned = m_unassigned/6;
-  m_ci_assigned = m_ci_limit/6;
-  thread thread3(calc_kappa<Dist>, 3, m_assigned, m_ci_assigned, ns, dist, ci_level, kp, verbose);
-  m_unassigned -= m_assigned;
-  m_ci_limit -= m_ci_assigned;
-  m_assigned = m_unassigned/5;
-  m_ci_assigned = m_ci_limit/5;
-  thread thread4(calc_kappa<Dist>, 4, m_assigned, m_ci_assigned, ns, dist, ci_level, kp, verbose);
-  m_unassigned -= m_assigned;
-  m_ci_limit -= m_ci_assigned;
-  m_assigned = m_unassigned/4;
-  m_ci_assigned = m_ci_limit/4;
-  thread thread5(calc_kappa<Dist>, 5, m_assigned, m_ci_assigned, ns, dist, ci_level, kp, verbose);
-  m_unassigned -= m_assigned;
-  m_ci_limit -= m_ci_assigned;
-  m_assigned = m_unassigned/3;
-  m_ci_assigned = m_ci_limit/3;
-  thread thread6(calc_kappa<Dist>, 6, m_assigned, m_ci_assigned, ns, dist, ci_level, kp, verbose);
-  m_unassigned -= m_assigned;
-  m_ci_limit -= m_ci_assigned;
-  m_assigned = m_unassigned/2;
-  m_ci_assigned = m_ci_limit/2;
-  thread thread7(calc_kappa<Dist>, 7, m_assigned, m_ci_assigned, ns, dist, ci_level, kp, verbose);
-  m_unassigned -= m_assigned;
-  m_ci_limit -= m_ci_assigned;
-  m_assigned = m_unassigned;
-  m_ci_assigned = m_ci_limit;
-  thread thread8(calc_kappa<Dist>, 8, m_assigned, m_ci_assigned, ns, dist, ci_level, kp, verbose);
-  thread1.join();
-  thread2.join();
-  thread3.join();
-  thread4.join();
-  thread5.join();
-  thread6.join();
-  thread7.join();
-  thread8.join();
+  size_t m_ci_unassigned = m_ci_limit;
+  for (int i = 0; i<static_cast<int>(threads.size()); ++i) {
+    int threads_to_go = static_cast<int>(threads.size())-i;
+    size_t m_assigned = m_unassigned/threads_to_go;
+    size_t m_ci_assigned = m_ci_unassigned/threads_to_go;
+    threads.at(i)=thread(calc_kappa<Dist>, i+1, m_assigned, m_ci_assigned,
+                         ns, dist, ci_level, kp, verbose);
+    m_unassigned -= m_assigned;
+    m_ci_unassigned -= m_ci_assigned;
+  }
+  for (size_t i=0; i<threads.size(); ++i)
+    threads.at(i).join();
   kp->update_conf_int(ci_level);
 
   kp->mad_rel_err = rel_err(dist.mad(), static_cast<double>(kp->sum_abs_dev.at(0)/kp->m));
@@ -319,12 +328,14 @@ void calculate_kappa(size_t m, vector<int> ns, Dist dist,
   kp->elapsed_time = timer.elapsed();
 }
 
+/// show the usage.  called when the wrong # of arguments is used
 void show_usage(path p) {
   cerr << "Usage: " << p.filename().string() << " m" << endl
   << "  where m is number of trials" << endl;
 }
 
 
+/// main program for convolution test with one input parameter the # of trials
 int main(int argc, const char * argv[]) {
   path p(argv[0]);
   if ( argc != 2) {
@@ -344,8 +355,6 @@ int main(int argc, const char * argv[]) {
     alphas.push_back(alpha);
   
   vector<int> ns{1, 2, 30, 100};
-  KappaResults ks_pareto(ns, alphas, 1);
-  KappaResults ks_student(ns, alphas, 4);
   
   double ci_level = .05;
   size_t m_ci_limit = min(static_cast<size_t>(2000000/ci_level), m);
@@ -359,42 +368,92 @@ int main(int argc, const char * argv[]) {
   ofstream out{oss.str()};
   auto_cpu_timer t(out);
   out << "m =     " << m << endl
-  << "ns =     ";
+      << "ns =     ";
   for (auto n : ns)
     out << n << " ";
   out << endl<< endl;
   out.flush();
   bool verbose = true;
-  
-  for (size_t i=0; i<alphas.size(); ++i) {
-    double alpha=alphas.at(i);
-    size_t m_alpha = static_cast<size_t>(pow(.001,alpha/(1-alpha)));
-    m_alpha = min(max(m_ci_limit, m_alpha), m);
-    pareto_distribution<> pd(alpha);
-    if (verbose)
-      cout << pd << endl;
-    KappaResult kr;
-    kr.initialize(alpha, ns);
-    calculate_kappa(m_alpha, ns, pd, ci_level, &kr, verbose);
-    ks_pareto.kr.at(i) = kr;
+  {
+    KappaResults ks_pareto(ns, alphas, "alpha", 1);
+    for (size_t i=0; i<alphas.size(); ++i) {
+      pareto_distribution<> pd(alphas.at(i));
+      double alpha_stable=pd.alpha_stable();
+      // m_alpha is the number of samples needed to reduce the
+      // uncertainty in the average of m_alpha stable variates to
+      // .001 of the uncertainty of a single sample
+      size_t m_alpha = static_cast<size_t>(pow(.001,alpha_stable/(1-alpha_stable)));
+      m_alpha = min(max(m_ci_limit, m_alpha), m);
+      if (verbose)
+        cout << pd << endl;
+      KappaResult kr;
+      kr.initialize(alphas.at(i), ns);
+      calculate_kappa(m_alpha, ns, pd, ci_level, &kr, verbose);
+      ks_pareto.kr.at(i) = kr;
+    }
+    out << "Pareto Distribution" << endl << endl;
+    out << ks_pareto;
   }
-  out << "Pareto Distribution" << endl << endl;
-  out << ks_pareto;
-  out.flush();
   
-  for (size_t i=0; i<alphas.size(); ++i) {
-    double alpha = alphas.at(i);
-    size_t m_alpha = static_cast<size_t>(pow(.001,alpha/(1-alpha)));
-    m_alpha = min(max(m_ci_limit, m_alpha), m);
-    student_t_distribution<> td(alpha);
-    if (verbose)
-      cout << td << endl;
-    KappaResult kr;
-    kr.initialize(alpha,ns);
-    calculate_kappa(m_alpha, ns, td, ci_level, &kr, verbose);
-    ks_student.kr.at(i) = kr;
+  {
+    KappaResults ks_student(ns, alphas, "alpha", 4);
+    for (size_t i=0; i<alphas.size(); ++i) {
+      student_t_distribution<> td(alphas.at(i));
+      double alpha_stable = td.alpha_stable();
+      // m_alpha is the number of samples needed to reduce the
+      // uncertainty in the average of m_alpha stable variates to
+      // .001 of the original uncertainty
+      size_t m_alpha = static_cast<size_t>(pow(.001,alpha_stable/(1-alpha_stable)));
+      m_alpha = min(max(m_ci_limit, m_alpha), m);
+      if (verbose)
+        cout << td << endl;
+      KappaResult kr;
+      kr.initialize(alphas.at(i),ns);
+      calculate_kappa(m_alpha, ns, td, ci_level, &kr, verbose);
+      ks_student.kr.at(i) = kr;
+    }
+    out << "Student Distribution" << endl << endl;
+    out << ks_student;
   }
-  out << "Student Distribution" << endl << endl;
-  out << ks_student;
+
+  {
+    vector<double> lambdas = {1.};
+    KappaResults ks_exponential(ns, lambdas, "lambda" , 0);
+    exponential_distribution<> ed(1);
+    double alpha_stable = ed.alpha_stable();
+    size_t m_alpha = static_cast<size_t>(pow(.001,alpha_stable/(1-alpha_stable)));
+    m_alpha = min(max(m_ci_limit, m_alpha), m);
+    if (verbose)
+      cout << ed << endl;
+    KappaResult kr;
+    kr.initialize(1,ns);
+    calculate_kappa(m_alpha, ns, ed, ci_level, &kr, verbose);
+    ks_exponential.kr.at(0) = kr;
+    out << ed << endl;
+    out << ks_exponential << endl;
+  }
+
+  {
+    vector<double> sigmas = {.1, .2, 1, 5, 10};
+    KappaResults ks_lognormal(ns, sigmas, "sigma", 0);
+    for (size_t i=0; i<sigmas.size(); ++i) {
+      lognormal_distribution<> lnd(0,sigmas.at(i));
+      double alpha_stable = lnd.alpha_stable();
+      // m_alpha is the number of samples needed to reduce the
+      // uncertainty in the average of m_alpha stable variates to
+      // .001 of the original uncertainty
+      size_t m_alpha = static_cast<size_t>(pow(.001,alpha_stable/(1-alpha_stable)));
+      m_alpha = min(max(m_ci_limit, m_alpha), m);
+      if (verbose)
+        cout << lnd << endl;
+      KappaResult kr;
+      kr.initialize(sigmas.at(i),ns);
+      calculate_kappa(m_alpha, ns, lnd, ci_level, &kr, verbose);
+      ks_lognormal.kr.at(i) = kr;
+    }
+    out << "Lognormal Distribution" << endl << endl;
+    out << ks_lognormal;
+  }
+  
   return 0;
 }

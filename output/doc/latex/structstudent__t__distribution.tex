@@ -1,0 +1,70 @@
+\hypertarget{structstudent__t__distribution}{}\section{student\+\_\+t\+\_\+distribution$<$ Real\+Type $>$ Struct Template Reference}
+\label{structstudent__t__distribution}\index{student\+\_\+t\+\_\+distribution$<$ Real\+Type $>$@{student\+\_\+t\+\_\+distribution$<$ Real\+Type $>$}}
+
+
+Instances of class \mbox{\hyperlink{structstudent__t__distribution}{student\+\_\+t\+\_\+distribution}} give random variates for a student t distribution with parameter n = alpha.  
+
+
+
+
+{\ttfamily \#include $<$student\+\_\+t\+\_\+distribution.\+h$>$}
+
+Inheritance diagram for student\+\_\+t\+\_\+distribution$<$ Real\+Type $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{structstudent__t__distribution}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structstudent__t__distribution_a09042926811e047e71a2aefdfefc6ce3}\label{structstudent__t__distribution_a09042926811e047e71a2aefdfefc6ce3}} 
+\mbox{\hyperlink{structstudent__t__distribution_a09042926811e047e71a2aefdfefc6ce3}{student\+\_\+t\+\_\+distribution}} (Real\+Type \mbox{\hyperlink{structstudent__t__distribution_af79519cdd38c501e1d67de31c93f3daf}{alpha}})
+\begin{DoxyCompactList}\small\item\em construct an instnace give alpha \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structstudent__t__distribution_a233da5eb814ed07f779a5005478df253}\label{structstudent__t__distribution_a233da5eb814ed07f779a5005478df253}} 
+Real\+Type \mbox{\hyperlink{structstudent__t__distribution_a233da5eb814ed07f779a5005478df253}{cdf}} (Real\+Type x, bool lower\+\_\+tail=true) const
+\begin{DoxyCompactList}\small\item\em return the cdf or the complement of the cdf \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structstudent__t__distribution_a811239357f8d470db5c4c45bf0ddf996}\label{structstudent__t__distribution_a811239357f8d470db5c4c45bf0ddf996}} 
+Real\+Type \mbox{\hyperlink{structstudent__t__distribution_a811239357f8d470db5c4c45bf0ddf996}{pdf}} (Real\+Type x) const
+\begin{DoxyCompactList}\small\item\em return the probability density function at x \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structstudent__t__distribution_abf87bfa9961e9ece0caa75fd545db2b2}\label{structstudent__t__distribution_abf87bfa9961e9ece0caa75fd545db2b2}} 
+Real\+Type \mbox{\hyperlink{structstudent__t__distribution_abf87bfa9961e9ece0caa75fd545db2b2}{quantile}} (Real\+Type p) const
+\begin{DoxyCompactList}\small\item\em return the quantile for probability p \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structstudent__t__distribution_af79519cdd38c501e1d67de31c93f3daf}\label{structstudent__t__distribution_af79519cdd38c501e1d67de31c93f3daf}} 
+Real\+Type \mbox{\hyperlink{structstudent__t__distribution_af79519cdd38c501e1d67de31c93f3daf}{alpha}} () const
+\begin{DoxyCompactList}\small\item\em return the alpha = n of the distribution \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structstudent__t__distribution_a5a81f4c1765c03864367ebd280c0a507}\label{structstudent__t__distribution_a5a81f4c1765c03864367ebd280c0a507}} 
+Real\+Type \mbox{\hyperlink{structstudent__t__distribution_a5a81f4c1765c03864367ebd280c0a507}{alpha\+\_\+stable}} () const
+\begin{DoxyCompactList}\small\item\em return the alpha of the asymptotic stable distribution \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structstudent__t__distribution_a40784121ffcf86b36f4a107bc128302a}\label{structstudent__t__distribution_a40784121ffcf86b36f4a107bc128302a}} 
+Real\+Type \mbox{\hyperlink{structstudent__t__distribution_a40784121ffcf86b36f4a107bc128302a}{mean}} () const
+\begin{DoxyCompactList}\small\item\em Return mean of distribution. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structstudent__t__distribution_a037a9539d0054965130936c3da1a5a56}\label{structstudent__t__distribution_a037a9539d0054965130936c3da1a5a56}} 
+Real\+Type \mbox{\hyperlink{structstudent__t__distribution_a037a9539d0054965130936c3da1a5a56}{mad}} () const
+\begin{DoxyCompactList}\small\item\em Return mean average deviation of the distribution. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structstudent__t__distribution_aa877e48840101ffcebbe9f844502f99f}\label{structstudent__t__distribution_aa877e48840101ffcebbe9f844502f99f}} 
+Real\+Type \mbox{\hyperlink{structstudent__t__distribution_aa877e48840101ffcebbe9f844502f99f}{mad2}} () const
+\begin{DoxyCompactList}\small\item\em Return the mad of the square of the distribution. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structstudent__t__distribution_acd9350d5f25a95f8120333237f810f6b}\label{structstudent__t__distribution_acd9350d5f25a95f8120333237f810f6b}} 
+Real\+Type \mbox{\hyperlink{structstudent__t__distribution_acd9350d5f25a95f8120333237f810f6b}{ci}} (Real\+Type level=Real\+Type(.\+05)) const
+\begin{DoxyCompactList}\small\item\em Return the confidence interval of the distribution. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structstudent__t__distribution_a16dd6f257065331e72960fb23c9c208e}\label{structstudent__t__distribution_a16dd6f257065331e72960fb23c9c208e}} 
+Real\+Type \mbox{\hyperlink{structstudent__t__distribution_a16dd6f257065331e72960fb23c9c208e}{characteristic\+\_\+function}} (Real\+Type omega) const
+\begin{DoxyCompactList}\small\item\em return the characteristic function of the distribution at omega \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structstudent__t__distribution_aee4aaa9b82b8248166aced167a23798c}\label{structstudent__t__distribution_aee4aaa9b82b8248166aced167a23798c}} 
+{\footnotesize template$<$class charT , class traits $>$ }\\std\+::basic\+\_\+ostream$<$ charT, traits $>$ \& \mbox{\hyperlink{structstudent__t__distribution_aee4aaa9b82b8248166aced167a23798c}{operator$<$$<$}} (std\+::basic\+\_\+ostream$<$ charT, traits $>$ \&os, const \mbox{\hyperlink{structstudent__t__distribution}{student\+\_\+t\+\_\+distribution}} \&dist)
+\begin{DoxyCompactList}\small\item\em Write distribution to std\+::ostream. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Real\+Type = double$>$\newline
+struct student\+\_\+t\+\_\+distribution$<$ Real\+Type $>$}
+
+Instances of class \mbox{\hyperlink{structstudent__t__distribution}{student\+\_\+t\+\_\+distribution}} give random variates for a student t distribution with parameter n = alpha. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/jdunn/\+Documents/\+X\+Code/how\+\_\+much\+\_\+data/convolution\+\_\+test/\mbox{\hyperlink{student__t__distribution_8h}{student\+\_\+t\+\_\+distribution.\+h}}\end{DoxyCompactItemize}

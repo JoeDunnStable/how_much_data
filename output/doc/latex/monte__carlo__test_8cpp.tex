@@ -1,0 +1,173 @@
+\hypertarget{monte__carlo__test_8cpp}{}\section{/\+Users/jdunn/\+Documents/\+X\+Code/how\+\_\+much\+\_\+data/monte\+\_\+carlo\+\_\+test/monte\+\_\+carlo\+\_\+test.cpp File Reference}
+\label{monte__carlo__test_8cpp}\index{/\+Users/jdunn/\+Documents/\+X\+Code/how\+\_\+much\+\_\+data/monte\+\_\+carlo\+\_\+test/monte\+\_\+carlo\+\_\+test.\+cpp@{/\+Users/jdunn/\+Documents/\+X\+Code/how\+\_\+much\+\_\+data/monte\+\_\+carlo\+\_\+test/monte\+\_\+carlo\+\_\+test.\+cpp}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$iomanip$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$random$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$array$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$numeric$>$}\newline
+{\ttfamily \#include $<$mutex$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include $<$boost/timer/timer.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/filesystem.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/math/special\+\_\+functions/beta.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/math/distributions/students\+\_\+t.\+hpp$>$}\newline
+{\ttfamily \#include \char`\"{}pareto\+\_\+distribution.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}student\+\_\+t\+\_\+distribution.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}exponential\+\_\+distribution.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}lognormal\+\_\+distribution.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}taleb\+\_\+results.\+h\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structKappaResult}{Kappa\+Result}}
+\begin{DoxyCompactList}\small\item\em structure holding the results of a run for a single alpha \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structKappaResults}{Kappa\+Results}}
+\begin{DoxyCompactList}\small\item\em structure holding the results of all runs \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Real\+Type $>$ }\\Real\+Type \mbox{\hyperlink{monte__carlo__test_8cpp_a8bc12c575bef5adcd18ff54fed138db7}{rel\+\_\+err}} (Real\+Type a, Real\+Type b)
+\begin{DoxyCompactList}\small\item\em return the relative error between two numbers \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Real\+Type $>$ }\\vector$<$ Real\+Type $>$ \mbox{\hyperlink{monte__carlo__test_8cpp_a496196ea52c2a012c21f9dfbce88ff42}{quantile}} (const vector$<$ Real\+Type $>$ \&x, const vector$<$ Real\+Type $>$ \&probs)
+\begin{DoxyCompactList}\small\item\em return quantiles of the ensemble of trials \end{DoxyCompactList}\item 
+ostream \& \mbox{\hyperlink{monte__carlo__test_8cpp_abef86d57e5a2d6f59d7b6559f8ab0e25}{operator$<$$<$}} (ostream \&os, const \mbox{\hyperlink{structKappaResult}{Kappa\+Result}} \&k)
+\begin{DoxyCompactList}\small\item\em output the results from a single run \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{monte__carlo__test_8cpp_a438174fcc3100be9441615ef06115383}\label{monte__carlo__test_8cpp_a438174fcc3100be9441615ef06115383}} 
+ostream \& \mbox{\hyperlink{monte__carlo__test_8cpp_a438174fcc3100be9441615ef06115383}{operator$<$$<$}} (ostream \&os, \mbox{\hyperlink{structKappaResults}{Kappa\+Results}} \&ks)
+\begin{DoxyCompactList}\small\item\em output the results for all runs \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Dist $>$ }\\void \mbox{\hyperlink{monte__carlo__test_8cpp_a9c13d7165937292b4e6408264bd9bbe5}{calc\+\_\+kappa}} (unsigned int thread\+\_\+id, size\+\_\+t m, size\+\_\+t m\+\_\+ci\+\_\+limit, vector$<$ int $>$ ns, Dist dist, double ci\+\_\+level, \mbox{\hyperlink{structKappaResult}{Kappa\+Result}} $\ast$kp, bool verbose=false)
+\begin{DoxyCompactList}\small\item\em the per thread cacluaiton engine \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Dist $>$ }\\void \mbox{\hyperlink{monte__carlo__test_8cpp_a8154aa5a511b2a682f454661d9c507be}{calculate\+\_\+kappa}} (size\+\_\+t m, vector$<$ int $>$ ns, Dist dist, double ci\+\_\+level, \mbox{\hyperlink{structKappaResult}{Kappa\+Result}} $\ast$kp, bool verbose=false)
+\begin{DoxyCompactList}\small\item\em calculate kappa for sums of iid variables at specified durations \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{monte__carlo__test_8cpp_a29d3334e2ee8e1ff561e3897ad2cc928}\label{monte__carlo__test_8cpp_a29d3334e2ee8e1ff561e3897ad2cc928}} 
+void \mbox{\hyperlink{monte__carlo__test_8cpp_a29d3334e2ee8e1ff561e3897ad2cc928}{show\+\_\+usage}} (path p)
+\begin{DoxyCompactList}\small\item\em show the usage. called when the wrong \# of arguments is used \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{monte__carlo__test_8cpp_ac0f2228420376f4db7e1274f2b41667c}\label{monte__carlo__test_8cpp_ac0f2228420376f4db7e1274f2b41667c}} 
+int \mbox{\hyperlink{monte__carlo__test_8cpp_ac0f2228420376f4db7e1274f2b41667c}{main}} (int argc, const char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em main program for convolution test with one input parameter the \# of trials \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{monte__carlo__test_8cpp_abc3d7525725b8e3ebc98d7a46cfd5e9e}\label{monte__carlo__test_8cpp_abc3d7525725b8e3ebc98d7a46cfd5e9e}} 
+mutex \mbox{\hyperlink{monte__carlo__test_8cpp_abc3d7525725b8e3ebc98d7a46cfd5e9e}{kr\+\_\+mutex}}
+\begin{DoxyCompactList}\small\item\em a mutex for writing to \mbox{\hyperlink{structKappaResults}{Kappa\+Results}} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{monte__carlo__test_8cpp_aaf0af7d4d397479a7734afd9e67f7b98}\label{monte__carlo__test_8cpp_aaf0af7d4d397479a7734afd9e67f7b98}} 
+mutex \mbox{\hyperlink{monte__carlo__test_8cpp_aaf0af7d4d397479a7734afd9e67f7b98}{cout\+\_\+mutex}}
+\begin{DoxyCompactList}\small\item\em a mutex for writing to cout \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{monte__carlo__test_8cpp_a9c13d7165937292b4e6408264bd9bbe5}\label{monte__carlo__test_8cpp_a9c13d7165937292b4e6408264bd9bbe5}} 
+\index{monte\+\_\+carlo\+\_\+test.\+cpp@{monte\+\_\+carlo\+\_\+test.\+cpp}!calc\+\_\+kappa@{calc\+\_\+kappa}}
+\index{calc\+\_\+kappa@{calc\+\_\+kappa}!monte\+\_\+carlo\+\_\+test.\+cpp@{monte\+\_\+carlo\+\_\+test.\+cpp}}
+\subsubsection{\texorpdfstring{calc\+\_\+kappa()}{calc\_kappa()}}
+{\footnotesize\ttfamily template$<$typename Dist $>$ \\
+void calc\+\_\+kappa (\begin{DoxyParamCaption}\item[{unsigned int}]{thread\+\_\+id,  }\item[{size\+\_\+t}]{m,  }\item[{size\+\_\+t}]{m\+\_\+ci\+\_\+limit,  }\item[{vector$<$ int $>$}]{ns,  }\item[{Dist}]{dist,  }\item[{double}]{ci\+\_\+level,  }\item[{\mbox{\hyperlink{structKappaResult}{Kappa\+Result}} $\ast$}]{kp,  }\item[{bool}]{verbose = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+the per thread cacluaiton engine 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em thread\+\_\+id} & the number of the thread used as seed for urng \\
+\hline
+\mbox{\tt in}  & {\em m} & the maximum \# of trials for mad \\
+\hline
+\mbox{\tt in}  & {\em m\+\_\+ci\+\_\+limit} & the maximum \# of trials for ci \\
+\hline
+\mbox{\tt in}  & {\em ns} & the durations to save \\
+\hline
+\mbox{\tt in}  & {\em dist} & the distribution \\
+\hline
+\mbox{\tt in}  & {\em ci\+\_\+level} & the confidence level for kappa\+\_\+ci \\
+\hline
+\mbox{\tt out}  & {\em kp} & the results \\
+\hline
+\mbox{\tt in}  & {\em verbose} & flag for trace infomation \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monte__carlo__test_8cpp_a8154aa5a511b2a682f454661d9c507be}\label{monte__carlo__test_8cpp_a8154aa5a511b2a682f454661d9c507be}} 
+\index{monte\+\_\+carlo\+\_\+test.\+cpp@{monte\+\_\+carlo\+\_\+test.\+cpp}!calculate\+\_\+kappa@{calculate\+\_\+kappa}}
+\index{calculate\+\_\+kappa@{calculate\+\_\+kappa}!monte\+\_\+carlo\+\_\+test.\+cpp@{monte\+\_\+carlo\+\_\+test.\+cpp}}
+\subsubsection{\texorpdfstring{calculate\+\_\+kappa()}{calculate\_kappa()}}
+{\footnotesize\ttfamily template$<$typename Dist $>$ \\
+void calculate\+\_\+kappa (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{m,  }\item[{vector$<$ int $>$}]{ns,  }\item[{Dist}]{dist,  }\item[{double}]{ci\+\_\+level,  }\item[{\mbox{\hyperlink{structKappaResult}{Kappa\+Result}} $\ast$}]{kp,  }\item[{bool}]{verbose = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+calculate kappa for sums of iid variables at specified durations 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em m} & the number of scenarios \\
+\hline
+\mbox{\tt in}  & {\em ns} & the durations to save \\
+\hline
+\mbox{\tt in}  & {\em dist} & the distribution \\
+\hline
+\mbox{\tt in}  & {\em ci\+\_\+level} & the confidence level to use \\
+\hline
+\mbox{\tt out}  & {\em kp} & a ptr to the results \\
+\hline
+\mbox{\tt in}  & {\em verbose} & a flag to generate trace \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monte__carlo__test_8cpp_abef86d57e5a2d6f59d7b6559f8ab0e25}\label{monte__carlo__test_8cpp_abef86d57e5a2d6f59d7b6559f8ab0e25}} 
+\index{monte\+\_\+carlo\+\_\+test.\+cpp@{monte\+\_\+carlo\+\_\+test.\+cpp}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!monte\+\_\+carlo\+\_\+test.\+cpp@{monte\+\_\+carlo\+\_\+test.\+cpp}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
+{\footnotesize\ttfamily ostream\& operator$<$$<$ (\begin{DoxyParamCaption}\item[{ostream \&}]{os,  }\item[{const \mbox{\hyperlink{structKappaResult}{Kappa\+Result}} \&}]{k }\end{DoxyParamCaption})}
+
+
+
+output the results from a single run 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em os} & the output stream \\
+\hline
+\mbox{\tt in}  & {\em k} & the sturct with results \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monte__carlo__test_8cpp_a496196ea52c2a012c21f9dfbce88ff42}\label{monte__carlo__test_8cpp_a496196ea52c2a012c21f9dfbce88ff42}} 
+\index{monte\+\_\+carlo\+\_\+test.\+cpp@{monte\+\_\+carlo\+\_\+test.\+cpp}!quantile@{quantile}}
+\index{quantile@{quantile}!monte\+\_\+carlo\+\_\+test.\+cpp@{monte\+\_\+carlo\+\_\+test.\+cpp}}
+\subsubsection{\texorpdfstring{quantile()}{quantile()}}
+{\footnotesize\ttfamily template$<$typename Real\+Type $>$ \\
+vector$<$Real\+Type$>$ quantile (\begin{DoxyParamCaption}\item[{const vector$<$ Real\+Type $>$ \&}]{x,  }\item[{const vector$<$ Real\+Type $>$ \&}]{probs }\end{DoxyParamCaption})}
+
+
+
+return quantiles of the ensemble of trials 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em x} & the result by trial \\
+\hline
+\mbox{\tt in}  & {\em probs} & the desired probabilities \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monte__carlo__test_8cpp_a8bc12c575bef5adcd18ff54fed138db7}\label{monte__carlo__test_8cpp_a8bc12c575bef5adcd18ff54fed138db7}} 
+\index{monte\+\_\+carlo\+\_\+test.\+cpp@{monte\+\_\+carlo\+\_\+test.\+cpp}!rel\+\_\+err@{rel\+\_\+err}}
+\index{rel\+\_\+err@{rel\+\_\+err}!monte\+\_\+carlo\+\_\+test.\+cpp@{monte\+\_\+carlo\+\_\+test.\+cpp}}
+\subsubsection{\texorpdfstring{rel\+\_\+err()}{rel\_err()}}
+{\footnotesize\ttfamily template$<$typename Real\+Type $>$ \\
+Real\+Type rel\+\_\+err (\begin{DoxyParamCaption}\item[{Real\+Type}]{a,  }\item[{Real\+Type}]{b }\end{DoxyParamCaption})}
+
+
+
+return the relative error between two numbers 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em a} & the first number \\
+\hline
+\mbox{\tt in}  & {\em b} & the second number \\
+\hline
+\end{DoxyParams}

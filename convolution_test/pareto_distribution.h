@@ -1,9 +1,9 @@
 //
-//  pareto_distribution.h
-//  pareto_test
+/// \file pareto_distribution.h
+/// \package how_murh_data
 //
-//  Created by Joseph Dunn on 12/31/18.
-//  Copyright © 2018 Joseph Dunn. All rights reserved.
+/// \author Created by Joseph Dunn on 12/31/18.
+/// \copyright © 2018 Joseph Dunn. All rights reserved.
 //
 
 #ifndef pareto_distribution_h
@@ -33,7 +33,7 @@ using std::to_string;
  * Instantiations of class template pareto_distribution model a
  * Pareto Type 2 distribution. Such a distribution produces random numbers
  * with \f$\displaystyle 1-F(x) = (1+\frac{x-\mu}{\sigma})^{-\alpha}\f$
- * for x > 0.
+ * for \f$ x > \mu \f$.
  *
  */
 template<class RealType = double>
@@ -48,7 +48,7 @@ public:
     
     typedef pareto_distribution distribution_type;
     
-    /** Constructs the parameters of a lognormal_distribution. */
+    /** Constructs the parameters of a pareto_distribution. */
     explicit param_type(RealType alpha_arg,
                         RealType mu_arg = RealType(0.0),
                         RealType sigma_arg = RealType(1.0))
@@ -104,7 +104,7 @@ public:
   : _alpha(alpha_arg), _mu(mu_arg), _sigma(sigma_arg) {}
   
   /**
-   * Constructs a lognormal_distribution from its parameters.
+   * Constructs a pareto_distribution from its parameters.
    */
   explicit pareto_distribution(const param_type& parm)
   : _alpha(parm.alpha()), _mu(parm.mu()), _sigma(parm.sigma()) {}
@@ -113,10 +113,13 @@ public:
   
   /** Returns the alpha parameter of the distribution. */
   RealType alpha() const { return _alpha; }
-  /** Returns the m parameter of the distribution. */
+  /** Returns the mu parameter of the distribution. */
   RealType mu() const { return _mu; }
-  /** Returns the s parameter of the distribution. */
+  /** Returns the sigma parameter of the distribution. */
   RealType sigma() const { return _sigma; }
+  
+  /** Return the alpha of the asymptotic stable distribution */
+  RealType alpha_stable() const {return std::min(RealType(2),alpha());}
   
   /** Returns the smallest value that the distribution can produce. */
   RealType min () const
@@ -145,7 +148,7 @@ public:
     }
   }
   
-  /// the pdf of the distribution
+  /// return the pdf of the distribution
   RealType pdf(RealType x) const {
     if (x < -_mu)
       return RealType(0);
@@ -170,12 +173,8 @@ public:
     return 2 * _sigma * gauss_kronrod<RealType,15>::integrate(f, 0, 2/(_alpha - 1));
   }
   
+  /// return the characteristic function of the distribution
   complex<RealType> characteristic_function(RealType omega) const{
-    /*
-    ExpIntegrand f(1+_alpha, complex<RealType>(0,-_sigma*omega));
-    RealType inf = std::numeric_limits<RealType>::infinity();
-    complex<RealType> expint = gauss_kronrod<RealType,15>::integrate(f, 1, inf);
-     */
     if (omega == 0) return complex<RealType>(1,0);
     complex<RealType> arg(0,-_sigma*omega);
     return (_alpha*expint(1+_alpha, arg))/exp(complex<RealType>(0,_sigma*omega));

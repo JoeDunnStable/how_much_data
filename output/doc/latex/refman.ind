@@ -1,0 +1,234 @@
+\begin{theindex}
+
+  \item {/\+Users/jdunn/\+Documents/\+X\+Code/how\+\_\+much\+\_\+data/convolution\+\_\+test/convolution\+\_\+test.\+cpp}, 
+		\hyperpage{35}
+  \item {/\+Users/jdunn/\+Documents/\+X\+Code/how\+\_\+much\+\_\+data/convolution\+\_\+test/exponential\+\_\+distribution.\+h}, 
+		\hyperpage{39}
+  \item {/\+Users/jdunn/\+Documents/\+X\+Code/how\+\_\+much\+\_\+data/convolution\+\_\+test/lognormal\+\_\+distribution.\+h}, 
+		\hyperpage{39}
+  \item {/\+Users/jdunn/\+Documents/\+X\+Code/how\+\_\+much\+\_\+data/convolution\+\_\+test/pareto\+\_\+distribution.\+h}, 
+		\hyperpage{39}
+  \item {/\+Users/jdunn/\+Documents/\+X\+Code/how\+\_\+much\+\_\+data/convolution\+\_\+test/student\+\_\+t\+\_\+distribution.\+h}, 
+		\hyperpage{40}
+  \item {/\+Users/jdunn/\+Documents/\+X\+Code/how\+\_\+much\+\_\+data/monte\+\_\+carlo\+\_\+test/monte\+\_\+carlo\+\_\+test.\+cpp}, 
+		\hyperpage{40}
+
+  \indexspace
+
+  \item {alpha}
+    \subitem {pareto\+\_\+distribution}, \hyperpage{28}
+    \subitem {pareto\+\_\+distribution\+::param\+\_\+type}, 
+		\hyperpage{24}
+
+  \indexspace
+
+  \item {calc\+\_\+characteristic\+\_\+function}
+    \subitem {convolution\+\_\+test.\+cpp}, \hyperpage{36}
+  \item {calc\+\_\+kappa}
+    \subitem {monte\+\_\+carlo\+\_\+test.\+cpp}, \hyperpage{41}
+  \item {calculate\+\_\+kappa}
+    \subitem {convolution\+\_\+test.\+cpp}, \hyperpage{37}
+    \subitem {monte\+\_\+carlo\+\_\+test.\+cpp}, \hyperpage{42}
+  \item {cdf}
+    \subitem {lognormal\+\_\+distribution}, \hyperpage{19}
+  \item {cf\+\_\+fourier\+\_\+lnx}
+    \subitem {lognormal\+\_\+distribution}, \hyperpage{20}
+  \item {cf\+\_\+fourier\+\_\+x}
+    \subitem {lognormal\+\_\+distribution}, \hyperpage{20}
+  \item {cf\+\_\+lambert\+\_\+w}
+    \subitem {lognormal\+\_\+distribution}, \hyperpage{20}
+  \item {characteristic\+\_\+function}
+    \subitem {lognormal\+\_\+distribution}, \hyperpage{20}
+  \item {ci\+\_\+rel\+\_\+err}
+    \subitem {Kappa\+Result}, \hyperpage{14}
+  \item {confidence\+\_\+interval}
+    \subitem {convolution\+\_\+test.\+cpp}, \hyperpage{37}
+  \item {convolution\+\_\+test.\+cpp}
+    \subitem {calc\+\_\+characteristic\+\_\+function}, \hyperpage{36}
+    \subitem {calculate\+\_\+kappa}, \hyperpage{37}
+    \subitem {confidence\+\_\+interval}, \hyperpage{37}
+    \subitem {factor\+\_\+check}, \hyperpage{38}
+    \subitem {show\+\_\+usage}, \hyperpage{38}
+
+  \indexspace
+
+  \item {exponential\+\_\+distribution$<$ Real\+Type $>$}, 
+		\hyperpage{9}
+
+  \indexspace
+
+  \item {factor\+\_\+check}
+    \subitem {convolution\+\_\+test.\+cpp}, \hyperpage{38}
+
+  \indexspace
+
+  \item {get\+\_\+next}
+    \subitem {Job}, \hyperpage{11}
+
+  \indexspace
+
+  \item {initialize}
+    \subitem {Kappa\+Result}, \hyperpage{13}
+
+  \indexspace
+
+  \item {Job}, \hyperpage{10}
+    \subitem {get\+\_\+next}, \hyperpage{11}
+    \subitem {Job}, \hyperpage{11}
+
+  \indexspace
+
+  \item {Kappa\+Result}, \hyperpage{12}
+    \subitem {ci\+\_\+rel\+\_\+err}, \hyperpage{14}
+    \subitem {initialize}, \hyperpage{13}
+    \subitem {Kappa\+Result}, \hyperpage{13}
+    \subitem {mad\+\_\+rel\+\_\+err}, \hyperpage{14}
+    \subitem {ns}, \hyperpage{14}
+    \subitem {update\+\_\+conf\+\_\+int}, \hyperpage{13}
+    \subitem {update\+\_\+dev}, \hyperpage{14}
+  \item {Kappa\+Results}, \hyperpage{15}
+    \subitem {Kappa\+Results}, \hyperpage{16}
+    \subitem {ns}, \hyperpage{16}
+    \subitem {param\+\_\+label}, \hyperpage{17}
+    \subitem {taleb\+\_\+offset}, \hyperpage{17}
+
+  \indexspace
+
+  \item {lognormal\+\_\+distribution}
+    \subitem {cdf}, \hyperpage{19}
+    \subitem {cf\+\_\+fourier\+\_\+lnx}, \hyperpage{20}
+    \subitem {cf\+\_\+fourier\+\_\+x}, \hyperpage{20}
+    \subitem {cf\+\_\+lambert\+\_\+w}, \hyperpage{20}
+    \subitem {characteristic\+\_\+function}, \hyperpage{20}
+    \subitem {lognormal\+\_\+distribution}, \hyperpage{19}
+    \subitem {mad2}, \hyperpage{21}
+    \subitem {max}, \hyperpage{21}
+    \subitem {min}, \hyperpage{21}
+    \subitem {pdf}, \hyperpage{21}
+    \subitem {quantile}, \hyperpage{22}
+  \item {lognormal\+\_\+distribution$<$ Real\+Type $>$}, \hyperpage{17}
+  \item {Lower}
+    \subitem {Lower}, \hyperpage{22}
+  \item {Lower$<$ Dist $>$}, \hyperpage{22}
+
+  \indexspace
+
+  \item {mad2}
+    \subitem {lognormal\+\_\+distribution}, \hyperpage{21}
+  \item {mad\+\_\+rel\+\_\+err}
+    \subitem {Kappa\+Result}, \hyperpage{14}
+  \item {max}
+    \subitem {lognormal\+\_\+distribution}, \hyperpage{21}
+    \subitem {pareto\+\_\+distribution}, \hyperpage{29}
+  \item {min}
+    \subitem {lognormal\+\_\+distribution}, \hyperpage{21}
+    \subitem {pareto\+\_\+distribution}, \hyperpage{29}
+  \item {monte\+\_\+carlo\+\_\+test.\+cpp}
+    \subitem {calc\+\_\+kappa}, \hyperpage{41}
+    \subitem {calculate\+\_\+kappa}, \hyperpage{42}
+    \subitem {operator$<$$<$}, \hyperpage{42}
+    \subitem {quantile}, \hyperpage{43}
+    \subitem {rel\+\_\+err}, \hyperpage{43}
+  \item {mu}
+    \subitem {pareto\+\_\+distribution}, \hyperpage{29}
+    \subitem {pareto\+\_\+distribution\+::param\+\_\+type}, 
+		\hyperpage{25}
+
+  \indexspace
+
+  \item {ns}
+    \subitem {Kappa\+Result}, \hyperpage{14}
+    \subitem {Kappa\+Results}, \hyperpage{16}
+  \item {Numpunct}, \hyperpage{23}
+
+  \indexspace
+
+  \item {operator!=}
+    \subitem {pareto\+\_\+distribution\+::param\+\_\+type}, 
+		\hyperpage{25}
+  \item {operator$<$$<$}
+    \subitem {monte\+\_\+carlo\+\_\+test.\+cpp}, \hyperpage{42}
+    \subitem {pareto\+\_\+distribution\+::param\+\_\+type}, 
+		\hyperpage{25}
+  \item {operator$>$$>$}
+    \subitem {pareto\+\_\+distribution}, \hyperpage{30}
+    \subitem {pareto\+\_\+distribution\+::param\+\_\+type}, 
+		\hyperpage{26}
+  \item {operator()}
+    \subitem {Upper}, \hyperpage{32}
+  \item {operator==}
+    \subitem {pareto\+\_\+distribution\+::param\+\_\+type}, 
+		\hyperpage{25}
+
+  \indexspace
+
+  \item {param}
+    \subitem {pareto\+\_\+distribution}, \hyperpage{29}
+  \item {param\+\_\+label}
+    \subitem {Kappa\+Results}, \hyperpage{17}
+  \item {param\+\_\+type}
+    \subitem {pareto\+\_\+distribution\+::param\+\_\+type}, 
+		\hyperpage{24}
+  \item {pareto\+\_\+distribution}
+    \subitem {alpha}, \hyperpage{28}
+    \subitem {max}, \hyperpage{29}
+    \subitem {min}, \hyperpage{29}
+    \subitem {mu}, \hyperpage{29}
+    \subitem {operator$>$$>$}, \hyperpage{30}
+    \subitem {param}, \hyperpage{29}
+    \subitem {pareto\+\_\+distribution}, \hyperpage{28}
+    \subitem {sigma}, \hyperpage{30}
+  \item {pareto\+\_\+distribution$<$ Real\+Type $>$}, \hyperpage{26}
+  \item {pareto\+\_\+distribution$<$ Real\+Type $>$\+::param\+\_\+type}, 
+		\hyperpage{23}
+  \item {pareto\+\_\+distribution\+::param\+\_\+type}
+    \subitem {alpha}, \hyperpage{24}
+    \subitem {mu}, \hyperpage{25}
+    \subitem {operator!=}, \hyperpage{25}
+    \subitem {operator$<$$<$}, \hyperpage{25}
+    \subitem {operator$>$$>$}, \hyperpage{26}
+    \subitem {operator==}, \hyperpage{25}
+    \subitem {param\+\_\+type}, \hyperpage{24}
+    \subitem {sigma}, \hyperpage{25}
+  \item {pdf}
+    \subitem {lognormal\+\_\+distribution}, \hyperpage{21}
+
+  \indexspace
+
+  \item {quantile}
+    \subitem {lognormal\+\_\+distribution}, \hyperpage{22}
+    \subitem {monte\+\_\+carlo\+\_\+test.\+cpp}, \hyperpage{43}
+
+  \indexspace
+
+  \item {rel\+\_\+err}
+    \subitem {monte\+\_\+carlo\+\_\+test.\+cpp}, \hyperpage{43}
+
+  \indexspace
+
+  \item {show\+\_\+usage}
+    \subitem {convolution\+\_\+test.\+cpp}, \hyperpage{38}
+  \item {sigma}
+    \subitem {pareto\+\_\+distribution}, \hyperpage{30}
+    \subitem {pareto\+\_\+distribution\+::param\+\_\+type}, 
+		\hyperpage{25}
+  \item {student\+\_\+t\+\_\+distribution$<$ Real\+Type $>$}, 
+		\hyperpage{30}
+
+  \indexspace
+
+  \item {taleb\+\_\+offset}
+    \subitem {Kappa\+Results}, \hyperpage{17}
+
+  \indexspace
+
+  \item {update\+\_\+conf\+\_\+int}
+    \subitem {Kappa\+Result}, \hyperpage{13}
+  \item {update\+\_\+dev}
+    \subitem {Kappa\+Result}, \hyperpage{14}
+  \item {Upper}
+    \subitem {operator()}, \hyperpage{32}
+    \subitem {Upper}, \hyperpage{32}
+  \item {Upper$<$ Dist $>$}, \hyperpage{31}
+
+\end{theindex}

@@ -1,0 +1,255 @@
+\hypertarget{structlognormal__distribution}{}\section{lognormal\+\_\+distribution$<$ Real\+Type $>$ Struct Template Reference}
+\label{structlognormal__distribution}\index{lognormal\+\_\+distribution$<$ Real\+Type $>$@{lognormal\+\_\+distribution$<$ Real\+Type $>$}}
+
+
+a class with functions related to the lognormal distribution.  
+
+
+
+
+{\ttfamily \#include $<$lognormal\+\_\+distribution.\+h$>$}
+
+Inheritance diagram for lognormal\+\_\+distribution$<$ Real\+Type $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{structlognormal__distribution}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structlognormal__distribution_a42052d18c13c0450b81c1687a210489b}{lognormal\+\_\+distribution}} (Real\+Type \mbox{\hyperlink{structlognormal__distribution_aafbea1099645b17baf5a6789e9a17615}{mu}}, Real\+Type \mbox{\hyperlink{structlognormal__distribution_a07a77c8819313d92d38a275ba1c94b55}{sigma}}, int type=1)
+\begin{DoxyCompactList}\small\item\em the constructor for the distribution \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structlognormal__distribution_ad8a1fe52287436f6abd5ce60d91bad2c}\label{structlognormal__distribution_ad8a1fe52287436f6abd5ce60d91bad2c}} 
+{\footnotesize template$<$typename Engine $>$ }\\Real\+Type \mbox{\hyperlink{structlognormal__distribution_ad8a1fe52287436f6abd5ce60d91bad2c}{operator()}} (Engine \&eng)
+\begin{DoxyCompactList}\small\item\em return a random number from the normalized distribution \end{DoxyCompactList}\item 
+Real\+Type \mbox{\hyperlink{structlognormal__distribution_a70784d5a2f900ab772c106e6990f176a}{cdf}} (Real\+Type x, bool lower\+\_\+tail=true) const
+\begin{DoxyCompactList}\small\item\em return the cumulative distribution function \end{DoxyCompactList}\item 
+Real\+Type \mbox{\hyperlink{structlognormal__distribution_a0bf3bc670b041d5015d9a4a88d6220a4}{pdf}} (Real\+Type x) const
+\begin{DoxyCompactList}\small\item\em return the probability density function \end{DoxyCompactList}\item 
+Real\+Type \mbox{\hyperlink{structlognormal__distribution_ae4e4b312d8225523a204f7e12615b8a2}{quantile}} (Real\+Type p) const
+\begin{DoxyCompactList}\small\item\em return the quantile corresponding to a given propability \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structlognormal__distribution_aafbea1099645b17baf5a6789e9a17615}\label{structlognormal__distribution_aafbea1099645b17baf5a6789e9a17615}} 
+Real\+Type \mbox{\hyperlink{structlognormal__distribution_aafbea1099645b17baf5a6789e9a17615}{mu}} () const
+\begin{DoxyCompactList}\small\item\em return the mu parameter of the distribution \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structlognormal__distribution_a07a77c8819313d92d38a275ba1c94b55}\label{structlognormal__distribution_a07a77c8819313d92d38a275ba1c94b55}} 
+Real\+Type \mbox{\hyperlink{structlognormal__distribution_a07a77c8819313d92d38a275ba1c94b55}{sigma}} () const
+\begin{DoxyCompactList}\small\item\em return sigma parameter of the distribution \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structlognormal__distribution_a9ca440314fb852a6dbad4ebd4ddb7573}\label{structlognormal__distribution_a9ca440314fb852a6dbad4ebd4ddb7573}} 
+Real\+Type \mbox{\hyperlink{structlognormal__distribution_a9ca440314fb852a6dbad4ebd4ddb7573}{alpha\+\_\+stable}} () const
+\begin{DoxyCompactList}\small\item\em return the alpha parameter of the asymptotically equivalent stable distribution \end{DoxyCompactList}\item 
+Real\+Type \mbox{\hyperlink{structlognormal__distribution_afedf3fef881e7b36d429b50f34ef1573}{min}} () const
+\begin{DoxyCompactList}\small\item\em Returns the smallest value that the distribution can produce. \end{DoxyCompactList}\item 
+Real\+Type \mbox{\hyperlink{structlognormal__distribution_a2de6f05fe434834c076a67fafc311357}{max}} () const
+\begin{DoxyCompactList}\small\item\em Returns the largest value that the distribution can produce. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structlognormal__distribution_a59152655fdac026bc8a8eb8abadc247f}\label{structlognormal__distribution_a59152655fdac026bc8a8eb8abadc247f}} 
+Real\+Type \mbox{\hyperlink{structlognormal__distribution_a59152655fdac026bc8a8eb8abadc247f}{mean}} () const
+\begin{DoxyCompactList}\small\item\em Return mean of distribution. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structlognormal__distribution_ac7b2143d799524dd1c4e2661225ff6c7}\label{structlognormal__distribution_ac7b2143d799524dd1c4e2661225ff6c7}} 
+Real\+Type \mbox{\hyperlink{structlognormal__distribution_ac7b2143d799524dd1c4e2661225ff6c7}{mad}} () const
+\begin{DoxyCompactList}\small\item\em Return mean absolute deviation of the distribution. \end{DoxyCompactList}\item 
+Real\+Type \mbox{\hyperlink{structlognormal__distribution_a41c93e0aac16e184161abc486a61319a}{mad2}} () const
+\begin{DoxyCompactList}\small\item\em Return the mad of the square of the distribution. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structlognormal__distribution_ab2ecb3bc59203c7ea4acfe8a1d3ab332}\label{structlognormal__distribution_ab2ecb3bc59203c7ea4acfe8a1d3ab332}} 
+Real\+Type \mbox{\hyperlink{structlognormal__distribution_ab2ecb3bc59203c7ea4acfe8a1d3ab332}{ci}} (Real\+Type level=Real\+Type(.\+05)) const
+\begin{DoxyCompactList}\small\item\em Return the confidence interval of the distribution. \end{DoxyCompactList}\item 
+complex$<$ Real\+Type $>$ \mbox{\hyperlink{structlognormal__distribution_adace4ecb55c85b772702ec91a9f5b559}{cf\+\_\+fourier\+\_\+x}} (Real\+Type omega) const
+\begin{DoxyCompactList}\small\item\em return the characteristic function via Fourier integral in x domain \end{DoxyCompactList}\item 
+complex$<$ Real\+Type $>$ \mbox{\hyperlink{structlognormal__distribution_ab0cead5567675a0ff6e3a3a5de1a1967}{cf\+\_\+lambert\+\_\+w}} (Real\+Type omega) const
+\begin{DoxyCompactList}\small\item\em return the approximate characteristic function using Lambert W funciton Much faster than either integral but has problems when sigma $>$ 1 \end{DoxyCompactList}\item 
+complex$<$ Real\+Type $>$ \mbox{\hyperlink{structlognormal__distribution_aa9dcd144beb3c3d8985eb876604a0064}{cf\+\_\+fourier\+\_\+lnx}} (Real\+Type omega) const
+\begin{DoxyCompactList}\small\item\em Return the characteristic function via Fourier integral in ln(x) domain. \end{DoxyCompactList}\item 
+complex$<$ Real\+Type $>$ \mbox{\hyperlink{structlognormal__distribution_ab1a396d60f24c820883c5e593ec39e79}{characteristic\+\_\+function}} (Real\+Type omega) const
+\begin{DoxyCompactList}\small\item\em return the approximate characteristic function using precompluted cubic splines \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structlognormal__distribution_a67d222a97b33b757988e03549c9449bb}\label{structlognormal__distribution_a67d222a97b33b757988e03549c9449bb}} 
+{\footnotesize template$<$class charT , class traits $>$ }\\std\+::basic\+\_\+ostream$<$ charT, traits $>$ \& \mbox{\hyperlink{structlognormal__distribution_a67d222a97b33b757988e03549c9449bb}{operator$<$$<$}} (std\+::basic\+\_\+ostream$<$ charT, traits $>$ \&os, const \mbox{\hyperlink{structlognormal__distribution}{lognormal\+\_\+distribution}} \&dist)
+\begin{DoxyCompactList}\small\item\em Write distribution to std\+::ostream. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Real\+Type = double$>$\newline
+struct lognormal\+\_\+distribution$<$ Real\+Type $>$}
+
+a class with functions related to the lognormal distribution. 
+
+Describes a random variable distributed as exp(sigma X + mu) where X is normally distributed 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structlognormal__distribution_a42052d18c13c0450b81c1687a210489b}\label{structlognormal__distribution_a42052d18c13c0450b81c1687a210489b}} 
+\index{lognormal\+\_\+distribution@{lognormal\+\_\+distribution}!lognormal\+\_\+distribution@{lognormal\+\_\+distribution}}
+\index{lognormal\+\_\+distribution@{lognormal\+\_\+distribution}!lognormal\+\_\+distribution@{lognormal\+\_\+distribution}}
+\subsubsection{\texorpdfstring{lognormal\+\_\+distribution()}{lognormal\_distribution()}}
+{\footnotesize\ttfamily template$<$class Real\+Type  = double$>$ \\
+\mbox{\hyperlink{structlognormal__distribution}{lognormal\+\_\+distribution}}$<$ Real\+Type $>$\+::\mbox{\hyperlink{structlognormal__distribution}{lognormal\+\_\+distribution}} (\begin{DoxyParamCaption}\item[{Real\+Type}]{mu,  }\item[{Real\+Type}]{sigma,  }\item[{int}]{type = {\ttfamily 1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+the constructor for the distribution 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em mu} & the mu parameter \\
+\hline
+\mbox{\tt in}  & {\em sigma} & the sigma parameter \\
+\hline
+\mbox{\tt in}  & {\em type} & type of cf calculaiton 1 ln(x), 2 x, 3 w, 4 spline \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structlognormal__distribution_a70784d5a2f900ab772c106e6990f176a}\label{structlognormal__distribution_a70784d5a2f900ab772c106e6990f176a}} 
+\index{lognormal\+\_\+distribution@{lognormal\+\_\+distribution}!cdf@{cdf}}
+\index{cdf@{cdf}!lognormal\+\_\+distribution@{lognormal\+\_\+distribution}}
+\subsubsection{\texorpdfstring{cdf()}{cdf()}}
+{\footnotesize\ttfamily template$<$class Real\+Type  = double$>$ \\
+Real\+Type \mbox{\hyperlink{structlognormal__distribution}{lognormal\+\_\+distribution}}$<$ Real\+Type $>$\+::cdf (\begin{DoxyParamCaption}\item[{Real\+Type}]{x,  }\item[{bool}]{lower\+\_\+tail = {\ttfamily true} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+return the cumulative distribution function 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em x} & the quantile variable \\
+\hline
+\mbox{\tt in}  & {\em lower\+\_\+tail} & flag indicating which tail to use \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structlognormal__distribution_aa9dcd144beb3c3d8985eb876604a0064}\label{structlognormal__distribution_aa9dcd144beb3c3d8985eb876604a0064}} 
+\index{lognormal\+\_\+distribution@{lognormal\+\_\+distribution}!cf\+\_\+fourier\+\_\+lnx@{cf\+\_\+fourier\+\_\+lnx}}
+\index{cf\+\_\+fourier\+\_\+lnx@{cf\+\_\+fourier\+\_\+lnx}!lognormal\+\_\+distribution@{lognormal\+\_\+distribution}}
+\subsubsection{\texorpdfstring{cf\+\_\+fourier\+\_\+lnx()}{cf\_fourier\_lnx()}}
+{\footnotesize\ttfamily template$<$class Real\+Type  = double$>$ \\
+complex$<$Real\+Type$>$ \mbox{\hyperlink{structlognormal__distribution}{lognormal\+\_\+distribution}}$<$ Real\+Type $>$\+::cf\+\_\+fourier\+\_\+lnx (\begin{DoxyParamCaption}\item[{Real\+Type}]{omega }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return the characteristic function via Fourier integral in ln(x) domain. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em omega} & the angular frequency \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structlognormal__distribution_adace4ecb55c85b772702ec91a9f5b559}\label{structlognormal__distribution_adace4ecb55c85b772702ec91a9f5b559}} 
+\index{lognormal\+\_\+distribution@{lognormal\+\_\+distribution}!cf\+\_\+fourier\+\_\+x@{cf\+\_\+fourier\+\_\+x}}
+\index{cf\+\_\+fourier\+\_\+x@{cf\+\_\+fourier\+\_\+x}!lognormal\+\_\+distribution@{lognormal\+\_\+distribution}}
+\subsubsection{\texorpdfstring{cf\+\_\+fourier\+\_\+x()}{cf\_fourier\_x()}}
+{\footnotesize\ttfamily template$<$class Real\+Type  = double$>$ \\
+complex$<$Real\+Type$>$ \mbox{\hyperlink{structlognormal__distribution}{lognormal\+\_\+distribution}}$<$ Real\+Type $>$\+::cf\+\_\+fourier\+\_\+x (\begin{DoxyParamCaption}\item[{Real\+Type}]{omega }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+return the characteristic function via Fourier integral in x domain 
+
+
+\begin{DoxyParams}{Parameters}
+{\em omega} & the angular frequency \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structlognormal__distribution_ab0cead5567675a0ff6e3a3a5de1a1967}\label{structlognormal__distribution_ab0cead5567675a0ff6e3a3a5de1a1967}} 
+\index{lognormal\+\_\+distribution@{lognormal\+\_\+distribution}!cf\+\_\+lambert\+\_\+w@{cf\+\_\+lambert\+\_\+w}}
+\index{cf\+\_\+lambert\+\_\+w@{cf\+\_\+lambert\+\_\+w}!lognormal\+\_\+distribution@{lognormal\+\_\+distribution}}
+\subsubsection{\texorpdfstring{cf\+\_\+lambert\+\_\+w()}{cf\_lambert\_w()}}
+{\footnotesize\ttfamily template$<$class Real\+Type  = double$>$ \\
+complex$<$Real\+Type$>$ \mbox{\hyperlink{structlognormal__distribution}{lognormal\+\_\+distribution}}$<$ Real\+Type $>$\+::cf\+\_\+lambert\+\_\+w (\begin{DoxyParamCaption}\item[{Real\+Type}]{omega }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+return the approximate characteristic function using Lambert W funciton Much faster than either integral but has problems when sigma $>$ 1 
+
+
+\begin{DoxyParams}{Parameters}
+{\em omega} & the angular frequency \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structlognormal__distribution_ab1a396d60f24c820883c5e593ec39e79}\label{structlognormal__distribution_ab1a396d60f24c820883c5e593ec39e79}} 
+\index{lognormal\+\_\+distribution@{lognormal\+\_\+distribution}!characteristic\+\_\+function@{characteristic\+\_\+function}}
+\index{characteristic\+\_\+function@{characteristic\+\_\+function}!lognormal\+\_\+distribution@{lognormal\+\_\+distribution}}
+\subsubsection{\texorpdfstring{characteristic\+\_\+function()}{characteristic\_function()}}
+{\footnotesize\ttfamily template$<$class Real\+Type  = double$>$ \\
+complex$<$Real\+Type$>$ \mbox{\hyperlink{structlognormal__distribution}{lognormal\+\_\+distribution}}$<$ Real\+Type $>$\+::characteristic\+\_\+function (\begin{DoxyParamCaption}\item[{Real\+Type}]{omega }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+return the approximate characteristic function using precompluted cubic splines 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em omega} & the angular frequency \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structlognormal__distribution_a41c93e0aac16e184161abc486a61319a}\label{structlognormal__distribution_a41c93e0aac16e184161abc486a61319a}} 
+\index{lognormal\+\_\+distribution@{lognormal\+\_\+distribution}!mad2@{mad2}}
+\index{mad2@{mad2}!lognormal\+\_\+distribution@{lognormal\+\_\+distribution}}
+\subsubsection{\texorpdfstring{mad2()}{mad2()}}
+{\footnotesize\ttfamily template$<$class Real\+Type  = double$>$ \\
+Real\+Type \mbox{\hyperlink{structlognormal__distribution}{lognormal\+\_\+distribution}}$<$ Real\+Type $>$\+::mad2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return the mad of the square of the distribution. 
+
+this is the approximation used by Taleb \mbox{\Hypertarget{structlognormal__distribution_a2de6f05fe434834c076a67fafc311357}\label{structlognormal__distribution_a2de6f05fe434834c076a67fafc311357}} 
+\index{lognormal\+\_\+distribution@{lognormal\+\_\+distribution}!max@{max}}
+\index{max@{max}!lognormal\+\_\+distribution@{lognormal\+\_\+distribution}}
+\subsubsection{\texorpdfstring{max()}{max()}}
+{\footnotesize\ttfamily template$<$class Real\+Type  = double$>$ \\
+Real\+Type \mbox{\hyperlink{structlognormal__distribution}{lognormal\+\_\+distribution}}$<$ Real\+Type $>$\+::max (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the largest value that the distribution can produce. 
+
+\mbox{\Hypertarget{structlognormal__distribution_afedf3fef881e7b36d429b50f34ef1573}\label{structlognormal__distribution_afedf3fef881e7b36d429b50f34ef1573}} 
+\index{lognormal\+\_\+distribution@{lognormal\+\_\+distribution}!min@{min}}
+\index{min@{min}!lognormal\+\_\+distribution@{lognormal\+\_\+distribution}}
+\subsubsection{\texorpdfstring{min()}{min()}}
+{\footnotesize\ttfamily template$<$class Real\+Type  = double$>$ \\
+Real\+Type \mbox{\hyperlink{structlognormal__distribution}{lognormal\+\_\+distribution}}$<$ Real\+Type $>$\+::min (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the smallest value that the distribution can produce. 
+
+\mbox{\Hypertarget{structlognormal__distribution_a0bf3bc670b041d5015d9a4a88d6220a4}\label{structlognormal__distribution_a0bf3bc670b041d5015d9a4a88d6220a4}} 
+\index{lognormal\+\_\+distribution@{lognormal\+\_\+distribution}!pdf@{pdf}}
+\index{pdf@{pdf}!lognormal\+\_\+distribution@{lognormal\+\_\+distribution}}
+\subsubsection{\texorpdfstring{pdf()}{pdf()}}
+{\footnotesize\ttfamily template$<$class Real\+Type  = double$>$ \\
+Real\+Type \mbox{\hyperlink{structlognormal__distribution}{lognormal\+\_\+distribution}}$<$ Real\+Type $>$\+::pdf (\begin{DoxyParamCaption}\item[{Real\+Type}]{x }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+return the probability density function 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & the quantile variable \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structlognormal__distribution_ae4e4b312d8225523a204f7e12615b8a2}\label{structlognormal__distribution_ae4e4b312d8225523a204f7e12615b8a2}} 
+\index{lognormal\+\_\+distribution@{lognormal\+\_\+distribution}!quantile@{quantile}}
+\index{quantile@{quantile}!lognormal\+\_\+distribution@{lognormal\+\_\+distribution}}
+\subsubsection{\texorpdfstring{quantile()}{quantile()}}
+{\footnotesize\ttfamily template$<$class Real\+Type  = double$>$ \\
+Real\+Type \mbox{\hyperlink{structlognormal__distribution}{lognormal\+\_\+distribution}}$<$ Real\+Type $>$\+::quantile (\begin{DoxyParamCaption}\item[{Real\+Type}]{p }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+return the quantile corresponding to a given propability 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & the target probability \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/jdunn/\+Documents/\+X\+Code/how\+\_\+much\+\_\+data/convolution\+\_\+test/\mbox{\hyperlink{lognormal__distribution_8h}{lognormal\+\_\+distribution.\+h}}\end{DoxyCompactItemize}

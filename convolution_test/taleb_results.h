@@ -1,10 +1,8 @@
 //
-//  taleb_results.h
-//  pareto_test
+/// \file taleb_results.h
+//  \packagepareto_test
 //
-//  Created by Joseph Dunn on 1/12/19.
-//  Copyright © 2019 Joseph Dunn. All rights reserved.
-//
+/// The table of results from Taleb's paper "how Much Data Do You Need"
 
 #ifndef taleb_results_h
 #define taleb_results_h

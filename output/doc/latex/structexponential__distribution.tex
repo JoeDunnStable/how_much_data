@@ -1,0 +1,78 @@
+\hypertarget{structexponential__distribution}{}\section{exponential\+\_\+distribution$<$ Real\+Type $>$ Struct Template Reference}
+\label{structexponential__distribution}\index{exponential\+\_\+distribution$<$ Real\+Type $>$@{exponential\+\_\+distribution$<$ Real\+Type $>$}}
+
+
+instnaces of sturct \mbox{\hyperlink{structexponential__distribution}{exponential\+\_\+distribution}} generate random variates for exponential distribution  
+
+
+
+
+{\ttfamily \#include $<$exponential\+\_\+distribution.\+h$>$}
+
+Inheritance diagram for exponential\+\_\+distribution$<$ Real\+Type $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{structexponential__distribution}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structexponential__distribution_a7524afbe4ae135246eec0b9900e5fb74}\label{structexponential__distribution_a7524afbe4ae135246eec0b9900e5fb74}} 
+\mbox{\hyperlink{structexponential__distribution_a7524afbe4ae135246eec0b9900e5fb74}{exponential\+\_\+distribution}} (Real\+Type \mbox{\hyperlink{structexponential__distribution_a7fcde2f1a6cd1aee2c13300df3663a2f}{lambda}})
+\begin{DoxyCompactList}\small\item\em constructor give lambda \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structexponential__distribution_af1d1176f210ca6d4172e916fa71d5266}\label{structexponential__distribution_af1d1176f210ca6d4172e916fa71d5266}} 
+Real\+Type \mbox{\hyperlink{structexponential__distribution_af1d1176f210ca6d4172e916fa71d5266}{cdf}} (Real\+Type x, bool lower\+\_\+tail=true) const
+\begin{DoxyCompactList}\small\item\em return the cdf or the complement of the cdf \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structexponential__distribution_a1156a5414644c632e98384e09c540a97}\label{structexponential__distribution_a1156a5414644c632e98384e09c540a97}} 
+Real\+Type \mbox{\hyperlink{structexponential__distribution_a1156a5414644c632e98384e09c540a97}{pdf}} (Real\+Type x) const
+\begin{DoxyCompactList}\small\item\em return the pdf given x \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structexponential__distribution_abaebff9dc27bac0b87dfa5fcc8acdb76}\label{structexponential__distribution_abaebff9dc27bac0b87dfa5fcc8acdb76}} 
+Real\+Type \mbox{\hyperlink{structexponential__distribution_abaebff9dc27bac0b87dfa5fcc8acdb76}{quantile}} (Real\+Type p) const
+\begin{DoxyCompactList}\small\item\em return the quantile give the probability p \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structexponential__distribution_a7fcde2f1a6cd1aee2c13300df3663a2f}\label{structexponential__distribution_a7fcde2f1a6cd1aee2c13300df3663a2f}} 
+Real\+Type \mbox{\hyperlink{structexponential__distribution_a7fcde2f1a6cd1aee2c13300df3663a2f}{lambda}} () const
+\begin{DoxyCompactList}\small\item\em return the lambda paramter of the distribution \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structexponential__distribution_a33770c28a6a1d0ab2ffe2bc288cec696}\label{structexponential__distribution_a33770c28a6a1d0ab2ffe2bc288cec696}} 
+Real\+Type \mbox{\hyperlink{structexponential__distribution_a33770c28a6a1d0ab2ffe2bc288cec696}{alpha\+\_\+stable}} () const
+\begin{DoxyCompactList}\small\item\em return the alpha of the asymptotic stable distribution $\ast$/ \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structexponential__distribution_a3ee0b29c9dd16928c1b53321b361e9fd}\label{structexponential__distribution_a3ee0b29c9dd16928c1b53321b361e9fd}} 
+Real\+Type \mbox{\hyperlink{structexponential__distribution_a3ee0b29c9dd16928c1b53321b361e9fd}{mean}} () const
+\begin{DoxyCompactList}\small\item\em Return mean of distribution. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structexponential__distribution_a66bcbe0d4b5ddc9c8b1d1a04ddfbcb6d}\label{structexponential__distribution_a66bcbe0d4b5ddc9c8b1d1a04ddfbcb6d}} 
+Real\+Type \mbox{\hyperlink{structexponential__distribution_a66bcbe0d4b5ddc9c8b1d1a04ddfbcb6d}{mad}} () const
+\begin{DoxyCompactList}\small\item\em Return mean average deviation of the distribution. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structexponential__distribution_a8e7d3d592e34ea909a7b0c8bb4807b66}\label{structexponential__distribution_a8e7d3d592e34ea909a7b0c8bb4807b66}} 
+Real\+Type \mbox{\hyperlink{structexponential__distribution_a8e7d3d592e34ea909a7b0c8bb4807b66}{mad2}} () const
+\begin{DoxyCompactList}\small\item\em Return the mad of the square of the distribution. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structexponential__distribution_a82795203f013b479354e595a86a4e9c7}\label{structexponential__distribution_a82795203f013b479354e595a86a4e9c7}} 
+Real\+Type \mbox{\hyperlink{structexponential__distribution_a82795203f013b479354e595a86a4e9c7}{ci}} (Real\+Type level=Real\+Type(.\+05)) const
+\begin{DoxyCompactList}\small\item\em Return the confidence interval of the distribution. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structexponential__distribution_a2bf78de88b60b9a71773e7eed995f6af}\label{structexponential__distribution_a2bf78de88b60b9a71773e7eed995f6af}} 
+complex$<$ Real\+Type $>$ \mbox{\hyperlink{structexponential__distribution_a2bf78de88b60b9a71773e7eed995f6af}{characteristic\+\_\+function}} (Real\+Type omega) const
+\begin{DoxyCompactList}\small\item\em return the characteristic function of the distribution given omega \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structexponential__distribution_a0acc132bb35454ce556d35528bdfe8f0}\label{structexponential__distribution_a0acc132bb35454ce556d35528bdfe8f0}} 
+{\footnotesize template$<$class charT , class traits $>$ }\\std\+::basic\+\_\+ostream$<$ charT, traits $>$ \& \mbox{\hyperlink{structexponential__distribution_a0acc132bb35454ce556d35528bdfe8f0}{operator$<$$<$}} (std\+::basic\+\_\+ostream$<$ charT, traits $>$ \&os, const \mbox{\hyperlink{structexponential__distribution}{exponential\+\_\+distribution}} \&dist)
+\begin{DoxyCompactList}\small\item\em Write distribution to std\+::ostream. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Real\+Type = double$>$\newline
+struct exponential\+\_\+distribution$<$ Real\+Type $>$}
+
+instnaces of sturct \mbox{\hyperlink{structexponential__distribution}{exponential\+\_\+distribution}} generate random variates for exponential distribution 
+
+\begin{DoxyAuthor}{Author}
+Created by Joseph Dunn on 1/3/19. 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+© 2019 Joseph Dunn. All rights reserved. 
+\end{DoxyCopyright}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/jdunn/\+Documents/\+X\+Code/how\+\_\+much\+\_\+data/convolution\+\_\+test/\mbox{\hyperlink{exponential__distribution_8h}{exponential\+\_\+distribution.\+h}}\end{DoxyCompactItemize}
