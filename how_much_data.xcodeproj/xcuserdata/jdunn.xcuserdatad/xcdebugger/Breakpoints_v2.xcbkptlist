@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "convolution_test/convolution_test.cpp"
-            timestampString = "571337444.391741"
+            timestampString = "572306576.707628"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "449"
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "convolution_test/pareto_distribution.h"
-            timestampString = "570073019.789121"
+            timestampString = "572478553.452606"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "363"
-            endingLineNumber = "363"
+            startingLineNumber = "395"
+            endingLineNumber = "395"
             landmarkName = "expint_as_fraction(RealType n, std::complex&lt;RealType&gt; const&amp; z)"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "convolution_test/pareto_distribution.h"
-            timestampString = "570073019.789183"
+            timestampString = "572478553.452675"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "376"
-            endingLineNumber = "376"
+            startingLineNumber = "408"
+            endingLineNumber = "408"
             landmarkName = "expint_as_series(RealType n, std::complex&lt;RealType&gt; const&amp; z)"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "convolution_test/pareto_distribution.h"
-            timestampString = "570073019.789242"
+            timestampString = "572478553.452733"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "385"
-            endingLineNumber = "385"
+            startingLineNumber = "417"
+            endingLineNumber = "417"
             landmarkName = "expint_as_series(RealType n, std::complex&lt;RealType&gt; const&amp; z)"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,7 +154,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "convolution_test/convolution_test.cpp"
-            timestampString = "571337444.392321"
+            timestampString = "572306576.707755"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "217"
@@ -170,7 +170,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "convolution_test/convolution_test.cpp"
-            timestampString = "571337444.392616"
+            timestampString = "572306576.707818"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "181"
@@ -186,7 +186,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "convolution_test/convolution_test.cpp"
-            timestampString = "571337444.392917"
+            timestampString = "572306576.707882"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "192"
@@ -202,7 +202,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "convolution_test/convolution_test.cpp"
-            timestampString = "571337444.393194"
+            timestampString = "572306576.707971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "620"
@@ -218,13 +218,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "convolution_test/lognormal_distribution.h"
-            timestampString = "571097156.686317"
+            timestampString = "573082989.559957"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "356"
-            endingLineNumber = "356"
-            landmarkName = "CFIntegrandLnX"
-            landmarkType = "3">
+            startingLineNumber = "943"
+            endingLineNumber = "943"
+            landmarkName = "operator() (RealType s)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "pinelis_taleb_test/pinelis_taleb_test.cpp"
+            timestampString = "573165854.370221"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "586"
+            endingLineNumber = "586">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -234,12 +248,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "convolution_test/lognormal_distribution.h"
-            timestampString = "571097156.6868401"
+            timestampString = "573082989.560397"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
-            landmarkName = "cf_fourier_x (RealType omega"
+            startingLineNumber = "662"
+            endingLineNumber = "662"
+            landmarkName = "operator() (RealType s)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "convolution_test/lognormal_distribution.h"
+            timestampString = "573082989.560465"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "664"
+            endingLineNumber = "664"
+            landmarkName = "operator() (RealType s)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "convolution_test/lognormal_distribution.h"
+            timestampString = "573082989.560532"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
+            landmarkName = "cf_series(complex&lt;RealType&gt; omega, ///&lt; the angular frequency RealType* _error = nullptr, ///&lt; [out] the integration error RealType* _l1_norm = nullptr, ///&lt; [out] the l1 norm int* _neval = nullptr"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -250,13 +296,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "convolution_test/lognormal_distribution.h"
-            timestampString = "571097156.687189"
+            timestampString = "573082989.560595"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "367"
-            endingLineNumber = "367"
-            landmarkName = "CFSpline (int m, ///&lt; number of samples between 0 &amp; omegamax RealType omegamax, ///&lt; the maximum omega int n, ///&lt; the number of knots between o &amp; omegamax const lognormal_distribution *ln, ///&lt; the distribution int type )"
-            landmarkType = "7">
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "_raw_mean(exp(mu+sigma*sigma/2))"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -266,13 +312,76 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "convolution_test/lognormal_distribution.h"
-            timestampString = "571097156.687494"
+            timestampString = "573082989.56066"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "385"
-            endingLineNumber = "385"
-            landmarkName = "CFSpline (int m, ///&lt; number of samples between 0 &amp; omegamax RealType omegamax, ///&lt; the maximum omega int n, ///&lt; the number of knots between o &amp; omegamax const lognormal_distribution *ln, ///&lt; the distribution int type )"
-            landmarkType = "7">
+            startingLineNumber = "323"
+            endingLineNumber = "323"
+            landmarkName = "cf_fourier_mixed(complex&lt;RealType&gt; omega, ///&lt; the angular frequency RealType* _error = nullptr, ///&lt; [out] the integration error RealType* _l1_norm = nullptr, ///&lt; [out] the int* _neval = nullptr"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "convolution_test/lognormal_distribution.h"
+            timestampString = "573082989.560721"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "851"
+            endingLineNumber = "851"
+            landmarkName = "cfprime(complex&lt;RealType&gt; omega, ///&lt; the angular frequency RealType* _error = nullptr, ///&lt; [out] the integration error RealType* _l1_norm = nullptr, ///&lt; [out] the int* _neval = nullptr"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "std::__1::complex&lt;double&gt; lognormal_distribution&lt;double&gt;::cfprime&lt;lognormal_distribution&lt;double&gt;::ContourZeroImag&gt;(std::__1::complex&lt;double&gt;, double*, double*, int*)"
+                  moduleName = "log_normal_test"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jdunn/Documents/XCode/how_much_data/convolution_test/lognormal_distribution.h"
+                  timestampString = "573071800.1292371"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "837"
+                  endingLineNumber = "837"
+                  offsetFromSymbolStart = "120">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "std::__1::complex&lt;double&gt; lognormal_distribution&lt;double&gt;::cfprime&lt;lognormal_distribution&lt;double&gt;::ContourZeroExponentImag&gt;(std::__1::complex&lt;double&gt;, double*, double*, int*)"
+                  moduleName = "log_normal_test"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jdunn/Documents/XCode/how_much_data/convolution_test/lognormal_distribution.h"
+                  timestampString = "573071800.132899"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "837"
+                  endingLineNumber = "837"
+                  offsetFromSymbolStart = "121">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "std::__1::complex&lt;double&gt; lognormal_distribution&lt;double&gt;::cfprime&lt;lognormal_distribution&lt;double&gt;::ContourPi2Imag&gt;(std::__1::complex&lt;double&gt;, double*, double*, int*)"
+                  moduleName = "log_normal_test"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jdunn/Documents/XCode/how_much_data/convolution_test/lognormal_distribution.h"
+                  timestampString = "573071800.136561"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "837"
+                  endingLineNumber = "837"
+                  offsetFromSymbolStart = "121">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

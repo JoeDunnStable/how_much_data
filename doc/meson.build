@@ -2,13 +2,12 @@ doxygen = find_program('doxygen')
 
 if(doxygen.found())
   src_doxygen = [meson.source_root()+'/README.md', \
-                 meson.source_root()+'/convolution_test/convolution_test.cpp', \
-                 meson.source_root()+'/convolution_test/pareto_distribution.h', \
-                 meson.source_root()+'/convolution_test/student_t_distribution.h', \
-                 meson.source_root()+'/convolution_test/exponential_distribution.h', \
-                 meson.source_root()+'/convolution_test/lognormal_distribution.h', \
+                 meson.source_root()+'/include/pareto_distribution.h', \
+                 meson.source_root()+'/include/student_t_distribution.h', \
+                 meson.source_root()+'/include/exponential_distribution.h', \
+                 meson.source_root()+'/include/lognormal_distribution.h', \
                  meson.source_root()+'/monte_carlo_test/monte_carlo_test.cpp', \
-		 meson.source_root()+'/lognormal_test/lognormal_test.cpp']
+		 meson.source_root()+'/pinelis_taleb_test/pinelis_taleb_test.cpp']
 
 	doc_config = configuration_data()
 	doc_config.set('PACKAGE_NAME', meson.project_name())

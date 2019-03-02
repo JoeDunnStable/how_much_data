@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['rel_5ferr',['rel_err',['../convolution__test_8cpp.html#a8bc12c575bef5adcd18ff54fed138db7',1,'rel_err(RealType a, RealType b):&#160;convolution_test.cpp'],['../monte__carlo__test_8cpp.html#a8bc12c575bef5adcd18ff54fed138db7',1,'rel_err(RealType a, RealType b):&#160;monte_carlo_test.cpp']]],
-  ['reset',['reset',['../classpareto__distribution.html#afaf787428998d91ac739d2a5356f3e20',1,'pareto_distribution']]]
+  ['update_5fconf_5fint',['update_conf_int',['../structKappaResult.html#a8dd8b127d34165637298435377489cff',1,'KappaResult']]],
+  ['update_5fdev',['update_dev',['../structKappaResult.html#ad9a40b7ecb6f56e1e868fd559e07026f',1,'KappaResult']]]
 ];

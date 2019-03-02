@@ -1,6 +1,9 @@
 var searchData=
 [
-  ['lambda',['lambda',['../structexponential__distribution.html#a7fcde2f1a6cd1aee2c13300df3663a2f',1,'exponential_distribution']]],
-  ['lognormal_5fdistribution',['lognormal_distribution',['../structlognormal__distribution.html#a42052d18c13c0450b81c1687a210489b',1,'lognormal_distribution']]],
-  ['lower',['Lower',['../classLower.html#a7b15b81ad8c6819daf8250db2ef48d00',1,'Lower']]]
+  ['param',['param',['../classpareto__distribution.html#ae56d30e604eb00dd286f99cdf6764bda',1,'pareto_distribution::param() const'],['../classpareto__distribution.html#aea6ab161e197e7350f5477492d00fe59',1,'pareto_distribution::param(const param_type &amp;parm)']]],
+  ['param_5ftype',['param_type',['../classpareto__distribution_1_1param__type.html#ad7baf0b5bbef69d2ffe204e40c6db9dc',1,'pareto_distribution::param_type']]],
+  ['pareto_5fdistribution',['pareto_distribution',['../classpareto__distribution.html#a667f195859ce355378510b79c2a6e6ee',1,'pareto_distribution::pareto_distribution(RealType alpha_arg, RealType mu_arg=RealType(0.0), RealType sigma_arg=RealType(1.0))'],['../classpareto__distribution.html#ad08df2fa3ced8fec377e35fa9ded260b',1,'pareto_distribution::pareto_distribution(const param_type &amp;parm)']]],
+  ['pdf',['pdf',['../classpareto__distribution.html#a8cb3ee0a57c036cd9caecf515db32319',1,'pareto_distribution::pdf()'],['../structstudent__t__distribution.html#a811239357f8d470db5c4c45bf0ddf996',1,'student_t_distribution::pdf()'],['../structexponential__distribution.html#a1156a5414644c632e98384e09c540a97',1,'exponential_distribution::pdf()'],['../structlognormal__distribution.html#a0bf3bc670b041d5015d9a4a88d6220a4',1,'lognormal_distribution::pdf()']]],
+  ['pinelistalebintegrand',['PinelisTalebIntegrand',['../classPinelisTalebIntegrand.html#a4122d67af083c9b7f38cc94ed85e99f7',1,'PinelisTalebIntegrand::PinelisTalebIntegrand()'],['../classPinelisTalebIntegrand_3_01pareto__distribution_3_4_01_4.html#a518cd7558e51a20773b82d71b5eaa817',1,'PinelisTalebIntegrand&lt; pareto_distribution&lt;&gt; &gt;::PinelisTalebIntegrand()'],['../classPinelisTalebIntegrand_3_01exponential__distribution_3_4_01_4.html#acf3ed4eb347c425dfd458300ac1e717a',1,'PinelisTalebIntegrand&lt; exponential_distribution&lt;&gt; &gt;::PinelisTalebIntegrand()']]],
+  ['print_5ffourier_5fintegrand',['print_fourier_integrand',['../structlognormal__distribution.html#abaff10903e63f6b4a45a79dcf36e3ce3',1,'lognormal_distribution']]]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['param',['param',['../structKappaResult.html#ac8485e1a2316db98a89d0aecc39e3389',1,'KappaResult']]],
-  ['param_5flabel',['param_label',['../structKappaResults.html#a2b42189a3b7690aedacd6d77c05a1c5b',1,'KappaResults']]]
+  ['sum_5fabs_5fdev',['sum_abs_dev',['../structKappaResult.html#ab68b3871ee5609c7891ca97336e4e5ce',1,'KappaResult']]],
+  ['sum_5fdev',['sum_dev',['../structKappaResult.html#a133a1322d9761ce51027209c1b344693',1,'KappaResult']]]
 ];

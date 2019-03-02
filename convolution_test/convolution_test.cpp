@@ -358,11 +358,11 @@ void calculate_kappa(double delta,    ///< [in] the step size in x / dist.mad
 {
   double mean = dist.mean();
   delta *= dist.mad();
-  delta2 *= dist.mad();
+  double target_mad = delta2 * dist.mad();
   if (verbose) {
     cout << scientific
          << "Rescaled delta  = " << setw(12) << setprecision(3) << delta << endl
-         << "Rescaled delta2 = " << setw(12) << setprecision(3) << delta2 << endl
+         << "Target tail MAD = " << setw(12) << setprecision(3) << target_mad << endl
          << defaultfloat;
   }
   double alpha_stable = dist.alpha_stable();
@@ -372,7 +372,7 @@ void calculate_kappa(double delta,    ///< [in] the step size in x / dist.mad
   // Calculate xmax0 and xmin0
   // so that the contriubution of the tails to MAD is small
 
-  Upper<Dist> upper(delta2, dist);
+  Upper<Dist> upper(target_mad, dist);
   double guess = dist.quantile(1-delta2/2);
   double factor = 2;
   bool rising = false;
@@ -382,7 +382,7 @@ void calculate_kappa(double delta,    ///< [in] the step size in x / dist.mad
                                                      rising, tol, max_iter);
   double xmax0 = root.second - mean;
   
-  Lower<Dist> lower(delta2, dist);
+  Lower<Dist> lower(target_mad, dist);
   guess = dist.quantile(delta2/2);
   rising = true;
   max_iter = 1000;

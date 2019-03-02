@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['param_5ftype',['param_type',['../classpareto__distribution_1_1param__type.html',1,'pareto_distribution']]],
-  ['pareto_5fdistribution',['pareto_distribution',['../classpareto__distribution.html',1,'']]]
+  ['student_5ft_5fdistribution',['student_t_distribution',['../structstudent__t__distribution.html',1,'']]]
 ];

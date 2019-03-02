@@ -1,10 +1,4 @@
 var searchData=
 [
-  ['nchunk',['nchunk',['../structJob.html#a4fa956498fa1a349492dc9ab383b7bc4',1,'Job']]],
-  ['ncurrent',['ncurrent',['../structJob.html#a821370334556accb0865da81033a9775',1,'Job']]],
-  ['nmax',['nmax',['../structJob.html#abb2b05e989a4838a3a0c5807340282ac',1,'Job']]],
-  ['nmin',['nmin',['../structJob.html#ac0ad3904b198ae1447abd16e1108a14c',1,'Job']]],
-  ['ns',['ns',['../structKappaResult.html#a48d379e6c356ee537839917a67a21c86',1,'KappaResult::ns()'],['../structKappaResults.html#a4e6a25c186ed54790616474d54a618c3',1,'KappaResults::ns()']]],
-  ['nsize',['nsize',['../structKappaResult.html#a0f841a8ac328e4e7ec24089d31d63efb',1,'KappaResult']]],
-  ['numpunct',['Numpunct',['../structNumpunct.html',1,'']]]
+  ['quantile',['quantile',['../classpareto__distribution.html#a970d489ff62a6da2bdef99e0bf82461b',1,'pareto_distribution::quantile()'],['../structstudent__t__distribution.html#abf87bfa9961e9ece0caa75fd545db2b2',1,'student_t_distribution::quantile()'],['../structexponential__distribution.html#abaebff9dc27bac0b87dfa5fcc8acdb76',1,'exponential_distribution::quantile()'],['../structlognormal__distribution.html#ae4e4b312d8225523a204f7e12615b8a2',1,'lognormal_distribution::quantile()'],['../monte__carlo__test_8cpp.html#a496196ea52c2a012c21f9dfbce88ff42',1,'quantile():&#160;monte_carlo_test.cpp']]]
 ];

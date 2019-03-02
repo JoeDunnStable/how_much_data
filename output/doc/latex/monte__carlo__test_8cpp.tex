@@ -16,6 +16,7 @@
 {\ttfamily \#include $<$boost/filesystem.\+hpp$>$}\newline
 {\ttfamily \#include $<$boost/math/special\+\_\+functions/beta.\+hpp$>$}\newline
 {\ttfamily \#include $<$boost/math/distributions/students\+\_\+t.\+hpp$>$}\newline
+{\ttfamily \#include \char`\"{}adaptive\+\_\+integration.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}pareto\+\_\+distribution.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}student\+\_\+t\+\_\+distribution.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}exponential\+\_\+distribution.\+h\char`\"{}}\newline
@@ -25,11 +26,14 @@
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structKappaResult}{Kappa\+Result}}
-\begin{DoxyCompactList}\small\item\em structure holding the results of a run for a single alpha \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em the struct holding the resutls of a single alpha \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structKappaResults}{Kappa\+Results}}
-\begin{DoxyCompactList}\small\item\em structure holding the results of all runs \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em sturcture holding the results from all runs \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{monte__carlo__test_8cpp_a55838e0258803b20fc5a23ff2e68076e}\label{monte__carlo__test_8cpp_a55838e0258803b20fc5a23ff2e68076e}} 
+Kronrod$<$ double $>$ {\bfseries k\+\_\+big} (10)
 \item 
 {\footnotesize template$<$typename Real\+Type $>$ }\\Real\+Type \mbox{\hyperlink{monte__carlo__test_8cpp_a8bc12c575bef5adcd18ff54fed138db7}{rel\+\_\+err}} (Real\+Type a, Real\+Type b)
 \begin{DoxyCompactList}\small\item\em return the relative error between two numbers \end{DoxyCompactList}\item 
@@ -52,6 +56,21 @@ int \mbox{\hyperlink{monte__carlo__test_8cpp_ac0f2228420376f4db7e1274f2b41667c}{
 \begin{DoxyCompactList}\small\item\em main program for convolution test with one input parameter the \# of trials \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Variables}
 \begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{monte__carlo__test_8cpp_aeb74e37f5d1626bb0e05e7391f4f8df7}\label{monte__carlo__test_8cpp_aeb74e37f5d1626bb0e05e7391f4f8df7}} 
+int {\bfseries noext} = 0
+\item 
+\mbox{\Hypertarget{monte__carlo__test_8cpp_a76dc1eb59eb70d501eb5f96c86a84afb}\label{monte__carlo__test_8cpp_a76dc1eb59eb70d501eb5f96c86a84afb}} 
+double {\bfseries epsabs\+\_\+double} = 0
+\item 
+\mbox{\Hypertarget{monte__carlo__test_8cpp_a8d84692761e7fbedd1e19de3daca1a10}\label{monte__carlo__test_8cpp_a8d84692761e7fbedd1e19de3daca1a10}} 
+double {\bfseries epsrel\+\_\+double} = 64 $\ast$ std\+::numeric\+\_\+limits$<$double$>$\+::epsilon()
+\item 
+\mbox{\Hypertarget{monte__carlo__test_8cpp_a093d9695bc7f56e2e457d8ccf15652c1}\label{monte__carlo__test_8cpp_a093d9695bc7f56e2e457d8ccf15652c1}} 
+int {\bfseries limit} = 2000
+\item 
+\mbox{\Hypertarget{monte__carlo__test_8cpp_afb7e4031902d3574edd39d620ec1bfbe}\label{monte__carlo__test_8cpp_afb7e4031902d3574edd39d620ec1bfbe}} 
+int {\bfseries verbose\+\_\+integration} = 0
 \item 
 \mbox{\Hypertarget{monte__carlo__test_8cpp_abc3d7525725b8e3ebc98d7a46cfd5e9e}\label{monte__carlo__test_8cpp_abc3d7525725b8e3ebc98d7a46cfd5e9e}} 
 mutex \mbox{\hyperlink{monte__carlo__test_8cpp_abc3d7525725b8e3ebc98d7a46cfd5e9e}{kr\+\_\+mutex}}

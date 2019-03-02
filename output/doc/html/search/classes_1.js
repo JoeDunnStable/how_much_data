@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['job',['Job',['../structJob.html',1,'']]]
+  ['kapparesult',['KappaResult',['../structKappaResult.html',1,'']]],
+  ['kapparesults',['KappaResults',['../structKappaResults.html',1,'']]]
 ];

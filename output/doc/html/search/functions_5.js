@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['initialize',['initialize',['../structKappaResult.html#a73d7fdfa72149f5ec74b22a203f418b9',1,'KappaResult']]]
+  ['lambda',['lambda',['../structexponential__distribution.html#a7fcde2f1a6cd1aee2c13300df3663a2f',1,'exponential_distribution']]],
+  ['lognormal_5fdistribution',['lognormal_distribution',['../structlognormal__distribution.html#a904d491e75ef65ec8bc8373ab40f4dda',1,'lognormal_distribution']]]
 ];

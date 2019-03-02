@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.14"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>HowMuchData: /Users/jdunn/Documents/XCode/how_much_data/convolution_test/lognormal_distribution.h File Reference</title>
+<title>HowMuchData: /Users/jdunn/Documents/XCode/how_much_data/include/lognormal_distribution.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -28,7 +28,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">HowMuchData
-   &#160;<span id="projectnumber">0.7.0</span>
+   &#160;<span id="projectnumber">0.8.0</span>
    </div>
   </td>
  </tr>
@@ -68,12 +68,13 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_8d3f50404bc2c6ffc5b87744d61d5702.html">convolution_test</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">lognormal_distribution.h File Reference</div>  </div>
 </div><!--header-->
@@ -83,13 +84,14 @@ $(function() {
 <code>#include &lt;complex&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
 <code>#include &lt;boost/random.hpp&gt;</code><br />
 <code>#include &lt;boost/math/constants/constants.hpp&gt;</code><br />
 <code>#include &lt;boost/math/distributions/lognormal.hpp&gt;</code><br />
 <code>#include &lt;boost/math/special_functions/erf.hpp&gt;</code><br />
-<code>#include &lt;boost/math/quadrature/gauss_kronrod.hpp&gt;</code><br />
-<code>#include &lt;boost/math/quadrature/exp_sinh.hpp&gt;</code><br />
-<code>#include &quot;p_spline.h&quot;</code><br />
+<code>#include &lt;boost/math/tools/roots.hpp&gt;</code><br />
+<code>#include &quot;adaptive_integration.h&quot;</code><br />
+<code>#include &quot;lambert_w.h&quot;</code><br />
 </div>
 <p><a href="lognormal__distribution_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -98,11 +100,22 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlognormal__distribution.html">lognormal_distribution&lt; RealType &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">a class with functions related to the lognormal distribution.  <a href="structlognormal__distribution.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a2f24d637aa1cd7778ab1226bf0c51b74"><td class="memTemplParams" colspan="2"><a id="a2f24d637aa1cd7778ab1226bf0c51b74"></a>
+template&lt;typename RealType &gt; </td></tr>
+<tr class="memitem:a2f24d637aa1cd7778ab1226bf0c51b74"><td class="memTemplItemLeft" align="right" valign="top">complex&lt; RealType &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>expm1</b> (complex&lt; RealType &gt; z)</td></tr>
+<tr class="separator:a2f24d637aa1cd7778ab1226bf0c51b74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b2b5241fea0270c9e5ab1ff9da04dc8"><td class="memTemplParams" colspan="2"><a id="a4b2b5241fea0270c9e5ab1ff9da04dc8"></a>
+template&lt;typename RealType &gt; </td></tr>
+<tr class="memitem:a4b2b5241fea0270c9e5ab1ff9da04dc8"><td class="memTemplItemLeft" align="right" valign="top">RealType&#160;</td><td class="memTemplItemRight" valign="bottom"><b>sign</b> (RealType x)</td></tr>
+<tr class="separator:a4b2b5241fea0270c9e5ab1ff9da04dc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Feb 8 2019 14:14:13 for HowMuchData by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Mar 1 2019 16:29:50 for HowMuchData by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.14
 </small></address>

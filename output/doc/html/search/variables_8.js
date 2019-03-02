@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['taleb_5foffset',['taleb_offset',['../structKappaResults.html#a133dbed775f98f56566b9571ff05746d',1,'KappaResults']]]
+  ['x_5fci',['x_ci',['../structKappaResult.html#a8680d7947e3911486a4b02403bb4de7c',1,'KappaResult']]]
 ];

@@ -55,7 +55,31 @@ using boost::math::beta;
 #include <boost/math/distributions/students_t.hpp>
 using boost::math::students_t;
 
+#include "adaptive_integration.h"
+using namespace adaptive_integration;
+Kronrod<double> k_big(10);
+int noext = 0;
+double epsabs_double = 0;
+double epsrel_double = 64 * std::numeric_limits<double>::epsilon();
+int limit = 2000;
+int verbose_integration = 0;
+
+/// Controller of beta function integrals.
+static IntegrationController<double> ctl_beta(noext, k_big,
+                                              epsabs_double, epsrel_double,
+                                              limit, verbose_integration);
+
+/// Controller of mad2 integrals in pareto.
+static IntegrationController<double> ctl_mad2(noext, k_big,
+                                              epsabs_double, epsrel_double,
+                                              limit, verbose_integration);
+
 #include "pareto_distribution.h"
+template<>
+IntegrationController<double>& pareto_distribution<double>::_ctl_beta{ctl_beta};
+template<>
+IntegrationController<double>& pareto_distribution<double>::_ctl_mad2{ctl_mad2};
+
 #include "student_t_distribution.h"
 #include "exponential_distribution.h"
 #include "lognormal_distribution.h"
@@ -195,7 +219,7 @@ struct KappaResults {
                size_t taleb_offset          ///< the column offset into the table
                                             ///< of taleg's results. 0 for none
                )
-  : ns(ns), kr(params.size()), param_label(param_label),
+  : ns(ns), param_label(param_label), kr(params.size()),
     taleb_offset(taleb_offset){
     for (size_t i=0; i<params.size(); ++i) {
       kr.at(i).initialize(params.at(i),ns);
@@ -349,6 +373,17 @@ int main(int argc, const char * argv[]) {
     return 1;
   }
 
+  // Needed for the lognormal characteristic function
+  Kronrod<double> k_big(10);
+  int noext = 0;
+  double epsabs_double = std::numeric_limits<double>::epsilon()/128;
+  double epsrel_double = boost::math::tools::root_epsilon<double>();
+  int limit = 1000;
+  int verbose_integration = 0;
+  IntegrationController<double> cf_ctl(noext, k_big,
+                                       epsabs_double, epsrel_double,
+                                       limit, verbose_integration);
+
   vector<double> alphas;
   
   for (double alpha=1.25; alpha<=4; alpha+=.25)
@@ -437,7 +472,7 @@ int main(int argc, const char * argv[]) {
     vector<double> sigmas = {.1, .2, 1, 5, 10};
     KappaResults ks_lognormal(ns, sigmas, "sigma", 0);
     for (size_t i=0; i<sigmas.size(); ++i) {
-      lognormal_distribution<> lnd(0,sigmas.at(i));
+      lognormal_distribution<> lnd(0,sigmas.at(i), cf_ctl);
       double alpha_stable = lnd.alpha_stable();
       // m_alpha is the number of samples needed to reduce the
       // uncertainty in the average of m_alpha stable variates to

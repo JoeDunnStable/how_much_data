@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['kapparesult',['KappaResult',['../structKappaResult.html',1,'']]],
-  ['kapparesults',['KappaResults',['../structKappaResults.html',1,'']]]
+  ['lognormal_5fdistribution',['lognormal_distribution',['../structlognormal__distribution.html',1,'']]]
 ];

@@ -1,0 +1,123 @@
+\hypertarget{pinelis__taleb__test_8cpp}{}\section{/\+Users/jdunn/\+Documents/\+X\+Code/how\+\_\+much\+\_\+data/pinelis\+\_\+taleb\+\_\+test/pinelis\+\_\+taleb\+\_\+test.cpp File Reference}
+\label{pinelis__taleb__test_8cpp}\index{/\+Users/jdunn/\+Documents/\+X\+Code/how\+\_\+much\+\_\+data/pinelis\+\_\+taleb\+\_\+test/pinelis\+\_\+taleb\+\_\+test.\+cpp@{/\+Users/jdunn/\+Documents/\+X\+Code/how\+\_\+much\+\_\+data/pinelis\+\_\+taleb\+\_\+test/pinelis\+\_\+taleb\+\_\+test.\+cpp}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$iomanip$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$array$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$mutex$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include $<$complex$>$}\newline
+{\ttfamily \#include $<$boost/timer/timer.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/filesystem.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/math/constants/constants.\+hpp$>$}\newline
+{\ttfamily \#include \char`\"{}adaptive\+\_\+integration.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pareto\+\_\+distribution.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}student\+\_\+t\+\_\+distribution.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}exponential\+\_\+distribution.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}lognormal\+\_\+distribution.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}taleb\+\_\+results.\+h\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structNumpunct}{Numpunct}}
+\begin{DoxyCompactList}\small\item\em sturcture passed by imbue to ostreams to use commas in numbers \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structKappaResult}{Kappa\+Result}}
+\begin{DoxyCompactList}\small\item\em the struct holding the resutls of a single alpha \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structKappaResults}{Kappa\+Results}}
+\begin{DoxyCompactList}\small\item\em sturcture holding the results from all runs \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classPinelisTalebIntegrand}{Pinelis\+Taleb\+Integrand$<$ Dist $>$}}
+\begin{DoxyCompactList}\small\item\em Functor used in the integratoin of the Pinelis Taleb result. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classPinelisTalebIntegrand_3_01pareto__distribution_3_4_01_4}{Pinelis\+Taleb\+Integrand$<$ pareto\+\_\+distribution$<$$>$ $>$}}
+\begin{DoxyCompactList}\small\item\em Functor used in the integration of the Pinelis Taleb result for pareto dist. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classPinelisTalebIntegrand_3_01exponential__distribution_3_4_01_4}{Pinelis\+Taleb\+Integrand$<$ exponential\+\_\+distribution$<$$>$ $>$}}
+\begin{DoxyCompactList}\small\item\em Functor used in the integration of the Pinelis Taleb result for exp. dist. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{pinelis__taleb__test_8cpp_a51303eefcc6fc2ae099ec7d41bb63bc8}\label{pinelis__taleb__test_8cpp_a51303eefcc6fc2ae099ec7d41bb63bc8}} 
+using {\bfseries dcomplex} = std\+::complex$<$ double $>$
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{pinelis__taleb__test_8cpp_a55838e0258803b20fc5a23ff2e68076e}\label{pinelis__taleb__test_8cpp_a55838e0258803b20fc5a23ff2e68076e}} 
+Kronrod$<$ double $>$ {\bfseries k\+\_\+big} (10)
+\item 
+\mbox{\Hypertarget{pinelis__taleb__test_8cpp_a8bc12c575bef5adcd18ff54fed138db7}\label{pinelis__taleb__test_8cpp_a8bc12c575bef5adcd18ff54fed138db7}} 
+{\footnotesize template$<$typename Real\+Type $>$ }\\Real\+Type \mbox{\hyperlink{pinelis__taleb__test_8cpp_a8bc12c575bef5adcd18ff54fed138db7}{rel\+\_\+err}} (Real\+Type a, Real\+Type b)
+\begin{DoxyCompactList}\small\item\em return the relative differnece between two numbers \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pinelis__taleb__test_8cpp_abef86d57e5a2d6f59d7b6559f8ab0e25}\label{pinelis__taleb__test_8cpp_abef86d57e5a2d6f59d7b6559f8ab0e25}} 
+ostream \& \mbox{\hyperlink{pinelis__taleb__test_8cpp_abef86d57e5a2d6f59d7b6559f8ab0e25}{operator$<$$<$}} (ostream \&os, const \mbox{\hyperlink{structKappaResult}{Kappa\+Result}} \&k)
+\begin{DoxyCompactList}\small\item\em output the results to an ostream \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pinelis__taleb__test_8cpp_a438174fcc3100be9441615ef06115383}\label{pinelis__taleb__test_8cpp_a438174fcc3100be9441615ef06115383}} 
+ostream \& \mbox{\hyperlink{pinelis__taleb__test_8cpp_a438174fcc3100be9441615ef06115383}{operator$<$$<$}} (ostream \&os, \mbox{\hyperlink{structKappaResults}{Kappa\+Results}} \&ks)
+\begin{DoxyCompactList}\small\item\em output the results of all runs to an ostream \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Dist $>$ }\\void \mbox{\hyperlink{pinelis__taleb__test_8cpp_a2427a1d2bfb7cea92c6d7c088701834a}{calculate\+\_\+kappa}} (vector$<$ int $>$ ns, Dist dist, \mbox{\hyperlink{structKappaResult}{Kappa\+Result}} \&k, int verbose=0)
+\begin{DoxyCompactList}\small\item\em set up ranges and step sizes for one alpham pass calculation of cf to threads and use fft to estimate distribution \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{pinelis__taleb__test_8cpp_a29d3334e2ee8e1ff561e3897ad2cc928}{show\+\_\+usage}} (path p)
+\begin{DoxyCompactList}\small\item\em show proper usage after improper command line argument \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pinelis__taleb__test_8cpp_ac0f2228420376f4db7e1274f2b41667c}\label{pinelis__taleb__test_8cpp_ac0f2228420376f4db7e1274f2b41667c}} 
+int \mbox{\hyperlink{pinelis__taleb__test_8cpp_ac0f2228420376f4db7e1274f2b41667c}{main}} (int argc, const char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em main program for convolution\+\_\+testl \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{pinelis__taleb__test_8cpp_aeb74e37f5d1626bb0e05e7391f4f8df7}\label{pinelis__taleb__test_8cpp_aeb74e37f5d1626bb0e05e7391f4f8df7}} 
+int {\bfseries noext} = 0
+\item 
+\mbox{\Hypertarget{pinelis__taleb__test_8cpp_a76dc1eb59eb70d501eb5f96c86a84afb}\label{pinelis__taleb__test_8cpp_a76dc1eb59eb70d501eb5f96c86a84afb}} 
+double {\bfseries epsabs\+\_\+double} = 0
+\item 
+\mbox{\Hypertarget{pinelis__taleb__test_8cpp_a8d84692761e7fbedd1e19de3daca1a10}\label{pinelis__taleb__test_8cpp_a8d84692761e7fbedd1e19de3daca1a10}} 
+double {\bfseries epsrel\+\_\+double} = 64 $\ast$ std\+::numeric\+\_\+limits$<$double$>$\+::epsilon()
+\item 
+\mbox{\Hypertarget{pinelis__taleb__test_8cpp_a093d9695bc7f56e2e457d8ccf15652c1}\label{pinelis__taleb__test_8cpp_a093d9695bc7f56e2e457d8ccf15652c1}} 
+int {\bfseries limit} = 2000
+\item 
+\mbox{\Hypertarget{pinelis__taleb__test_8cpp_afb7e4031902d3574edd39d620ec1bfbe}\label{pinelis__taleb__test_8cpp_afb7e4031902d3574edd39d620ec1bfbe}} 
+int {\bfseries verbose\+\_\+integration} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{pinelis__taleb__test_8cpp_a2427a1d2bfb7cea92c6d7c088701834a}\label{pinelis__taleb__test_8cpp_a2427a1d2bfb7cea92c6d7c088701834a}} 
+\index{pinelis\+\_\+taleb\+\_\+test.\+cpp@{pinelis\+\_\+taleb\+\_\+test.\+cpp}!calculate\+\_\+kappa@{calculate\+\_\+kappa}}
+\index{calculate\+\_\+kappa@{calculate\+\_\+kappa}!pinelis\+\_\+taleb\+\_\+test.\+cpp@{pinelis\+\_\+taleb\+\_\+test.\+cpp}}
+\subsubsection{\texorpdfstring{calculate\+\_\+kappa()}{calculate\_kappa()}}
+{\footnotesize\ttfamily template$<$typename Dist $>$ \\
+void calculate\+\_\+kappa (\begin{DoxyParamCaption}\item[{vector$<$ int $>$}]{ns,  }\item[{Dist}]{dist,  }\item[{\mbox{\hyperlink{structKappaResult}{Kappa\+Result}} \&}]{k,  }\item[{int}]{verbose = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+set up ranges and step sizes for one alpham pass calculation of cf to threads and use fft to estimate distribution 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ns} & the durations to calculate \\
+\hline
+\mbox{\tt in}  & {\em dist} & the distribution \\
+\hline
+\mbox{\tt out}  & {\em k} & the results \\
+\hline
+\mbox{\tt in}  & {\em verbose} & flag for trace \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{pinelis__taleb__test_8cpp_a29d3334e2ee8e1ff561e3897ad2cc928}\label{pinelis__taleb__test_8cpp_a29d3334e2ee8e1ff561e3897ad2cc928}} 
+\index{pinelis\+\_\+taleb\+\_\+test.\+cpp@{pinelis\+\_\+taleb\+\_\+test.\+cpp}!show\+\_\+usage@{show\+\_\+usage}}
+\index{show\+\_\+usage@{show\+\_\+usage}!pinelis\+\_\+taleb\+\_\+test.\+cpp@{pinelis\+\_\+taleb\+\_\+test.\+cpp}}
+\subsubsection{\texorpdfstring{show\+\_\+usage()}{show\_usage()}}
+{\footnotesize\ttfamily void show\+\_\+usage (\begin{DoxyParamCaption}\item[{path}]{p }\end{DoxyParamCaption})}
+
+
+
+show proper usage after improper command line argument 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em p} & the path of the executable \\
+\hline
+\end{DoxyParams}

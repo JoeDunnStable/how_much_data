@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['factor_5fcheck',['factor_check',['../convolution__test_8cpp.html#ac33f31a308a1b19bbe61326a5b50f352',1,'convolution_test.cpp']]]
+  ['initialize',['initialize',['../structKappaResult.html#a73d7fdfa72149f5ec74b22a203f418b9',1,'KappaResult']]]
 ];

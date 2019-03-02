@@ -28,7 +28,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">HowMuchData
-   &#160;<span id="projectnumber">0.7.0</span>
+   &#160;<span id="projectnumber">0.8.0</span>
    </div>
   </td>
  </tr>
@@ -96,6 +96,7 @@ $(function() {
 <code>#include &lt;boost/filesystem.hpp&gt;</code><br />
 <code>#include &lt;boost/math/special_functions/beta.hpp&gt;</code><br />
 <code>#include &lt;boost/math/distributions/students_t.hpp&gt;</code><br />
+<code>#include &quot;adaptive_integration.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="pareto__distribution_8h_source.html">pareto_distribution.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="student__t__distribution_8h_source.html">student_t_distribution.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="exponential__distribution_8h_source.html">exponential_distribution.h</a>&quot;</code><br />
@@ -105,14 +106,17 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structKappaResult.html">KappaResult</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">structure holding the results of a run for a single alpha  <a href="structKappaResult.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">the struct holding the resutls of a single alpha  <a href="structKappaResult.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structKappaResults.html">KappaResults</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">structure holding the results of all runs  <a href="structKappaResults.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">sturcture holding the results from all runs  <a href="structKappaResults.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a55838e0258803b20fc5a23ff2e68076e"><td class="memItemLeft" align="right" valign="top"><a id="a55838e0258803b20fc5a23ff2e68076e"></a>
+Kronrod&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>k_big</b> (10)</td></tr>
+<tr class="separator:a55838e0258803b20fc5a23ff2e68076e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bc12c575bef5adcd18ff54fed138db7"><td class="memTemplParams" colspan="2">template&lt;typename RealType &gt; </td></tr>
 <tr class="memitem:a8bc12c575bef5adcd18ff54fed138db7"><td class="memTemplItemLeft" align="right" valign="top">RealType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="monte__carlo__test_8cpp.html#a8bc12c575bef5adcd18ff54fed138db7">rel_err</a> (RealType a, RealType b)</td></tr>
 <tr class="memdesc:a8bc12c575bef5adcd18ff54fed138db7"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the relative error between two numbers  <a href="#a8bc12c575bef5adcd18ff54fed138db7">More...</a><br /></td></tr>
@@ -147,9 +151,24 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="monte
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:aeb74e37f5d1626bb0e05e7391f4f8df7"><td class="memItemLeft" align="right" valign="top"><a id="aeb74e37f5d1626bb0e05e7391f4f8df7"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>noext</b> = 0</td></tr>
+<tr class="separator:aeb74e37f5d1626bb0e05e7391f4f8df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76dc1eb59eb70d501eb5f96c86a84afb"><td class="memItemLeft" align="right" valign="top"><a id="a76dc1eb59eb70d501eb5f96c86a84afb"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>epsabs_double</b> = 0</td></tr>
+<tr class="separator:a76dc1eb59eb70d501eb5f96c86a84afb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d84692761e7fbedd1e19de3daca1a10"><td class="memItemLeft" align="right" valign="top"><a id="a8d84692761e7fbedd1e19de3daca1a10"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>epsrel_double</b> = 64 * std::numeric_limits&lt;double&gt;::epsilon()</td></tr>
+<tr class="separator:a8d84692761e7fbedd1e19de3daca1a10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a093d9695bc7f56e2e457d8ccf15652c1"><td class="memItemLeft" align="right" valign="top"><a id="a093d9695bc7f56e2e457d8ccf15652c1"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>limit</b> = 2000</td></tr>
+<tr class="separator:a093d9695bc7f56e2e457d8ccf15652c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb7e4031902d3574edd39d620ec1bfbe"><td class="memItemLeft" align="right" valign="top"><a id="afb7e4031902d3574edd39d620ec1bfbe"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>verbose_integration</b> = 0</td></tr>
+<tr class="separator:afb7e4031902d3574edd39d620ec1bfbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc3d7525725b8e3ebc98d7a46cfd5e9e"><td class="memItemLeft" align="right" valign="top"><a id="abc3d7525725b8e3ebc98d7a46cfd5e9e"></a>
 mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="monte__carlo__test_8cpp.html#abc3d7525725b8e3ebc98d7a46cfd5e9e">kr_mutex</a></td></tr>
-<tr class="memdesc:abc3d7525725b8e3ebc98d7a46cfd5e9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">a mutex for writing to <a class="el" href="structKappaResults.html" title="structure holding the results of all runs ">KappaResults</a> <br /></td></tr>
+<tr class="memdesc:abc3d7525725b8e3ebc98d7a46cfd5e9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">a mutex for writing to <a class="el" href="structKappaResults.html" title="sturcture holding the results from all runs ">KappaResults</a> <br /></td></tr>
 <tr class="separator:abc3d7525725b8e3ebc98d7a46cfd5e9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf0af7d4d397479a7734afd9e67f7b98"><td class="memItemLeft" align="right" valign="top"><a id="aaf0af7d4d397479a7734afd9e67f7b98"></a>
 mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="monte__carlo__test_8cpp.html#aaf0af7d4d397479a7734afd9e67f7b98">cout_mutex</a></td></tr>
@@ -423,7 +442,7 @@ template&lt;typename RealType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Feb 8 2019 14:14:13 for HowMuchData by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Mar 1 2019 16:29:50 for HowMuchData by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.14
 </small></address>

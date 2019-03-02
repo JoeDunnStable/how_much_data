@@ -3,7 +3,7 @@
 ## Introduction
 
 Nassim Nicholas Taleb has recently released a paper entitled *How much data do you need?
-An operational metric for fat-tailedness*. to appear in the International Journal of Forecasting.  The paper focuses on the preasymptotic behavior of the sum of independent identically distributedrandom variables that are governed by various fat-tailed distributions.  He introduces
+An operational metric for fat-tailedness*. to appear in the International Journal of Forecasting.  The paper focuses on the preasymptotic behavior of the sum of independent identically distributed random variables that are governed by various fat-tailed distributions.  He introduces
 a metric labeled "kappa" that's related to the growth rate of the mean absolute deviation (MAD) 
 as the number of summands increases.  Kappa is defined by the following formula.
 
@@ -24,13 +24,20 @@ Taleb's results.
 
 ## What's included
 
-I've experimented with two algorithms both implemented in C++, one of which relies on 
-monte carlo simulations and the other of which relies on the use of the discrete fourier 
-transform of the characteristic function of the convolution of the distribution functions. 
-The package includes four files with code.
+I've experimented with three algorithms implemented in C++, one of which relies on 
+monte carlo simulations, a second, which relies on the use of the discrete fourier 
+transform of the characteristic function of the convolution of the distribution functions, and finally one that takes advantage of an integral representation of the MAD given the derivative of characteristic function of the underlying distribution.
 
-*  convolution_test.cpp.  The main program to nun the convolution test.
-*  monte_carlo_test.cpp.  The main program to run the monte carlo test.
+The package includes several files developed for this project:
+
+*  convolution_test.cpp.  The main program to nun the convolution test, which will be 
+retired in the next iteration.  The pinelis_taleb integral is vastly superior in terms of speed
+and accuracy.
+*  monte_carlo_test.cpp.  The main program to run the monte carlo test.  It's bullet-proof
+but so slow that it's hard to obtain the required accuracy in a reasonable time frame 
+even using multi-threading.
+* pinelis_taleb_test.cpp.   The main program implementing the integral representation
+of MAD.  This is my current method of choice.
 *  pareto_distribution.h.  Contains a class for the pareto distribution, modeled on the 
 classes in boost::random and including items normally computed in
 boost::math::statistical_distributions
@@ -39,15 +46,31 @@ boost::random::student_t_distribution
 * exponential_distribution.h. A derived class from boost::random::exponential_distribution
 * lognormal_distribution.h.  A derived class from boost::random::lognormal_distribution.  The
 class implementing the distribution includes several versions of the calculation of the 
-characteristic function, some based on numerical integration from the definition, one based 
-on a p-spline approximation to the more accurate but much slower integrals, and one based
-on a approximation using Lambert W functions.
+characteristic function: some based on numerical integration from the definition, one based on a asymptotic series for small angular frequency and one based on a approximation using Lambert W functions.
+
+In addition, i've included the apparatus I developed for adaptive integration, which seems to 
+work much better that the Boost version that was originally used.  The code is spread 
+through the following files:
+
+* adaptive_integration.h.  The file that defines the interface to the adaptive integration routines.
+* adaptive_integration_impl.h.  Most of the actual implementation.
+* gauss_kronrad.h.  Interface to the functions used to calculate the nodes and weights 
+for the integration.
+* gauss_kronrod_impl.h.  The implementing code for gauss_kronrod.
+* myfloat.h.  Some basic definitions allowing various types of multi-precision numbers.  Multiprecision is not used in the current implementation of how_much_data.
+
+Finally included is a test program.
+
 * lognormal_test.cpp.  A program to test the various versions of the calculation of the 
-characteristic function.  So far the Lambert W version seems to be the best compromise
-between speed and accuracy, but it's not without problems.
+characteristic function. .
 
 In order to improve portability, a meson.build file is included, which allows an easy port 
 to other systems once the needed packages are installed.
+
+### Update Feb. 15, 2019
+
+I noticed that Taleb covered the same topic in N. N. Taleb,[Statistical Consequences of Fat Tails](https://www.academia.edu/37221402/THE_STATISTICAL_CONSEQUENCES_OF_FAT_TAILS_TECHNICAL_INCERTO_COLLECTION_?auto=download).  The procedure outlined in Section 6.5 of that monograph using results of
+Pinelis is of general applicability and is incorporated into pinelis_taleb_test.
 
 ## Further Documentation
 
@@ -57,19 +80,21 @@ html/index.html
 
 ## Observations
 
-So far my results are close to Taleb's except for the cases where alpha is close to one.  As 
+So far my results are close to Taleb's.  As 
 Taleb mentions in his paper such distributions require huge amounts of data to produce 
 reasonable estimates of the MAD and this fact is mirrored in the number of monte carlo runs
 or in the size the arrays used in the fast fourier transform.  I'm pushing the limit of
 my computer's capability for the cases where alpha = 1.25 or alpha = 1.5.  The convolution 
 is limited by the size of available memory and the monte carlo approach is limited by the
-amount of time and the number of processors available.
+amount of time and the number of processors available.  The pinelis_taleb integral bypasses
+most of these problems, but it requires a very accurate calculation of the characteristic
+function and its derivative and some ingenuity in choosing the right contour for integration.
 
 I've experimented with other measures of scale, such as the 95% confidence interval spread,
 for which the amount of computation needed is much more modest, but these results may not 
 be relevant if MAD is the measure which best characterizes the uncertainty.
 
-### Relationship with the Statble Distribution
+### Relationship with the Stable Distribution
 
 Almost all of the distributions modeled have an associated stable distribution that is 
 asymptotically equivalent to the modeled distribution.  The kappa for stable distributions
@@ -90,16 +115,15 @@ The MAD for the normal distribution is sqrt(2/pi)  times it's standard deviation
 
 ## To Do
 
-* Tune the number of threads used by the parallel version of fftw.  The number of threads is
-currently set at 8, the number of processors on my machine, which produces no net improvement in the overall runtime vs the baseline of no multithreading.
+* Implement the normal with switching variance distribution.  This is the one that Taleb uses 
+demonstrate the possibility of negative kappa.
 
 ## Acknowledgements
 
 1. The package makes heavy use of the Boost C++ headers available at 
-[boost](http://www.boost.org).  The version must be at least 1.68 in order to compute
-the complex integrals.
+[boost](http://www.boost.org). 
 2. The package uses the Eigen headers for the purpose of wrapping the fast fourier
-transform code and holding the large arrays that are used by the fft.  It also uses unsupported Eigen headers for the calculation of splines.
+transform code and holding the large arrays that are used by the fft. 
 These are available at [Eigen](http://www.eigen.tuxfamily.org).
 3. As distributed the Eigen header wraps the fftw3 available at [fftw](http://fftw.org).  The fftw uses
 a GPL, so if you want a less restrictive license you should delete the line
@@ -109,6 +133,15 @@ machine for the larger arrays because of swapping activiity.
 4. One of the calculations of the characteristic function for the lognormal distribution uses 
 Lambert W functions.  I've used the C++ code for the complex Lambert W function from 
 [Istvan Mezo's web page](https://sites.google.com/site/istvanmezo81/others).
+5. The routines in the adaptive_integration routine started out life
+as machine C++ translations of Fortran routines in QUADPACK, which is part of 
+SLATEC and therefore in the public domain (http://en.wikipedia.org/wiki/QUADPACK).
+The routines were then heavily modified to take advantage of the C++ language.
+6. One of the modifications made to QUADPACK is the addition of the ability to calculate
+the nodes and weights for the Gauss Kronrod integration on the fly.  For this purpose
+Dirk Laurie's method is used [kronrod.ps](http://dip.sun.ac.za/~laurie/papers/kronrod/kronrod.ps).
+The routines used here are C++ translations of Dirk Laurie's MATLAB code, which
+is included in Walter Gautschi's OPQ suite [OPQ](https://www.cs.purdue.edu/archives/2002/wxg/codes/OPQ.html).
 
 ## License
 The code included here is covered the the MIT license.

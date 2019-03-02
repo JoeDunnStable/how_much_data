@@ -2,56 +2,38 @@
 \label{structKappaResult}\index{Kappa\+Result@{Kappa\+Result}}
 
 
-structure holding the results of a run for a single alpha  
+the struct holding the resutls of a single alpha  
 
 
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structKappaResult_ac0ca82b62ef4f9717ab9e136b251668b}{Kappa\+Result}} (vector$<$ int $>$ \mbox{\hyperlink{structKappaResult_a48d379e6c356ee537839917a67a21c86}{ns}})
-\begin{DoxyCompactList}\small\item\em constructor \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structKappaResult_a54228c60b4691f2b1621aa07b1e0437f}\label{structKappaResult_a54228c60b4691f2b1621aa07b1e0437f}} 
-void \mbox{\hyperlink{structKappaResult_a54228c60b4691f2b1621aa07b1e0437f}{calc\+\_\+kappa}} ()
-\begin{DoxyCompactList}\small\item\em calculate the kappa from the mad and ci variables \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{structKappaResult_a73d7fdfa72149f5ec74b22a203f418b9}{initialize}} (double param\+\_\+in, const vector$<$ int $>$ \&ns\+\_\+in)
 \begin{DoxyCompactList}\small\item\em initialize the structure \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{structKappaResult_ad9a40b7ecb6f56e1e868fd559e07026f}{update\+\_\+dev}} (size\+\_\+t \mbox{\hyperlink{structKappaResult_a5d2264180cefdfefd364065aaf405b72}{m}}, size\+\_\+t \mbox{\hyperlink{structKappaResult_a59f858c0abe9db0eebd82a56665b38df}{m\+\_\+ci}}, const vector$<$ double $>$ \&dev, const vector$<$ double $>$ \&abs\+\_\+dev, const vector$<$ vector$<$ double $>$ $>$ \&x\+\_\+in)
 \begin{DoxyCompactList}\small\item\em update the deviations w result from one thread \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{structKappaResult_a8dd8b127d34165637298435377489cff}{update\+\_\+conf\+\_\+int}} (double ci\+\_\+level)
-\begin{DoxyCompactList}\small\item\em calculate the confidence interval for all trials \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em calculate the confidence interval for all trials \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structKappaResult_ac0ca82b62ef4f9717ab9e136b251668b}{Kappa\+Result}} (vector$<$ int $>$ \mbox{\hyperlink{structKappaResult_a48d379e6c356ee537839917a67a21c86}{ns}})
+\begin{DoxyCompactList}\small\item\em constructor \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structKappaResult_a54228c60b4691f2b1621aa07b1e0437f}{calc\+\_\+kappa}} ()
+\begin{DoxyCompactList}\small\item\em the kappa\+\_\+mad by duration \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{structKappaResult_ac8485e1a2316db98a89d0aecc39e3389}\label{structKappaResult_ac8485e1a2316db98a89d0aecc39e3389}} 
 double \mbox{\hyperlink{structKappaResult_ac8485e1a2316db98a89d0aecc39e3389}{param}}
 \begin{DoxyCompactList}\small\item\em the parameter for the run \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structKappaResult_a0f841a8ac328e4e7ec24089d31d63efb}\label{structKappaResult_a0f841a8ac328e4e7ec24089d31d63efb}} 
-int \mbox{\hyperlink{structKappaResult_a0f841a8ac328e4e7ec24089d31d63efb}{nsize}}
-\begin{DoxyCompactList}\small\item\em the size of the vector pased to fft \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{structKappaResult_a9fb1e6cd969e50ab18dae7fbf598f949}{mad\+\_\+rel\+\_\+err}}
-\begin{DoxyCompactList}\small\item\em the relative error of mad vs theory \end{DoxyCompactList}\item 
-vector$<$ int $>$ \mbox{\hyperlink{structKappaResult_a48d379e6c356ee537839917a67a21c86}{ns}}
-\begin{DoxyCompactList}\small\item\em the durations saved \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structKappaResult_a43fdcc9f455335e136cb46d2506a14dd}\label{structKappaResult_a43fdcc9f455335e136cb46d2506a14dd}} 
-vector$<$ double $>$ \mbox{\hyperlink{structKappaResult_a43fdcc9f455335e136cb46d2506a14dd}{mad}}
-\begin{DoxyCompactList}\small\item\em the mean absolute deviation by duration \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structKappaResult_abdbafd17d772e9821b31905d6389c22f}\label{structKappaResult_abdbafd17d772e9821b31905d6389c22f}} 
-vector$<$ double $>$ {\bfseries kappa\+\_\+mad}
-\item 
-double \mbox{\hyperlink{structKappaResult_ae4cbee7f19b10054eec20a22d4cfee02}{ci\+\_\+rel\+\_\+err}}
-\begin{DoxyCompactList}\small\item\em the kappa\+\_\+mad by duration \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structKappaResult_ae5f9b611ab3439921432428ad2bdf122}\label{structKappaResult_ae5f9b611ab3439921432428ad2bdf122}} 
-vector$<$ double $>$ \mbox{\hyperlink{structKappaResult_ae5f9b611ab3439921432428ad2bdf122}{ci}}
-\begin{DoxyCompactList}\small\item\em the conficence interval by duration \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structKappaResult_a04268ef34dd883df399c63bf67b2af26}\label{structKappaResult_a04268ef34dd883df399c63bf67b2af26}} 
-vector$<$ double $>$ \mbox{\hyperlink{structKappaResult_a04268ef34dd883df399c63bf67b2af26}{kappa\+\_\+ci}}
-\begin{DoxyCompactList}\small\item\em the kappa ci by duration \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em the relative error of the mad vs theory \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{structKappaResult_a5d2264180cefdfefd364065aaf405b72}\label{structKappaResult_a5d2264180cefdfefd364065aaf405b72}} 
 size\+\_\+t \mbox{\hyperlink{structKappaResult_a5d2264180cefdfefd364065aaf405b72}{m}} = 0
 \begin{DoxyCompactList}\small\item\em the number of trials run for mad \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{structKappaResult_a59f858c0abe9db0eebd82a56665b38df}\label{structKappaResult_a59f858c0abe9db0eebd82a56665b38df}} 
 size\+\_\+t \mbox{\hyperlink{structKappaResult_a59f858c0abe9db0eebd82a56665b38df}{m\+\_\+ci}} = 0
 \begin{DoxyCompactList}\small\item\em the number of trials for the conf. interval \end{DoxyCompactList}\item 
+vector$<$ int $>$ \mbox{\hyperlink{structKappaResult_a48d379e6c356ee537839917a67a21c86}{ns}}
+\begin{DoxyCompactList}\small\item\em the durations calculated \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{structKappaResult_a133a1322d9761ce51027209c1b344693}\label{structKappaResult_a133a1322d9761ce51027209c1b344693}} 
 vector$<$ double $>$ \mbox{\hyperlink{structKappaResult_a133a1322d9761ce51027209c1b344693}{sum\+\_\+dev}}
 \begin{DoxyCompactList}\small\item\em sum or raw deviation by duration \end{DoxyCompactList}\item 
@@ -61,18 +43,27 @@ vector$<$ double $>$ \mbox{\hyperlink{structKappaResult_ab68b3871ee5609c7891ca97
 \mbox{\Hypertarget{structKappaResult_a8680d7947e3911486a4b02403bb4de7c}\label{structKappaResult_a8680d7947e3911486a4b02403bb4de7c}} 
 vector$<$ vector$<$ double $>$ $>$ \mbox{\hyperlink{structKappaResult_a8680d7947e3911486a4b02403bb4de7c}{x\+\_\+ci}}
 \begin{DoxyCompactList}\small\item\em the results by trial and duration \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structKappaResult_ae4cbee7f19b10054eec20a22d4cfee02}\label{structKappaResult_ae4cbee7f19b10054eec20a22d4cfee02}} 
+double \mbox{\hyperlink{structKappaResult_ae4cbee7f19b10054eec20a22d4cfee02}{ci\+\_\+rel\+\_\+err}}
+\begin{DoxyCompactList}\small\item\em the relative error of the ci vs theory \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{structKappaResult_af0a62f7129da61d2fa8cb5107404a6f4}\label{structKappaResult_af0a62f7129da61d2fa8cb5107404a6f4}} 
 vector$<$ double $>$ \mbox{\hyperlink{structKappaResult_af0a62f7129da61d2fa8cb5107404a6f4}{conf\+\_\+int}}
 \begin{DoxyCompactList}\small\item\em the calculated ci by duration \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{structKappaResult_abe1e9dba96dd6eeaef8e34ad73cd5ba8}\label{structKappaResult_abe1e9dba96dd6eeaef8e34ad73cd5ba8}} 
 cpu\+\_\+times \mbox{\hyperlink{structKappaResult_abe1e9dba96dd6eeaef8e34ad73cd5ba8}{elapsed\+\_\+time}}
-\begin{DoxyCompactList}\small\item\em the elapsed time for the run \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em the elapsed time for the run \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structKappaResult_a43fdcc9f455335e136cb46d2506a14dd}\label{structKappaResult_a43fdcc9f455335e136cb46d2506a14dd}} 
+vector$<$ double $>$ \mbox{\hyperlink{structKappaResult_a43fdcc9f455335e136cb46d2506a14dd}{mad}}
+\begin{DoxyCompactList}\small\item\em the mean absolute deviation by duration \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structKappaResult_abdbafd17d772e9821b31905d6389c22f}\label{structKappaResult_abdbafd17d772e9821b31905d6389c22f}} 
+vector$<$ double $>$ {\bfseries kappa\+\_\+mad}
+\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-structure holding the results of a run for a single alpha 
-
 the struct holding the resutls of a single alpha 
+
+structure holding the results of a run for a single alpha 
 
 \subsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{structKappaResult_ac0ca82b62ef4f9717ab9e136b251668b}\label{structKappaResult_ac0ca82b62ef4f9717ab9e136b251668b}} 
@@ -93,7 +84,17 @@ constructor
 
 
 \subsection{Member Function Documentation}
-\mbox{\Hypertarget{structKappaResult_a73d7fdfa72149f5ec74b22a203f418b9}\label{structKappaResult_a73d7fdfa72149f5ec74b22a203f418b9}} 
+\mbox{\Hypertarget{structKappaResult_a54228c60b4691f2b1621aa07b1e0437f}\label{structKappaResult_a54228c60b4691f2b1621aa07b1e0437f}} 
+\index{Kappa\+Result@{Kappa\+Result}!calc\+\_\+kappa@{calc\+\_\+kappa}}
+\index{calc\+\_\+kappa@{calc\+\_\+kappa}!Kappa\+Result@{Kappa\+Result}}
+\subsubsection{\texorpdfstring{calc\+\_\+kappa()}{calc\_kappa()}}
+{\footnotesize\ttfamily void Kappa\+Result\+::calc\+\_\+kappa (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+the kappa\+\_\+mad by duration 
+
+calculate the kappa from the mad and ci variables \mbox{\Hypertarget{structKappaResult_a73d7fdfa72149f5ec74b22a203f418b9}\label{structKappaResult_a73d7fdfa72149f5ec74b22a203f418b9}} 
 \index{Kappa\+Result@{Kappa\+Result}!initialize@{initialize}}
 \index{initialize@{initialize}!Kappa\+Result@{Kappa\+Result}}
 \subsubsection{\texorpdfstring{initialize()}{initialize()}}
@@ -151,19 +152,7 @@ update the deviations w result from one thread
 
 
 \subsection{Member Data Documentation}
-\mbox{\Hypertarget{structKappaResult_ae4cbee7f19b10054eec20a22d4cfee02}\label{structKappaResult_ae4cbee7f19b10054eec20a22d4cfee02}} 
-\index{Kappa\+Result@{Kappa\+Result}!ci\+\_\+rel\+\_\+err@{ci\+\_\+rel\+\_\+err}}
-\index{ci\+\_\+rel\+\_\+err@{ci\+\_\+rel\+\_\+err}!Kappa\+Result@{Kappa\+Result}}
-\subsubsection{\texorpdfstring{ci\+\_\+rel\+\_\+err}{ci\_rel\_err}}
-{\footnotesize\ttfamily double Kappa\+Result\+::ci\+\_\+rel\+\_\+err}
-
-
-
-the kappa\+\_\+mad by duration 
-
-the relative error of the ci vs theory
-
-the relative error of conf. int. vs theory \mbox{\Hypertarget{structKappaResult_a9fb1e6cd969e50ab18dae7fbf598f949}\label{structKappaResult_a9fb1e6cd969e50ab18dae7fbf598f949}} 
+\mbox{\Hypertarget{structKappaResult_a9fb1e6cd969e50ab18dae7fbf598f949}\label{structKappaResult_a9fb1e6cd969e50ab18dae7fbf598f949}} 
 \index{Kappa\+Result@{Kappa\+Result}!mad\+\_\+rel\+\_\+err@{mad\+\_\+rel\+\_\+err}}
 \index{mad\+\_\+rel\+\_\+err@{mad\+\_\+rel\+\_\+err}!Kappa\+Result@{Kappa\+Result}}
 \subsubsection{\texorpdfstring{mad\+\_\+rel\+\_\+err}{mad\_rel\_err}}
@@ -171,9 +160,9 @@ the relative error of conf. int. vs theory \mbox{\Hypertarget{structKappaResult_
 
 
 
-the relative error of mad vs theory 
+the relative error of the mad vs theory 
 
-the relative error of the mad vs theory \mbox{\Hypertarget{structKappaResult_a48d379e6c356ee537839917a67a21c86}\label{structKappaResult_a48d379e6c356ee537839917a67a21c86}} 
+the relative error of mad vs theory \mbox{\Hypertarget{structKappaResult_a48d379e6c356ee537839917a67a21c86}\label{structKappaResult_a48d379e6c356ee537839917a67a21c86}} 
 \index{Kappa\+Result@{Kappa\+Result}!ns@{ns}}
 \index{ns@{ns}!Kappa\+Result@{Kappa\+Result}}
 \subsubsection{\texorpdfstring{ns}{ns}}
@@ -181,11 +170,11 @@ the relative error of the mad vs theory \mbox{\Hypertarget{structKappaResult_a48
 
 
 
-the durations saved 
-
 the durations calculated 
+
+the durations saved 
 
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-/\+Users/jdunn/\+Documents/\+X\+Code/how\+\_\+much\+\_\+data/convolution\+\_\+test/\mbox{\hyperlink{convolution__test_8cpp}{convolution\+\_\+test.\+cpp}}\item 
-/\+Users/jdunn/\+Documents/\+X\+Code/how\+\_\+much\+\_\+data/monte\+\_\+carlo\+\_\+test/\mbox{\hyperlink{monte__carlo__test_8cpp}{monte\+\_\+carlo\+\_\+test.\+cpp}}\end{DoxyCompactItemize}
+/\+Users/jdunn/\+Documents/\+X\+Code/how\+\_\+much\+\_\+data/monte\+\_\+carlo\+\_\+test/\mbox{\hyperlink{monte__carlo__test_8cpp}{monte\+\_\+carlo\+\_\+test.\+cpp}}\item 
+/\+Users/jdunn/\+Documents/\+X\+Code/how\+\_\+much\+\_\+data/pinelis\+\_\+taleb\+\_\+test/\mbox{\hyperlink{pinelis__taleb__test_8cpp}{pinelis\+\_\+taleb\+\_\+test.\+cpp}}\end{DoxyCompactItemize}
