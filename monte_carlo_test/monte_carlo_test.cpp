@@ -393,6 +393,10 @@ int main(int argc, const char * argv[]) {
   
   vector<int> ns{1, 2, 30, 100};
   
+  const double eps = std::numeric_limits<double>::epsilon();
+  const double max_size_t = static_cast<double>(std::numeric_limits<size_t>::max())*(1-eps);
+
+  
   double ci_level = .05;
   size_t m_ci_limit = min(static_cast<size_t>(2000000/ci_level), m);
 
@@ -419,7 +423,7 @@ int main(int argc, const char * argv[]) {
       // uncertainty in the average of m_alpha stable variates to
       // .001 of the uncertainty of a single sample
       double alpha_cap = log(2)/(log(pd.mad2())-log(pd.mad()));
-      size_t m_alpha = static_cast<size_t>(pow(.001,alpha_cap/(1-alpha_cap)));
+      size_t m_alpha = static_cast<size_t>(min(max_size_t,pow(.001,alpha_cap/(1-alpha_cap))));
       m_alpha = min(max(m_ci_limit, m_alpha), m);
       if (verbose)
         cout << pd << endl;
@@ -440,7 +444,7 @@ int main(int argc, const char * argv[]) {
       // uncertainty in the average of m_alpha stable variates to
       // .001 of the uncertainty of a single sample
       double alpha_cap = log(2)/(log(td.mad2())-log(td.mad()));
-      size_t m_alpha = static_cast<size_t>(pow(.001,alpha_cap/(1-alpha_cap)));
+      size_t m_alpha = static_cast<size_t>(min(max_size_t,pow(.001,alpha_cap/(1-alpha_cap))));
       m_alpha = min(max(m_ci_limit, m_alpha), m);
       if (verbose)
         cout << td << endl;
@@ -461,7 +465,7 @@ int main(int argc, const char * argv[]) {
     // uncertainty in the average of m_alpha stable variates to
     // .001 of the uncertainty of a single sample
     double alpha_cap = log(2)/(log(ed.mad2())-log(ed.mad()));
-    size_t m_alpha = static_cast<size_t>(pow(.001,alpha_cap/(1-alpha_cap)));
+    size_t m_alpha = static_cast<size_t>(min(max_size_t,pow(.001,alpha_cap/(1-alpha_cap))));
     m_alpha = min(max(m_ci_limit, m_alpha), m);
     if (verbose)
       cout << ed << endl;
@@ -482,7 +486,7 @@ int main(int argc, const char * argv[]) {
       // uncertainty in the average of m_alpha stable variates to
       // .001 of the uncertainty of a single sample
       double alpha_cap = log(2)/(log(lnd.mad2())-log(lnd.mad()));
-      size_t m_alpha = static_cast<size_t>(pow(.001,alpha_cap/(1-alpha_cap)));
+      size_t m_alpha = static_cast<size_t>(min(max_size_t,pow(.001,alpha_cap/(1-alpha_cap))));
       m_alpha = min(max(m_ci_limit, m_alpha), m);
       if (verbose)
         cout << lnd << endl;
@@ -505,7 +509,7 @@ int main(int argc, const char * argv[]) {
       // uncertainty in the average of m_alpha stable variates to
       // .001 of the uncertainty of a single sample
       double alpha_cap = log(2)/(log(nsm.mad2())-log(nsm.mad()));
-      size_t m_alpha = static_cast<size_t>(pow(.001,alpha_cap/(1-alpha_cap)));
+      size_t m_alpha = static_cast<size_t>(min(max_size_t,pow(.001,alpha_cap/(1-alpha_cap))));
       m_alpha = min(max(m_ci_limit, m_alpha), m);
       if (verbose)
         cout << nsm << endl;
@@ -528,7 +532,7 @@ int main(int argc, const char * argv[]) {
       // uncertainty in the average of m_alpha stable variates to
       // .001 of the uncertainty of a single sample
       double alpha_cap = log(2)/(log(nss.mad2())-log(nss.mad()));
-      size_t m_alpha = static_cast<size_t>(pow(.001,alpha_cap/(1-alpha_cap)));
+      size_t m_alpha = static_cast<size_t>(min(max_size_t,pow(.001,alpha_cap/(1-alpha_cap))));
       m_alpha = min(max(m_ci_limit, m_alpha), m);
       if (verbose)
         cout << nss << endl;
