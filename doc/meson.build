@@ -6,6 +6,8 @@ if(doxygen.found())
                  meson.source_root()+'/include/student_t_distribution.h', \
                  meson.source_root()+'/include/exponential_distribution.h', \
                  meson.source_root()+'/include/lognormal_distribution.h', \
+                 meson.source_root()+'/include/normal_switch_mean.h', \
+                 meson.source_root()+'/include/normal_switch_stddev.h', \
                  meson.source_root()+'/monte_carlo_test/monte_carlo_test.cpp', \
 		 meson.source_root()+'/pinelis_taleb_test/pinelis_taleb_test.cpp']
 
@@ -19,12 +21,30 @@ if(doxygen.found())
 				  output : 'Doxyfile',
 				  configuration : doc_config,
 				  install : false)
-	custom_target('doxygen',
-		      input : doxyfile,
-		      output : ['html', 'latex']  ,
-		      command : [ doxygen, doxyfile ],
-		      depend_files: src_doxygen,
+	doxygen_out = custom_target('doxygen',
+		                    input : doxyfile,
+		                    output : ['html', 'latex']  ,
+		                    command : [ doxygen, doxyfile ],
+		                    depend_files: src_doxygen,
+		                    install : false,
+		                    build_by_default : true)
+
+	make = find_program('make')
+
+	refman=custom_target('refman',
+	              output : 'all',
+	              command : [make, '--directory=doc/latex'],
+		      depends : doxygen_out,
 		      install : false,
 		      build_by_default : true)
 
+	cp = find_program('cp')
+
+	custom_target('refman2',
+	              input : meson.build_root()+'/doc/latex/refman.pdf',
+	              output : 'refman.pdf',
+	              command : [cp, 'doc/latex/refman.pdf', '../output/doc/refman.pdf'],
+		      depends : refman,
+		      install : false,
+		      build_by_default : true)
 endif

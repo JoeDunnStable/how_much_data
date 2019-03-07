@@ -72,6 +72,8 @@
 		6FC3CB6B21DA79D600DB11BF /* pareto_distribution.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pareto_distribution.h; sourceTree = "<group>"; };
 		6FD24E4221FAD5FF008B864B /* log_normal_test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = log_normal_test; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FD24E4421FAD5FF008B864B /* lognormal_test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lognormal_test.cpp; sourceTree = "<group>"; };
+		6FE9438D222CDC1800451F5B /* normal_switch_mean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = normal_switch_mean.h; sourceTree = "<group>"; };
+		6FE9438E222DD04200451F5B /* normal_switch_stddev.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = normal_switch_stddev.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,8 +111,10 @@
 		6F53361E2228987600CC7209 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				6FE9438E222DD04200451F5B /* normal_switch_stddev.h */,
 				6F29113221F7EC56008C8832 /* lognormal_distribution.h */,
 				6F29113121F793E8008C8832 /* exponential_distribution.h */,
+				6FE9438D222CDC1800451F5B /* normal_switch_mean.h */,
 				6F56B2F421EAD65C0037E895 /* taleb_results.h */,
 				6FC3CB6B21DA79D600DB11BF /* pareto_distribution.h */,
 				6F83A2D821DE7E0100700188 /* student_t_distribution.h */,

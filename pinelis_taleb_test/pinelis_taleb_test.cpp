@@ -91,6 +91,8 @@ IntegrationController<double>& pareto_distribution<double>::_ctl_mad2{ctl_mad2};
 #include "student_t_distribution.h"
 #include "exponential_distribution.h"
 #include "lognormal_distribution.h"
+#include "normal_switch_mean.h"
+#include "normal_switch_stddev.h"
 #include "taleb_results.h"
 
 /// sturcture passed by imbue to ostreams to use commas in numbers
@@ -573,6 +575,38 @@ int main(int argc, const char * argv[]) {
     out << ks_lognormal;
     ks_lognormal.dump_results(dump, "lognormal");
   }
+  {
+    vector<double> ds = {0, 1, 2, 3, 4, 5};
+    KappaResults ks_normal_switch_mean(ns, ds.size(), "d", 0);
+    for (size_t j=0; j<ds.size(); ++j) {
+      double d = ds.at(j);
+      normal_switch_mean<> nsm(d);
+      KappaResult kr(ns);
+      kr.param = d;
+      calculate_kappa(ns, nsm, kr, true);
+      ks_normal_switch_mean.at(j) = kr;
+    }
+    out << "Normal w Switching Mean" << endl << endl;
+    out << ks_normal_switch_mean;
+    ks_normal_switch_mean.dump_results(dump, "normal_switching_mean");
+  }
   
+  {
+    vector<double> as = {1, 2, 3, 4, 5};
+    KappaResults ks_normal_switch_stddev(ns, as.size(), "a", 0);
+    for (size_t j=0; j<as.size(); ++j) {
+      double a = as.at(j);
+      normal_switch_stddev<> nss(a, .1);
+      KappaResult kr(ns);
+      kr.param = a;
+      calculate_kappa(ns, nss, kr, true);
+      ks_normal_switch_stddev.at(j) = kr;
+    }
+    out << "Normal w Switching Std. Dev." << endl << endl;
+    out << ks_normal_switch_stddev;
+    ks_normal_switch_stddev.dump_results(dump, "normal_switching_stddev");
+  }
+  
+
   return 0;
 }

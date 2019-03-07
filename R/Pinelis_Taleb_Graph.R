@@ -35,4 +35,20 @@ qplot(x=param_value, y=kappa_mad, data=pt_data[pt_data$param_name=="lambda",],
       geom="point", ylim=c(0,1)) +
   geom_hline(yintercept=0, color="black")
 
+qplot(x=param_value, y=kappa_mad, data=pt_data[pt_data$param_name=="d",], 
+      color=n, facets=distribution ~ .,
+      main=expression(paste(kappa, " vs ", d, " and n")), 
+      xlab="d",
+      ylab=expression(kappa),
+      geom="point", ylim=c(-5,1)) +
+  geom_hline(yintercept=0, color="black")
+
+qplot(x=param_value, y=kappa_mad, data=pt_data[pt_data$param_name=="a",], 
+      color=n, facets=distribution ~ .,
+      main=expression(paste(kappa, " vs ", a, " and n")), 
+      xlab="a",
+      ylab=expression(kappa),
+      geom="point", ylim=c(0,1)) +
+  geom_hline(yintercept=0, color="black")
+
 dev.off()

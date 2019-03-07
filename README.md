@@ -24,20 +24,18 @@ Taleb's results.
 
 ## What's included
 
-I've experimented with three algorithms implemented in C++, one of which relies on 
-monte carlo simulations, a second, which relies on the use of the discrete fourier 
-transform of the characteristic function of the convolution of the distribution functions, and finally one that takes advantage of an integral representation of the MAD given the derivative of characteristic function of the underlying distribution.
+This package contains two algorithms implemented in C++, one of which relies on 
+monte carlo simulations, and a second one that takes advantage of an integral representation of the MAD given the derivative of characteristic function of the underlying distribution.  I experimented with a third algorithm that used a discrete fourier transform, but it's been
+dropped from the package because it's much inferior to the integral representation.
 
 The package includes several files developed for this project:
 
-*  convolution_test.cpp.  The main program to nun the convolution test, which will be 
-retired in the next iteration.  The pinelis_taleb integral is vastly superior in terms of speed
-and accuracy.
 *  monte_carlo_test.cpp.  The main program to run the monte carlo test.  It's bullet-proof
 but so slow that it's hard to obtain the required accuracy in a reasonable time frame 
 even using multi-threading.
 * pinelis_taleb_test.cpp.   The main program implementing the integral representation
 of MAD.  This is my current method of choice.
+* pinelis_taleb_graph.R. An R script to graph the results of a run of pinelis_taleb_test.
 *  pareto_distribution.h.  Contains a class for the pareto distribution, modeled on the 
 classes in boost::random and including items normally computed in
 boost::math::statistical_distributions
@@ -47,6 +45,9 @@ boost::random::student_t_distribution
 * lognormal_distribution.h.  A derived class from boost::random::lognormal_distribution.  The
 class implementing the distribution includes several versions of the calculation of the 
 characteristic function: some based on numerical integration from the definition, one based on a asymptotic series for small angular frequency and one based on a approximation using Lambert W functions.
+* normal_switch_mean.h. A class implementing a 50/50 mixture of two normal distributions both
+with sigma=1, one of which has mean +d and the second of which has mean -d.
+* normal_switch_stddev.h. A class implements a mixture of two normal distributions, the first of which has mean=0 and sigma=1 occuring with probability (1-p) and the second of which has mean=0 and sigma=a occuring with probability p.
 
 In addition, i've included the apparatus I developed for adaptive integration, which seems to 
 work much better that the Boost version that was originally used.  The code is spread 
@@ -75,8 +76,7 @@ Pinelis is of general applicability and is incorporated into pinelis_taleb_test.
 ## Further Documentation
 
 The code has been documented using the doxygen system.  The result can be accessed in
-the doc subdirectory of the output directory.  The html version is accessed through 
-html/index.html
+the doc subdirectory of the output directory.  
 
 ## Observations
 
@@ -87,8 +87,8 @@ or in the size the arrays used in the fast fourier transform.  I'm pushing the l
 my computer's capability for the cases where alpha = 1.25 or alpha = 1.5.  The convolution 
 is limited by the size of available memory and the monte carlo approach is limited by the
 amount of time and the number of processors available.  The pinelis_taleb integral bypasses
-most of these problems, but it requires a very accurate calculation of the characteristic
-function and its derivative and some ingenuity in choosing the right contour for integration.
+most of these problems, but it requires (1) a very accurate calculation of the characteristic
+function and its derivative, and (2) some ingenuity in choosing the right contour for integration.
 
 I've experimented with other measures of scale, such as the 95% confidence interval spread,
 for which the amount of computation needed is much more modest, but these results may not 
@@ -106,42 +106,29 @@ associated stable distribution.
 
 As Taleb mentions in his paper, the lognormal distribution is a well behaved thin tail distriubtion
 for small sigma, but becomes a fat-tailed distribution for sigmas much in excess of one.
-The weakest part of the calculation here is associated with the large sigma runs of the
-for the convolution test of the lognormal distribution.  These have three widely divergent scales
-associated with them.
+The weakest part of the calculation here is associated with the large sigma runs, These have three widely divergent scales associated with them.
 For instance, when mu=0 and sigma=5, the mode is about 1.4e-11,
 the mean and MAD are about 2.7e+5 and the stardard deviation is about 7.2e+10.
 The MAD for the normal distribution is sqrt(2/pi)  times it's standard deviation and therefore the the MAD normallized by n^.5 must go from 2.7e+5 to 5.7e+10 to reach it's asymptotic state.
-
-## To Do
-
-* Implement the normal with switching variance distribution.  This is the one that Taleb uses 
-demonstrate the possibility of negative kappa.
 
 ## Acknowledgements
 
 1. The package makes heavy use of the Boost C++ headers available at 
 [boost](http://www.boost.org). 
-2. The package uses the Eigen headers for the purpose of wrapping the fast fourier
-transform code and holding the large arrays that are used by the fft. 
+2. The routines to calculate the Gauss/Kronrod nodes and weights use the Eigen headers.
 These are available at [Eigen](http://www.eigen.tuxfamily.org).
-3. As distributed the Eigen header wraps the fftw3 available at [fftw](http://fftw.org).  The fftw uses
-a GPL, so if you want a less restrictive license you should delete the line
-#define EIGEN_FFTW_DEFAULT at the beginning of convolution_test.cpp, which will revert to the
-kissfft.  Warning: kissfft uses much more memory and causes a severe slow down on my
-machine for the larger arrays because of swapping activiity.
-4. One of the calculations of the characteristic function for the lognormal distribution uses 
+3. One of the calculations of the characteristic function for the lognormal distribution uses 
 Lambert W functions.  I've used the C++ code for the complex Lambert W function from 
 [Istvan Mezo's web page](https://sites.google.com/site/istvanmezo81/others).
-5. The routines in the adaptive_integration routine started out life
+4. The routines in the adaptive_integration routine started out life
 as machine C++ translations of Fortran routines in QUADPACK, which is part of 
 SLATEC and therefore in the public domain (http://en.wikipedia.org/wiki/QUADPACK).
 The routines were then heavily modified to take advantage of the C++ language.
-6. One of the modifications made to QUADPACK is the addition of the ability to calculate
+5. One of the modifications made to QUADPACK is the addition of the ability to calculate
 the nodes and weights for the Gauss Kronrod integration on the fly.  For this purpose
 Dirk Laurie's method is used [kronrod.ps](http://dip.sun.ac.za/~laurie/papers/kronrod/kronrod.ps).
 The routines used here are C++ translations of Dirk Laurie's MATLAB code, which
 is included in Walter Gautschi's OPQ suite [OPQ](https://www.cs.purdue.edu/archives/2002/wxg/codes/OPQ.html).
 
 ## License
-The code included here is covered the the MIT license.
+The code included here is covered by the MIT license.

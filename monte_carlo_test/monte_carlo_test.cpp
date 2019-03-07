@@ -83,6 +83,8 @@ IntegrationController<double>& pareto_distribution<double>::_ctl_mad2{ctl_mad2};
 #include "student_t_distribution.h"
 #include "exponential_distribution.h"
 #include "lognormal_distribution.h"
+#include "normal_switch_mean.h"
+#include "normal_switch_stddev.h"
 #include "taleb_results.h"
 
 /// return the relative error between two numbers
@@ -413,11 +415,11 @@ int main(int argc, const char * argv[]) {
     KappaResults ks_pareto(ns, alphas, "alpha", 1);
     for (size_t i=0; i<alphas.size(); ++i) {
       pareto_distribution<> pd(alphas.at(i));
-      double alpha_stable=pd.alpha_stable();
       // m_alpha is the number of samples needed to reduce the
       // uncertainty in the average of m_alpha stable variates to
       // .001 of the uncertainty of a single sample
-      size_t m_alpha = static_cast<size_t>(pow(.001,alpha_stable/(1-alpha_stable)));
+      double alpha_cap = log(2)/(log(pd.mad2())-log(pd.mad()));
+      size_t m_alpha = static_cast<size_t>(pow(.001,alpha_cap/(1-alpha_cap)));
       m_alpha = min(max(m_ci_limit, m_alpha), m);
       if (verbose)
         cout << pd << endl;
@@ -434,11 +436,11 @@ int main(int argc, const char * argv[]) {
     KappaResults ks_student(ns, alphas, "alpha", 4);
     for (size_t i=0; i<alphas.size(); ++i) {
       student_t_distribution<> td(alphas.at(i));
-      double alpha_stable = td.alpha_stable();
       // m_alpha is the number of samples needed to reduce the
       // uncertainty in the average of m_alpha stable variates to
-      // .001 of the original uncertainty
-      size_t m_alpha = static_cast<size_t>(pow(.001,alpha_stable/(1-alpha_stable)));
+      // .001 of the uncertainty of a single sample
+      double alpha_cap = log(2)/(log(td.mad2())-log(td.mad()));
+      size_t m_alpha = static_cast<size_t>(pow(.001,alpha_cap/(1-alpha_cap)));
       m_alpha = min(max(m_ci_limit, m_alpha), m);
       if (verbose)
         cout << td << endl;
@@ -455,8 +457,11 @@ int main(int argc, const char * argv[]) {
     vector<double> lambdas = {1.};
     KappaResults ks_exponential(ns, lambdas, "lambda" , 0);
     exponential_distribution<> ed(1);
-    double alpha_stable = ed.alpha_stable();
-    size_t m_alpha = static_cast<size_t>(pow(.001,alpha_stable/(1-alpha_stable)));
+    // m_alpha is the number of samples needed to reduce the
+    // uncertainty in the average of m_alpha stable variates to
+    // .001 of the uncertainty of a single sample
+    double alpha_cap = log(2)/(log(ed.mad2())-log(ed.mad()));
+    size_t m_alpha = static_cast<size_t>(pow(.001,alpha_cap/(1-alpha_cap)));
     m_alpha = min(max(m_ci_limit, m_alpha), m);
     if (verbose)
       cout << ed << endl;
@@ -473,11 +478,11 @@ int main(int argc, const char * argv[]) {
     KappaResults ks_lognormal(ns, sigmas, "sigma", 0);
     for (size_t i=0; i<sigmas.size(); ++i) {
       lognormal_distribution<> lnd(0,sigmas.at(i), cf_ctl);
-      double alpha_stable = lnd.alpha_stable();
       // m_alpha is the number of samples needed to reduce the
       // uncertainty in the average of m_alpha stable variates to
-      // .001 of the original uncertainty
-      size_t m_alpha = static_cast<size_t>(pow(.001,alpha_stable/(1-alpha_stable)));
+      // .001 of the uncertainty of a single sample
+      double alpha_cap = log(2)/(log(lnd.mad2())-log(lnd.mad()));
+      size_t m_alpha = static_cast<size_t>(pow(.001,alpha_cap/(1-alpha_cap)));
       m_alpha = min(max(m_ci_limit, m_alpha), m);
       if (verbose)
         cout << lnd << endl;
@@ -488,6 +493,52 @@ int main(int argc, const char * argv[]) {
     }
     out << "Lognormal Distribution" << endl << endl;
     out << ks_lognormal;
+  }
+  
+  {
+    vector<double> ds = {0, 1, 2, 3, 4, 5};
+    KappaResults ks_normal_switch_mean(ns, ds, "d" , 0);
+    for(size_t j=0; j<ds.size(); ++j) {
+      double d = ds.at(j);
+      normal_switch_mean<> nsm(d);
+      // m_alpha is the number of samples needed to reduce the
+      // uncertainty in the average of m_alpha stable variates to
+      // .001 of the uncertainty of a single sample
+      double alpha_cap = log(2)/(log(nsm.mad2())-log(nsm.mad()));
+      size_t m_alpha = static_cast<size_t>(pow(.001,alpha_cap/(1-alpha_cap)));
+      m_alpha = min(max(m_ci_limit, m_alpha), m);
+      if (verbose)
+        cout << nsm << endl;
+      KappaResult kr;
+      kr.initialize(ds.at(j),ns);
+      calculate_kappa(m_alpha, ns, nsm, ci_level, &kr, verbose);
+      ks_normal_switch_mean.kr.at(j) = kr;
+    }
+    out << "Normal with Switching Mean But Common sigma" << endl << endl;
+    out << ks_normal_switch_mean << endl;
+  }
+  
+  {
+    vector<double> as = {1, 2, 3, 4, 5};
+    KappaResults ks_normal_switch_stddev(ns, as, "a" , 0);
+    for(size_t j=0; j<as.size(); ++j) {
+      double a = as.at(j);
+      normal_switch_stddev<> nss(a, .1);
+      // m_alpha is the number of samples needed to reduce the
+      // uncertainty in the average of m_alpha stable variates to
+      // .001 of the uncertainty of a single sample
+      double alpha_cap = log(2)/(log(nss.mad2())-log(nss.mad()));
+      size_t m_alpha = static_cast<size_t>(pow(.001,alpha_cap/(1-alpha_cap)));
+      m_alpha = min(max(m_ci_limit, m_alpha), m);
+      if (verbose)
+        cout << nss << endl;
+      KappaResult kr;
+      kr.initialize(as.at(j),ns);
+      calculate_kappa(m_alpha, ns, nss, ci_level, &kr, verbose);
+      ks_normal_switch_stddev.kr.at(j) = kr;
+    }
+    out << "Normal with Switching Stddev w Mean = 0" << endl << endl;
+    out << ks_normal_switch_stddev << endl;
   }
   
   return 0;
